@@ -301,8 +301,6 @@ setuptype: cubesetup
 fpgas:
   - fpga: 0
     ip: 192.168.6.1
-  - fpga: 3
-    ip: 192.168.6.4
 adcs:
   - fpga: 0
     analog: 0
@@ -315,9 +313,7 @@ adcs:
     channel: 1
     trigger: 0
 hicanns:
-  - hicann: 88
-    version: 4
-  - hicann: 144
+  - hicann: 180
     version: 4
 ---
 wafer: 20
