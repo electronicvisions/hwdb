@@ -290,7 +290,7 @@ adcs:
     trigger: 0
 hicanns:
   - hicann: 88
-    version: 2
+    version: 4
     label: v4-13
   - hicann: 144
     version: 4
