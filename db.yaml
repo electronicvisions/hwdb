@@ -291,7 +291,10 @@ adcs:
 hicanns:
   - hicann: 88
     version: 4
-    label: v4-13
+    label: v4-26
+  - hicann: 116 
+    version: 4
+    label: v4-26
   - hicann: 144
     version: 4
     label: v4-15
