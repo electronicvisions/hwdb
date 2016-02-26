@@ -659,5 +659,20 @@ fpgas:
     ip: 192.168.29.107
   - fpga: 47
     ip: 192.168.29.108
+adcs:
+  - fpga: 35
+    analog: 0
+    adc: B201257
+    remote_ip: 192.168.200.41
+    remote_port: 44484
+    channel: 1
+    trigger: 1
+  - fpga: 34
+    analog: 0
+    adc: B201257
+    remote_ip: 192.168.200.41
+    remote_port: 44484
+    channel: 3
+    trigger: 1
 hicanns:
   version: 2
