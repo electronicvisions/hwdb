@@ -250,13 +250,14 @@ adcs:
     channel: 1
     trigger: 0
 hicanns:
-  - hicann: 88
-    version: 2
-  - hicann: 89
-    version: 4
-    label: v4-5
-  - hicann: 116
-    version: 2
+# temporarily removed because iboard2 is being repaired
+#  - hicann: 88
+#    version: 2
+#  - hicann: 89
+#    version: 4
+#    label: v4-5
+#  - hicann: 116
+#    version: 2
   - hicann: 145
     version: 4
 ---
