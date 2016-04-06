@@ -308,17 +308,18 @@ fpgas:
 adcs:
   - fpga: 0
     analog: 0
-    adc: B201312
+    adc: B201319
     channel: 0
     trigger: 0
   - fpga: 0
     analog: 1
-    adc: B201312
+    adc: B201319
     channel: 1
     trigger: 0
 hicanns:
-  - hicann: 180
+  - hicann: 144
     version: 4
+    label: v4-27
 ---
 wafer: 20
 setuptype: bsswafer
