@@ -662,7 +662,7 @@ fpgas:
   - fpga: 47
     ip: 192.168.24.108
 hicanns:
-  version: 4
+  version: 2
 adcs:
   - fpga: 24
     analog: 0
