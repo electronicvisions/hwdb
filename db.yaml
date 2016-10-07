@@ -81,23 +81,26 @@ hicanns:
 wafer: 6
 setuptype: cubesetup
 fpgas:
-  - fpga: 0
-    ip: 192.168.6.1
+  - fpga: 3
+    ip: 192.168.6.4
 adcs:
-  - fpga: 0
+  - fpga: 3
     analog: 0
-    adc: B201319
+    adc: B201315
     channel: 0
     trigger: 0
-  - fpga: 0
+  - fpga: 3
     analog: 1
-    adc: B201319
+    adc: B201315
     channel: 1
     trigger: 0
 hicanns:
-  - hicann: 144
-    version: 4
-    label: v4-27
+  - hicann: 91
+    version: 2
+    label: emv2-1-177
+  - hicann: 119
+    version: 2
+    label: emv2-1-213
 ---
 wafer: 19
 setuptype: bsswafer
