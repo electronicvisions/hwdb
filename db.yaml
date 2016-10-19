@@ -95,12 +95,18 @@ adcs:
     channel: 1
     trigger: 0
 hicanns:
+  - hicann: 90
+    version: 2
+    label: emv2-1-249
+  - hicann: 118
+    version: 2
+    label: emv2-1-285
   - hicann: 91
     version: 2
-    label: emv2-1-177
+    label: emv2-1-317
   - hicann: 119
     version: 2
-    label: emv2-1-213
+    label: emv2-1-345
 ---
 wafer: 19
 setuptype: bsswafer
