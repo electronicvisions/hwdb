@@ -886,6 +886,392 @@ adcs:
     channel: 7
     trigger: 0
 ---
+wafer: 18
+setuptype: bsswafer
+macu: 192.168.200.148
+fpgas:
+  - fpga: 0
+    ip: 192.168.18.1
+  - fpga: 1
+    ip: 192.168.18.2
+  - fpga: 2
+    ip: 192.168.18.3
+  - fpga: 3
+    ip: 192.168.18.4
+  - fpga: 4
+    ip: 192.168.18.5
+  - fpga: 5
+    ip: 192.168.18.6
+    highspeed: false
+  - fpga: 6
+    ip: 192.168.18.7
+  - fpga: 7
+    ip: 192.168.18.8
+  - fpga: 8
+    ip: 192.168.18.9
+  - fpga: 9
+    ip: 192.168.18.10
+  - fpga: 10
+    ip: 192.168.18.11
+  - fpga: 11
+    ip: 192.168.18.12
+  - fpga: 12
+    ip: 192.168.18.33
+  - fpga: 13
+    ip: 192.168.18.34
+  - fpga: 14
+    ip: 192.168.18.35
+  - fpga: 15
+    ip: 192.168.18.36
+  - fpga: 16
+    ip: 192.168.18.37
+  - fpga: 17
+    ip: 192.168.18.38
+  - fpga: 18
+    ip: 192.168.18.39
+  - fpga: 19
+    ip: 192.168.18.40
+  - fpga: 20
+    ip: 192.168.18.41
+  - fpga: 21
+    ip: 192.168.18.42
+  - fpga: 22
+    ip: 192.168.18.43
+  - fpga: 23
+    ip: 192.168.18.44
+  - fpga: 24
+    ip: 192.168.18.65
+  - fpga: 25
+    ip: 192.168.18.66
+  - fpga: 26
+    ip: 192.168.18.67
+  - fpga: 27
+    ip: 192.168.18.68
+  - fpga: 28
+    ip: 192.168.18.69
+  - fpga: 29
+    ip: 192.168.18.70
+  - fpga: 30
+    ip: 192.168.18.71
+  - fpga: 31
+    ip: 192.168.18.72
+  - fpga: 32
+    ip: 192.168.18.73
+  - fpga: 33
+    ip: 192.168.18.74
+  - fpga: 34
+    ip: 192.168.18.75
+  - fpga: 35
+    ip: 192.168.18.76
+  - fpga: 36
+    ip: 192.168.18.97
+  - fpga: 37
+    ip: 192.168.18.98
+  - fpga: 38
+    ip: 192.168.18.99
+  - fpga: 39
+    ip: 192.168.18.100
+  - fpga: 40
+    ip: 192.168.18.101
+  - fpga: 41
+    ip: 192.168.18.102
+  - fpga: 42
+    ip: 192.168.18.103
+  - fpga: 43
+    ip: 192.168.18.104
+    highspeed: false
+  - fpga: 44
+    ip: 192.168.18.105
+  - fpga: 45
+    ip: 192.168.18.106
+  - fpga: 46
+    ip: 192.168.18.107
+  - fpga: 47
+    ip: 192.168.18.108
+hicanns:
+  version: 4
+adcs:
+  - fpga: 24
+    analog: 0
+    adc: B291691
+    remote_ip: 192.168.200.44
+    remote_port: 44482
+    channel: 6
+    trigger: 1
+  - fpga: 25
+    analog: 0
+    adc: B291691
+    remote_ip: 192.168.200.44
+    remote_port: 44482
+    channel: 5
+    trigger: 1
+  - fpga: 26
+    analog: 0
+    adc: B291691
+    remote_ip: 192.168.200.44
+    remote_port: 44482
+    channel: 3
+    trigger: 1
+  - fpga: 27
+    analog: 0
+    adc: B291691
+    remote_ip: 192.168.200.44
+    remote_port: 44482
+    channel: 1
+    trigger: 1
+  - fpga: 28
+    analog: 0
+    adc: B291691
+    remote_ip: 192.168.200.44
+    remote_port: 44482
+    channel: 0
+    trigger: 0
+  - fpga: 29
+    analog: 0
+    adc: B291691
+    remote_ip: 192.168.200.44
+    remote_port: 44482
+    channel: 2
+    trigger: 0
+  - fpga: 30
+    analog: 0
+    adc: B291691
+    remote_ip: 192.168.200.44
+    remote_port: 44482
+    channel: 4
+    trigger: 0
+  - fpga: 31
+    analog: 0
+    adc: B291691
+    remote_ip: 192.168.200.44
+    remote_port: 44482
+    channel: 7
+    trigger: 0
+  - fpga: 32
+    analog: 0
+    adc: B291681
+    remote_ip: 192.168.200.44
+    remote_port: 44481
+    channel: 6
+    trigger: 1
+  - fpga: 32
+    analog: 1
+    adc: B201280
+    remote_ip: 192.168.200.44
+    remote_port: 44484
+    channel: 6
+    trigger: 1
+  - fpga: 33
+    analog: 0
+    adc: B291681
+    remote_ip: 192.168.200.44
+    remote_port: 44481
+    channel: 5
+    trigger: 1
+  - fpga: 33
+    analog: 1
+    adc: B201280
+    remote_ip: 192.168.200.44
+    remote_port: 44484
+    channel: 5
+    trigger: 1
+  - fpga: 34
+    analog: 0
+    adc: B291681
+    remote_ip: 192.168.200.44
+    remote_port: 44481
+    channel: 3
+    trigger: 1
+  - fpga: 34
+    analog: 1
+    adc: B201280
+    remote_ip: 192.168.200.44
+    remote_port: 44484
+    channel: 3
+    trigger: 1
+  - fpga: 35
+    analog: 0
+    adc: B291681
+    remote_ip: 192.168.200.44
+    remote_port: 44481
+    channel: 1
+    trigger: 1
+  - fpga: 35
+    analog: 1
+    adc: B201280
+    remote_ip: 192.168.200.44
+    remote_port: 44484
+    channel: 1
+    trigger: 1
+  - fpga: 36
+    analog: 0
+    adc: B291681
+    remote_ip: 192.168.200.44
+    remote_port: 44481
+    channel: 0
+    trigger: 0
+  - fpga: 36
+    analog: 1
+    adc: B201280
+    remote_ip: 192.168.200.44
+    remote_port: 44484
+    channel: 0
+    trigger: 0
+  - fpga: 37
+    analog: 0
+    adc: B291681
+    remote_ip: 192.168.200.44
+    remote_port: 44481
+    channel: 2
+    trigger: 0
+  - fpga: 37
+    analog: 1
+    adc: B201280
+    remote_ip: 192.168.200.44
+    remote_port: 44484
+    channel: 2
+    trigger: 0
+  - fpga: 38
+    analog: 0
+    adc: B291681
+    remote_ip: 192.168.200.44
+    remote_port: 44481
+    channel: 4
+    trigger: 0
+  - fpga: 38
+    analog: 1
+    adc: B201280
+    remote_ip: 192.168.200.44
+    remote_port: 44484
+    channel: 4
+    trigger: 0
+  - fpga: 39
+    analog: 0
+    adc: B291681
+    remote_ip: 192.168.200.44
+    remote_port: 44481
+    channel: 7
+    trigger: 0
+  - fpga: 39
+    analog: 1
+    adc: B201280
+    remote_ip: 192.168.200.44
+    remote_port: 44484
+    channel: 7
+    trigger: 0
+  - fpga: 40
+    analog: 0
+    adc: B291726
+    remote_ip: 192.168.200.44
+    remote_port: 44480
+    channel: 6
+    trigger: 1
+  - fpga: 40
+    analog: 1
+    adc: B291725
+    remote_ip: 192.168.200.44
+    remote_port: 44483
+    channel: 6
+    trigger: 1
+  - fpga: 41
+    analog: 0
+    adc: B291726
+    remote_ip: 192.168.200.44
+    remote_port: 44480
+    channel: 5
+    trigger: 1
+  - fpga: 41
+    analog: 1
+    adc: B291725
+    remote_ip: 192.168.200.44
+    remote_port: 44483
+    channel: 5
+    trigger: 1
+  - fpga: 42
+    analog: 0
+    adc: B291726
+    remote_ip: 192.168.200.44
+    remote_port: 44480
+    channel: 3
+    trigger: 1
+  - fpga: 42
+    analog: 1
+    adc: B291725
+    remote_ip: 192.168.200.44
+    remote_port: 44483
+    channel: 3
+    trigger: 1
+  - fpga: 43
+    analog: 0
+    adc: B291726
+    remote_ip: 192.168.200.44
+    remote_port: 44480
+    channel: 1
+    trigger: 1
+  - fpga: 43
+    analog: 1
+    adc: B291725
+    remote_ip: 192.168.200.44
+    remote_port: 44483
+    channel: 1
+    trigger: 1
+  - fpga: 44
+    analog: 0
+    adc: B291726
+    remote_ip: 192.168.200.44
+    remote_port: 44480
+    channel: 0
+    trigger: 0
+  - fpga: 44
+    analog: 1
+    adc: B291725
+    remote_ip: 192.168.200.44
+    remote_port: 44483
+    channel: 0
+    trigger: 0
+  - fpga: 45
+    analog: 0
+    adc: B291726
+    remote_ip: 192.168.200.44
+    remote_port: 44480
+    channel: 2
+    trigger: 0
+  - fpga: 45
+    analog: 1
+    adc: B291725
+    remote_ip: 192.168.200.44
+    remote_port: 44483
+    channel: 2
+    trigger: 0
+  - fpga: 46
+    analog: 0
+    adc: B291726
+    remote_ip: 192.168.200.44
+    remote_port: 44480
+    channel: 4
+    trigger: 0
+  - fpga: 46
+    analog: 1
+    adc: B291725
+    remote_ip: 192.168.200.44
+    remote_port: 44483
+    channel: 4
+    trigger: 0
+  - fpga: 47
+    analog: 0
+    adc: B291726
+    remote_ip: 192.168.200.44
+    remote_port: 44480
+    channel: 7
+    trigger: 0
+  - fpga: 47
+    analog: 1
+    adc: B291725
+    remote_ip: 192.168.200.44
+    remote_port: 44483
+    channel: 7
+    trigger: 0
+---
 wafer: 20
 setuptype: bsswafer
 macu: 192.168.200.160
