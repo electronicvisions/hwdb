@@ -1,0 +1,23 @@
+# build / waf files
+build/
+.waf*
+/waf*
+.lock-waf*
+
+# binary files
+/bin/*
+/lib/
+include/
+
+# Pyhton
+*.pyc
+
+# vim
+*.sw[pon]
+
+*.orig
+*.save
+
+# assorted bindings
+/bindings/*
+/pyoneer_bindings/*
