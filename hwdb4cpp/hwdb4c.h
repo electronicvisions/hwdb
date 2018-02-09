@@ -81,6 +81,10 @@ struct SYMBOL_VISIBLE hwdb4c_wafer_entry {
 int hwdb4c_alloc_hwdb(struct hwdb4c_database_t** ret) SYMBOL_VISIBLE;
 // load database either form path or if path is NULL load from default hwdb path
 int hwdb4c_load_hwdb(struct hwdb4c_database_t* handle, char const* hwdb_path) SYMBOL_VISIBLE;
+// store database to path
+int hwdb4c_store_hwdb(struct hwdb4c_database_t* handle, char const* hwdb_path) SYMBOL_VISIBLE;
+// clear the loaded content
+void hwdb4c_clear_hwdb(struct hwdb4c_database_t* handle) SYMBOL_VISIBLE;
 // free HWDB handle
 void hwdb4c_free_hwdb(struct hwdb4c_database_t* ret) SYMBOL_VISIBLE;
 

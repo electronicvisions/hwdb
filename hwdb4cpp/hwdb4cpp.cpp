@@ -31,7 +31,7 @@ struct ADCYAML : public ADCEntry
 {
 	ADCYAML() : ADCEntry() {}
 	ADCYAML(ADCEntry const& base) : ADCEntry(base) {}
-	uint8_t analog = 0;
+	size_t analog = 0;
 	size_t fpga = 0;
 };
 
@@ -363,7 +363,7 @@ void database::dump(std::ostream& out) const
 			std::vector<HICANNYAML> hicann_data;
 			for (auto it : data.hicanns) {
 				HICANNYAML entry(it.second);
-				entry.coordinate = it.first.toEnum();
+				entry.coordinate = it.first.toHICANNOnWafer().toEnum();
 				hicann_data.push_back(entry);
 			}
 
@@ -407,7 +407,13 @@ void database::add_fpga_entry(FPGAGlobal const fpga, FPGAEntry const entry) {
 }
 
 bool database::remove_fpga_entry(FPGAGlobal const fpga) {
-	return mData.at(fpga.toWafer()).fpgas.erase(fpga);
+	bool ok = mData.at(fpga.toWafer()).fpgas.erase(fpga);
+	if (ok) {
+		for (auto hicann : fpga.toHICANNGlobal()) {
+			remove_hicann_entry(hicann);
+		}
+	}
+	return ok;
 }
 
 bool database::has_fpga_entry(FPGAGlobal const fpga) const {
@@ -424,7 +430,9 @@ database::get_fpga_entries(Wafer const wafer) const {
 }
 
 void database::add_hicann_entry(HICANNGlobal const hicann, HICANNEntry const entry) {
-	mData.at(hicann.toWafer()).hicanns[hicann] = entry;
+	WaferEntry& wafer = mData.at(hicann.toWafer());
+	wafer.fpgas.at(hicann.toFPGAGlobal());
+	wafer.hicanns[hicann] = entry;
 }
 
 bool database::remove_hicann_entry(HICANNGlobal const hicann) {

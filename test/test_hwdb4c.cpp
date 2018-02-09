@@ -6,6 +6,8 @@
 #include <cstdlib>
 #include "halco/hicann/v2/coordinates.h"
 
+#include "hwdb4cpp/hwdb4cpp.h"
+
 extern "C" {
 #include <arpa/inet.h>
 #include "hwdb4cpp/hwdb4c.h"
@@ -131,13 +133,10 @@ TEST_F(HWDB4C_Test, has_entry)
 	hwdb4c_free_hwdb(hwdb);
 }
 
-TEST_F(HWDB4C_Test, get_entry)
-{
-	hwdb4c_database_t* hwdb = NULL;
-	ASSERT_EQ(hwdb4c_alloc_hwdb(&hwdb), HWDB4C_SUCCESS);
-	ASSERT_TRUE(hwdb != NULL);
-	ASSERT_EQ(hwdb4c_load_hwdb(hwdb, test_path.c_str()), HWDB4C_SUCCESS);
+namespace {
 
+void get_entry_test_impl(hwdb4c_database_t* hwdb)
+{
 	hwdb4c_fpga_entry* fpga = NULL;
 	ASSERT_EQ(hwdb4c_get_fpga_entry(hwdb, fpgas_per_wafer * testwafer_id + 3, &fpga), HWDB4C_SUCCESS);
 	ASSERT_TRUE(fpga != NULL);
@@ -206,6 +205,40 @@ TEST_F(HWDB4C_Test, get_entry)
 	EXPECT_EQ(wafer->num_adc_entries, 3);
 	EXPECT_EQ(std::string(inet_ntoa(wafer->macu_ip)), "192.168.200.165");
 
+	bool ret = false;
+	ASSERT_EQ(
+		hwdb4c_has_hicann_entry(hwdb, hicanns_per_wafer * testwafer_id + 144, &ret),
+		HWDB4C_SUCCESS);
+	EXPECT_TRUE(ret);
+	ASSERT_EQ(
+		hwdb4c_has_hicann_entry(hwdb, hicanns_per_wafer * testwafer_id + 20, &ret), HWDB4C_SUCCESS);
+	EXPECT_FALSE(ret);
+}
+} // end namespace
+
+TEST_F(HWDB4C_Test, get_entry)
+{
+	hwdb4c_database_t* hwdb = NULL;
+	ASSERT_EQ(hwdb4c_alloc_hwdb(&hwdb), HWDB4C_SUCCESS);
+	ASSERT_TRUE(hwdb != NULL);
+	ASSERT_EQ(hwdb4c_load_hwdb(hwdb, test_path.c_str()), HWDB4C_SUCCESS);
+	get_entry_test_impl(hwdb);
+	hwdb4c_free_hwdb(hwdb);
+}
+
+TEST_F(HWDB4C_Test, get_entry_after_store_and_load)
+{
+	hwdb4c_database_t* hwdb = NULL;
+	ASSERT_EQ(hwdb4c_alloc_hwdb(&hwdb), HWDB4C_SUCCESS);
+	ASSERT_TRUE(hwdb != NULL);
+
+	// Dump the database into a temporary file and read it again.
+	ASSERT_EQ(hwdb4c_load_hwdb(hwdb, test_path.c_str()), HWDB4C_SUCCESS);
+	ASSERT_EQ(hwdb4c_store_hwdb(hwdb, test_path.c_str()), HWDB4C_SUCCESS);
+	hwdb4c_clear_hwdb(hwdb);
+	ASSERT_EQ(hwdb4c_load_hwdb(hwdb, test_path.c_str()), HWDB4C_SUCCESS);
+
+	get_entry_test_impl(hwdb);
 	hwdb4c_free_hwdb(hwdb);
 }
 

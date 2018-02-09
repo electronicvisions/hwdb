@@ -2,6 +2,7 @@
 #include "halco/common/iter_all.h"
 #include "hwdb4cpp.h"
 
+#include <fstream>
 #include <iostream>
 
 #define HWDB4C_MAX_STRING_LENGTH 200
@@ -134,6 +135,27 @@ int hwdb4c_load_hwdb(struct hwdb4c_database_t* handle, char const* hwdb_path) {
 		return HWDB4C_FAILURE;
 	}
 	return HWDB4C_SUCCESS;
+}
+
+int hwdb4c_store_hwdb(struct hwdb4c_database_t* handle, char const* hwdb_path)
+{
+	std::string path;
+	if (hwdb_path == NULL)
+		path = handle->database.get_default_path();
+	else
+		path = std::string(hwdb_path);
+	try {
+		std::ofstream out(path);
+		handle->database.dump(out);
+	} catch (const std::exception& oor) {
+		return HWDB4C_FAILURE;
+	}
+	return HWDB4C_SUCCESS;
+}
+
+void hwdb4c_clear_hwdb(struct hwdb4c_database_t* handle)
+{
+	handle->database.clear();
 }
 
 void hwdb4c_free_hwdb(struct hwdb4c_database_t* handle) {
