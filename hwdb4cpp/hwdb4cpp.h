@@ -53,9 +53,6 @@ namespace hwdb4cpp {
 
 /* HWDB Entry Types: Structs representing the data in the YAML database */
 /* ******************************************************************** */
-struct WaferEntry;
-typedef std::map<halco::hicann::v2::Wafer, WaferEntry> wafer_database_t;
-typedef std::pair<halco::hicann::v2::FPGAGlobal, halco::hicann::v2::AnalogOnHICANN> GlobalAnalog_t;
 
 struct FPGAEntry
 {
@@ -85,13 +82,17 @@ struct ADCEntry
 	halco::hicann::v2::TCPPort remote_port;
 };
 
+typedef std::pair< halco::hicann::v2::FPGAGlobal, halco::hicann::v2::AnalogOnHICANN> GlobalAnalog_t;
+typedef std::map< GlobalAnalog_t, ADCEntry> ADCEntryMap;
+typedef std::map< halco::hicann::v2::FPGAGlobal, FPGAEntry> FPGAEntryMap;
+typedef std::map< halco::hicann::v2::HICANNGlobal, HICANNEntry> HICANNEntryMap;
+
 struct WaferEntry
 {
 	halco::hicann::v2::SetupType setup_type;
-	std::map<GlobalAnalog_t, ADCEntry>
-	    adcs;
-	std::map< halco::hicann::v2::FPGAGlobal, FPGAEntry> fpgas;
-	std::map< halco::hicann::v2::HICANNGlobal, HICANNEntry> hicanns;
+	ADCEntryMap adcs;
+	FPGAEntryMap fpgas;
+	HICANNEntryMap hicanns;
 	halco::hicann::v2::IPv4 macu;
 };
 /* ******************************************************************** */
@@ -133,8 +134,7 @@ public:
 	/// Get fpga entry (throws if coordinate isn't found)
 	FPGAEntry const& get_fpga_entry(halco::hicann::v2::FPGAGlobal const fpga) const;
 	/// Get all entries for all FPGAs on a Wafer
-	std::map<halco::hicann::v2::FPGAGlobal, FPGAEntry>
-	get_fpga_entries(halco::hicann::v2::Wafer const wafer) const;
+	FPGAEntryMap get_fpga_entries(halco::hicann::v2::Wafer const wafer) const;
 
 	/// Insert (and replace) a HICANN into the database.
 	/// The corresponding FPGAEntry has to exist.
@@ -145,11 +145,9 @@ public:
 	/// Get hicann entry (throws if coordinate isn't found)
 	HICANNEntry const& get_hicann_entry(halco::hicann::v2::HICANNGlobal const hicann) const;
 	/// Get all entries for all HICANNs on a Wafer
-	std::map<halco::hicann::v2::HICANNGlobal, HICANNEntry>
-	get_hicann_entries(halco::hicann::v2::Wafer const wafer) const;
+	HICANNEntryMap get_hicann_entries(halco::hicann::v2::Wafer const wafer) const;
 	/// Get all entries for all HICANNs on a FPGAGlobal
-	std::map<halco::hicann::v2::HICANNGlobal, HICANNEntry>
-	get_hicann_entries(halco::hicann::v2::FPGAGlobal const fpga) const;
+	HICANNEntryMap get_hicann_entries(halco::hicann::v2::FPGAGlobal const fpga) const;
 
 	/// Insert (and replace) an ADC  into the database.
 	/// The corresponding Wafer has to exist.
@@ -160,11 +158,9 @@ public:
 	/// Get adc entry (throws if coordinate isn't found)
 	ADCEntry const& get_adc_entry(GlobalAnalog_t const analog) const;
 	/// Get all entries for all ADCs on a Wafer
-	std::map<std::pair<halco::hicann::v2::FPGAGlobal, halco::hicann::v2::AnalogOnHICANN>, ADCEntry>
-	get_adc_entries(halco::hicann::v2::Wafer const wafer) const;
+	ADCEntryMap get_adc_entries(halco::hicann::v2::Wafer const wafer) const;
 	/// Get all entries for all ADCs on a FPGAGlobal
-	std::map<std::pair<halco::hicann::v2::FPGAGlobal, halco::hicann::v2::AnalogOnHICANN>, ADCEntry>
-	get_adc_entries(halco::hicann::v2::FPGAGlobal const fpga) const;
+	ADCEntryMap get_adc_entries(halco::hicann::v2::FPGAGlobal const fpga) const;
 
 private:
 	// used by yaml-cpp => FIXME: change to add_{fpga,hicann,adc}_entry
@@ -172,8 +168,7 @@ private:
 	void add_hicann(halco::hicann::v2::HICANNGlobal const, const HICANNEntry& data);
 	void add_adc(GlobalAnalog_t const, const ADCEntry& data);
 
-	friend std::ostream& operator<<(std::ostream& out, const database& d);
-	wafer_database_t mData;
+	std::map<halco::hicann::v2::Wafer, WaferEntry> mData;
 
 	static std::string const default_path;
 };

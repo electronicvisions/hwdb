@@ -398,6 +398,7 @@ bool database::has_wafer_entry(Wafer const wafer) const {
 WaferEntry& database::get_wafer_entry(Wafer const wafer) {
 	return mData.at(wafer);
 }
+
 WaferEntry const& database::get_wafer_entry(Wafer const wafer) const {
 	return mData.at(wafer);
 }
@@ -427,8 +428,7 @@ FPGAEntry const& database::get_fpga_entry(FPGAGlobal const fpga) const {
 	return mData.at(fpga.toWafer()).fpgas.at(fpga);
 }
 
-std::map<FPGAGlobal, FPGAEntry>
-database::get_fpga_entries(Wafer const wafer) const {
+FPGAEntryMap database::get_fpga_entries(Wafer const wafer) const {
 	return mData.at(wafer).fpgas;
 }
 
@@ -453,14 +453,12 @@ HICANNEntry const& database::get_hicann_entry(HICANNGlobal const hicann) const {
 	return mData.at(hicann.toWafer()).hicanns.at(hicann);
 }
 
-std::map<HICANNGlobal, HICANNEntry>
-database::get_hicann_entries(Wafer const wafer) const {
+HICANNEntryMap database::get_hicann_entries(Wafer const wafer) const {
 	return mData.at(wafer).hicanns;
 }
 
-std::map<HICANNGlobal, HICANNEntry>
-database::get_hicann_entries(FPGAGlobal const fpga) const {
-	std::map<HICANNGlobal, HICANNEntry> ret_map;
+HICANNEntryMap database::get_hicann_entries(FPGAGlobal const fpga) const {
+	HICANNEntryMap ret_map;
 	for (auto hicann : iter_all<HICANNOnDNC>()) {
 		//FIXME replace dnc coordinate with reticle, will make this much less ugly
 		auto dnconwafer = gridLookupDNCGlobal(FPGAGlobal(fpga), DNCOnFPGA(Enum(0))).toDNCOnWafer();
@@ -488,14 +486,12 @@ ADCEntry const& database::get_adc_entry(GlobalAnalog_t const analog) const {
 	return mData.at(analog.first.toWafer()).adcs.at(analog);
 }
 
-std::map<GlobalAnalog_t, ADCEntry>
-database::get_adc_entries(Wafer const wafer) const {
+ADCEntryMap database::get_adc_entries(Wafer const wafer) const {
 	return mData.at(wafer).adcs;
 }
 
-std::map<GlobalAnalog_t, ADCEntry>
-database::get_adc_entries(FPGAGlobal const fpga) const {
-	std::map<GlobalAnalog_t, ADCEntry> ret_map;
+ADCEntryMap database::get_adc_entries(FPGAGlobal const fpga) const {
+	ADCEntryMap ret_map;
 	for (auto analog : iter_all<AnalogOnHICANN>()) {
 		if (mData.at(fpga.toWafer()).adcs.count(GlobalAnalog_t(fpga, analog)) > 0) {
 			ret_map[GlobalAnalog_t(fpga, analog)] = mData.at(fpga.toWafer()).adcs.at(GlobalAnalog_t(fpga, analog));
