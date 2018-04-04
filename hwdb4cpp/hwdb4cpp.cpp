@@ -417,7 +417,10 @@ bool database::remove_fpga_entry(FPGAGlobal const fpga) {
 }
 
 bool database::has_fpga_entry(FPGAGlobal const fpga) const {
-	return mData.at(fpga.toWafer()).fpgas.count(fpga);
+	if (has_wafer_entry(fpga.toWafer())) {
+		return mData.at(fpga.toWafer()).fpgas.count(fpga);
+	}
+	return false;
 }
 
 FPGAEntry const& database::get_fpga_entry(FPGAGlobal const fpga) const {
@@ -440,7 +443,10 @@ bool database::remove_hicann_entry(HICANNGlobal const hicann) {
 }
 
 bool database::has_hicann_entry(HICANNGlobal const hicann) const {
-	return mData.at(hicann.toWafer()).hicanns.count(hicann);
+	if (has_wafer_entry(hicann.toWafer())) {
+		return mData.at(hicann.toWafer()).hicanns.count(hicann);
+	}
+	return false;
 }
 
 HICANNEntry const& database::get_hicann_entry(HICANNGlobal const hicann) const {
