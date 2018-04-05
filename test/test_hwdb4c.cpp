@@ -15,6 +15,7 @@ extern "C" {
 
 static size_t constexpr testwafer_id = 5;
 static size_t constexpr fpgas_per_wafer = halco::hicann::v2::FPGAOnWafer::size;
+static size_t constexpr ananas_per_wafer = halco::hicann::v2::ANANASOnWafer::size;
 static size_t constexpr hicanns_per_wafer = halco::hicann::v2::HICANNOnWafer::size;
 
 class HWDB4C_Test : public ::testing::Test
@@ -51,6 +52,9 @@ fpgas:\n\
     ip: 192.168.5.1\n\
   - fpga: 3\n\
     ip: 192.168.5.4\n\
+ananas:\n\
+  - ananas: 0\n\
+    ip: 192.168.5.190\n\
 adcs:\n\
   - fpga: 0\n\
     analog: 0\n\
@@ -118,6 +122,12 @@ TEST_F(HWDB4C_Test, has_entry)
 	EXPECT_FALSE(ret);
 
 	ret = false;
+	ASSERT_EQ(hwdb4c_has_ananas_entry(hwdb, ananas_per_wafer * testwafer_id + 0, &ret), HWDB4C_SUCCESS);
+	EXPECT_TRUE(ret);
+	ASSERT_EQ(hwdb4c_has_ananas_entry(hwdb, ananas_per_wafer * testwafer_id + 1, &ret), HWDB4C_SUCCESS);
+	EXPECT_FALSE(ret);
+
+	ret = false;
 	ASSERT_EQ(hwdb4c_has_hicann_entry(hwdb, hicanns_per_wafer * testwafer_id + 144, &ret), HWDB4C_SUCCESS);
 	EXPECT_TRUE(ret);
 	ASSERT_EQ(hwdb4c_has_hicann_entry(hwdb, hicanns_per_wafer * testwafer_id + 20, &ret), HWDB4C_SUCCESS);
@@ -152,6 +162,14 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(fpga->highspeed, true);
 	hwdb4c_free_fpga_entry(fpga);
 	fpga = NULL;
+
+	hwdb4c_ananas_entry* ananas = NULL;
+	ASSERT_EQ(hwdb4c_get_ananas_entry(hwdb, ananas_per_wafer * testwafer_id, &ananas), HWDB4C_SUCCESS);
+	ASSERT_TRUE(ananas != NULL);
+	EXPECT_EQ(ananas->ananasglobal_id, ananas_per_wafer * testwafer_id);
+	EXPECT_EQ(std::string(inet_ntoa(ananas->ip)), "192.168.5.190");
+	hwdb4c_free_ananas_entry(ananas);
+	ananas = NULL;
 
 	hwdb4c_hicann_entry* hicann = NULL;
 	ASSERT_EQ(hwdb4c_get_hicann_entry(hwdb, hicanns_per_wafer * testwafer_id + 144, &hicann), HWDB4C_SUCCESS);
@@ -255,6 +273,7 @@ TEST_F(HWDB4C_Test, coord)
 	EXPECT_EQ(hwdb4c_HICANNOnWafer_size(), halco::hicann::v2::HICANNOnWafer::size);
 	EXPECT_EQ(hwdb4c_FPGAOnWafer_size(), halco::hicann::v2::FPGAOnWafer::size);
 	EXPECT_EQ(hwdb4c_master_FPGA_enum(), halco::hicann::v2::FPGAOnWafer::Master.toEnum().value());
+	EXPECT_EQ(hwdb4c_ANANASOnWafer_size(), halco::hicann::v2::ANANASOnWafer::size);
 
 	size_t ret = 0;
 	EXPECT_EQ(hwdb4c_ReticleOnWafer_toFPGAOnWafer(0, &ret), HWDB4C_SUCCESS);

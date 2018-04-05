@@ -191,6 +191,11 @@ fpgas:
     ip: 192.168.17.107
   - fpga: 47
     ip: 192.168.17.108
+ananas:
+  - ananas: 0
+    ip: 192.168.17.190
+  - ananas: 1
+    ip: 192.168.17.191
 hicanns:
   version: 2
 ---

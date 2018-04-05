@@ -31,6 +31,14 @@ struct SYMBOL_VISIBLE hwdb4c_fpga_entry {
 	bool highspeed;
 };
 
+struct SYMBOL_VISIBLE hwdb4c_ananas_entry {
+	//key
+	size_t ananasglobal_id;
+
+	//values
+	ip_addr_t ip;
+};
+
 struct SYMBOL_VISIBLE hwdb4c_hicann_entry {
 	//key
 	size_t hicannglobal_id;
@@ -69,6 +77,8 @@ struct SYMBOL_VISIBLE hwdb4c_wafer_entry {
 	} setup_type;
 	struct hwdb4c_fpga_entry** fpgas;
 	size_t num_fpga_entries;
+	struct hwdb4c_ananas_entry** ananas;
+	size_t num_ananas_entries;
 	struct hwdb4c_hicann_entry** hicanns;
 	size_t num_hicann_entries;
 	struct hwdb4c_adc_entry** adcs;
@@ -90,6 +100,7 @@ void hwdb4c_free_hwdb(struct hwdb4c_database_t* ret) SYMBOL_VISIBLE;
 
 // check if entry in in hwdb, return HWDB4C_SUCCESS on success, on error returns HWDB4C_FAILURE
 int hwdb4c_has_fpga_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id, bool* ret) SYMBOL_VISIBLE;
+int hwdb4c_has_ananas_entry(struct hwdb4c_database_t* handle, size_t ananasglobal_id, bool* ret) SYMBOL_VISIBLE;
 int hwdb4c_has_hicann_entry(struct hwdb4c_database_t* handle, size_t hicannglobal_id, bool* ret) SYMBOL_VISIBLE;
 int hwdb4c_has_adc_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id, size_t analogonhicann, bool* ret) SYMBOL_VISIBLE;
 int hwdb4c_has_wafer_entry(struct hwdb4c_database_t* handle, size_t wafer_id, bool* ret) SYMBOL_VISIBLE;
@@ -97,6 +108,7 @@ int hwdb4c_has_wafer_entry(struct hwdb4c_database_t* handle, size_t wafer_id, bo
 // get entry from hwdb, if entry not in hwdb or invalid coord returns HWDB4C_FAILURE
 // onwership of entries lies with user, use corresponding hwdb4c_free_xxx_entry function to free memory
 int hwdb4c_get_fpga_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id, struct hwdb4c_fpga_entry** ret) SYMBOL_VISIBLE;
+int hwdb4c_get_ananas_entry(struct hwdb4c_database_t* handle, size_t ananasglobal_id, struct hwdb4c_ananas_entry** ret) SYMBOL_VISIBLE;
 int hwdb4c_get_hicann_entry(struct hwdb4c_database_t* handle, size_t hicannglobal_id, struct hwdb4c_hicann_entry** ret) SYMBOL_VISIBLE;
 int hwdb4c_get_adc_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id, size_t analogonhicann, struct hwdb4c_adc_entry** ret) SYMBOL_VISIBLE;
 int hwdb4c_get_wafer_entry(struct hwdb4c_database_t* handle, size_t wafer_id, struct hwdb4c_wafer_entry** ret) SYMBOL_VISIBLE;
@@ -114,6 +126,7 @@ int hwdb4c_get_hicann_entries_of_FPGAGlobal(struct hwdb4c_database_t* handle, si
 
 // free memory of an entry
 void hwdb4c_free_fpga_entry(struct hwdb4c_fpga_entry* fpga) SYMBOL_VISIBLE;
+void hwdb4c_free_ananas_entry(struct hwdb4c_ananas_entry* ananas) SYMBOL_VISIBLE;
 void hwdb4c_free_hicann_entry(struct hwdb4c_hicann_entry* hicann) SYMBOL_VISIBLE;
 void hwdb4c_free_adc_entry(struct hwdb4c_adc_entry* adc) SYMBOL_VISIBLE;
 void hwdb4c_free_wafer_entry(struct hwdb4c_wafer_entry* wafer) SYMBOL_VISIBLE;
@@ -123,6 +136,7 @@ void hwdb4c_free_adc_entries(struct hwdb4c_adc_entry** adcs, size_t num_adcs) SY
 //convert functions for HALbe coordinates
 //FIXME should be its own API
 size_t hwdb4c_FPGAOnWafer_size() SYMBOL_VISIBLE;
+size_t hwdb4c_ANANASOnWafer_size() SYMBOL_VISIBLE;
 size_t hwdb4c_HICANNOnWafer_size() SYMBOL_VISIBLE;
 size_t hwdb4c_master_FPGA_enum() SYMBOL_VISIBLE;
 int hwdb4c_ReticleOnWafer_toFPGAOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
@@ -130,6 +144,7 @@ int hwdb4c_FPGAOnWafer_toReticleOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 int hwdb4c_FPGAOnWafer_toTriggerOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 int hwdb4c_HICANNOnWafer_toReticleOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 int hwdb4c_HICANNOnWafer_toFPGAOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
+int hwdb4c_TriggerOnWafer_toANANASOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 
 #ifdef __cplusplus
 } // extern "C"

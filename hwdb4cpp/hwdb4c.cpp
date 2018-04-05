@@ -29,6 +29,16 @@ int _convert_fpga_entry(hwdb4cpp::FPGAEntry fpga_entry_cpp, FPGAGlobal fpgacoord
 	return HWDB4C_SUCCESS;
 }
 
+int _convert_ananas_entry(hwdb4cpp::ANANASEntry ananas_entry_cpp, ANANASGlobal ananascoord, struct hwdb4c_ananas_entry** ret) {
+	struct hwdb4c_ananas_entry* ananas_entry_c = (hwdb4c_ananas_entry*) malloc(sizeof(struct hwdb4c_ananas_entry));
+	if (!ananas_entry_c)
+		return HWDB4C_FAILURE;
+	ananas_entry_c->ananasglobal_id = ananascoord.toEnum();
+	inet_aton(ananas_entry_cpp.ip.to_string().c_str(), &(ananas_entry_c->ip));
+	*ret = ananas_entry_c;
+	return HWDB4C_SUCCESS;
+}
+
 // converts hwdb4cpp::HICANNEntry to hwdb4c_hicann_entry
 int _convert_hicann_entry(hwdb4cpp::HICANNEntry hicann_entry_cpp, HICANNGlobal hicanncoord, struct hwdb4c_hicann_entry** ret) {
 	struct hwdb4c_hicann_entry* hicann_entry_c = (hwdb4c_hicann_entry*) malloc(sizeof(struct hwdb4c_hicann_entry));
@@ -83,6 +93,17 @@ int _convert_wafer_entry(hwdb4cpp::WaferEntry wafer_entry_cpp, Wafer wafercoord,
 		if(_convert_fpga_entry(fpga_it->second, fpga_it->first, &(wafer_entry_c->fpgas[fpga_counter])) == HWDB4C_FAILURE)
 			 return HWDB4C_FAILURE;
 		fpga_counter++;
+	}
+
+	wafer_entry_c->num_ananas_entries = wafer_entry_cpp.ananas.size();
+	wafer_entry_c->ananas = (hwdb4c_ananas_entry**) malloc(sizeof(struct hwdb4c_ananas_entry*) * wafer_entry_c->num_ananas_entries);
+	if (!wafer_entry_c->ananas)
+		return HWDB4C_FAILURE;
+	size_t ananas_counter = 0;
+	for (auto ananas_it = wafer_entry_cpp.ananas.begin(); ananas_it != wafer_entry_cpp.ananas.end(); ananas_it++) {
+		if(_convert_ananas_entry(ananas_it->second, ananas_it->first, &(wafer_entry_c->ananas[ananas_counter])) == HWDB4C_FAILURE)
+			 return HWDB4C_FAILURE;
+		ananas_counter++;
 	}
 
 	wafer_entry_c->num_hicann_entries = wafer_entry_cpp.hicanns.size();
@@ -179,6 +200,15 @@ int hwdb4c_has_fpga_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id
 	return HWDB4C_SUCCESS;
 }
 
+int hwdb4c_has_ananas_entry(struct hwdb4c_database_t* handle, size_t ananasglobal_id, bool* ret) {
+	try {
+		*ret = handle->database.has_ananas_entry(ANANASGlobal(Enum(ananasglobal_id)));
+	} catch(const std::out_of_range& hdke) {
+		return HWDB4C_FAILURE;
+	}
+	return HWDB4C_SUCCESS;
+}
+
 int hwdb4c_has_hicann_entry(struct hwdb4c_database_t* handle, size_t hicannglobal_id, bool* ret) {
 	try {
 		*ret = handle->database.has_hicann_entry(HICANNGlobal(Enum(hicannglobal_id)));
@@ -205,6 +235,16 @@ int hwdb4c_get_fpga_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id
 		return HWDB4C_FAILURE;
 	}
 	return _convert_fpga_entry(fpga_entry_cpp, FPGAGlobal(Enum(fpgaglobal_id)), ret);
+}
+
+int hwdb4c_get_ananas_entry(struct hwdb4c_database_t* handle, size_t ananasglobal_id, struct hwdb4c_ananas_entry** ret) {
+	hwdb4cpp::ANANASEntry ananas_entry_cpp;
+	try {
+		ananas_entry_cpp = handle->database.get_ananas_entry(ANANASGlobal(Enum(ananasglobal_id)));
+	} catch(const std::out_of_range& hdke) {
+		return HWDB4C_FAILURE;
+	}
+	return _convert_ananas_entry(ananas_entry_cpp, ANANASGlobal(Enum(ananasglobal_id)), ret);
 }
 
 int hwdb4c_get_hicann_entry(struct hwdb4c_database_t* handle, size_t hicannglobal_id, struct hwdb4c_hicann_entry** ret) {
@@ -338,6 +378,10 @@ void hwdb4c_free_fpga_entry(struct hwdb4c_fpga_entry* fpga) {
 	free(fpga);
 }
 
+void hwdb4c_free_ananas_entry(struct hwdb4c_ananas_entry* ananas) {
+	free(ananas);
+}
+
 void hwdb4c_free_hicann_entry(struct hwdb4c_hicann_entry* hicann) {
 	free(hicann->label);
 	free(hicann);
@@ -352,6 +396,10 @@ void hwdb4c_free_wafer_entry(struct hwdb4c_wafer_entry* wafer) {
 		hwdb4c_free_fpga_entry(wafer->fpgas[fpga_counter]);
 	}
 	free(wafer->fpgas);
+	for (size_t ananas_counter = 0; ananas_counter < wafer->num_ananas_entries; ananas_counter++) {
+		hwdb4c_free_ananas_entry(wafer->ananas[ananas_counter]);
+	}
+	free(wafer->ananas);
 	for (size_t hicann_counter = 0; hicann_counter < wafer->num_hicann_entries; hicann_counter++) {
 		hwdb4c_free_hicann_entry(wafer->hicanns[hicann_counter]);
 	}
@@ -381,6 +429,10 @@ void hwdb4c_free_adc_entries(struct hwdb4c_adc_entry** adcs, size_t num_adcs) {
 
 size_t hwdb4c_FPGAOnWafer_size() {
 	return FPGAOnWafer::size;
+}
+
+size_t hwdb4c_ANANASOnWafer_size() {
+	return ANANASOnWafer::size;
 }
 
 size_t hwdb4c_HICANNOnWafer_size()
@@ -432,6 +484,15 @@ int hwdb4c_HICANNOnWafer_toReticleOnWafer(size_t id, size_t* ret) {
 int hwdb4c_HICANNOnWafer_toFPGAOnWafer(size_t id, size_t* ret) {
 	try {
 		*ret = HICANNGlobal(HICANNOnWafer(Enum(id)), Wafer(HWDB4C_DEFAULT_WAFER_ID)).toFPGAOnWafer().value();
+	} catch(const std::overflow_error& oor) {
+		return HWDB4C_FAILURE;
+	}
+	return HWDB4C_SUCCESS;
+}
+
+int hwdb4c_TriggerOnWafer_toANANASOnWafer(size_t id, size_t* ret) {
+	try {
+		*ret = TriggerOnWafer(Enum(id)).toANANASOnWafer().value() ;
 	} catch(const std::overflow_error& oor) {
 		return HWDB4C_FAILURE;
 	}

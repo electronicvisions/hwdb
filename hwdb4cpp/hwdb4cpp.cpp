@@ -42,6 +42,13 @@ struct FPGAYAML : public FPGAEntry
 	size_t coordinate;
 };
 
+struct ANANASYAML : public ANANASEntry
+{
+	ANANASYAML() {}
+	ANANASYAML(ANANASEntry const& base) : ANANASEntry(base) {}
+	size_t coordinate;
+};
+
 struct HICANNYAML : public HICANNEntry
 {
 	HICANNYAML() {}
@@ -193,6 +200,29 @@ struct convert<FPGAYAML>
 };
 
 template <>
+struct convert<ANANASYAML>
+{
+	static Node encode(const ANANASYAML& data)
+	{
+		Node node;
+		node["ananas"] = data.coordinate;
+		node["ip"] = data.ip.to_string();
+		return node;
+	}
+
+	static bool decode(const Node& node, ANANASYAML& data)
+	{
+		if (!node.IsMap() || node.size() > 2) {
+			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''")
+			return false;
+		}
+		data.coordinate = get_entry<size_t>(node, "ananas");
+		data.ip = IPv4::from_string(get_entry<std::string>(node, "ip"));
+		return true;
+	}
+};
+
+template <>
 struct convert<HICANNYAML>
 {
 	static Node encode(const HICANNYAML& data)
@@ -247,6 +277,14 @@ void database::load(std::string const path)
 			for (const auto& entry : fpga_entries.as<std::vector<FPGAYAML> >()) {
 				FPGAGlobal fpga(FPGAGlobal(FPGAOnWafer(entry.coordinate), wafer));
 				add_fpga_entry(fpga, entry);
+			}
+		}
+
+		auto ananas_entries = config["ananas"];
+		if (ananas_entries.IsDefined()) {
+			for (const auto& entry : ananas_entries.as<std::vector<ANANASYAML> >()) {
+				ANANASGlobal ananas(ANANASGlobal(ANANASOnWafer(entry.coordinate), wafer));
+				add_ananas_entry(ananas, entry);
 			}
 		}
 
@@ -345,6 +383,18 @@ void database::dump(std::ostream& out) const
 			out << config << '\n';
 		}
 
+		if (!data.ananas.empty()) {
+			YAML::Node config;
+			std::vector<ANANASYAML> ananas_data;
+			for (auto& it : data.ananas) {
+				ANANASYAML entry(it.second);
+				entry.coordinate = it.first;
+				ananas_data.push_back(entry);
+			}
+			config["ananas"] = ananas_data;
+			out << config << '\n';
+		}
+
 		if (!data.adcs.empty()) {
 			YAML::Node config;
 			std::vector<ADCYAML> adc_data;
@@ -439,6 +489,29 @@ FPGAEntry const& database::get_fpga_entry(FPGAGlobal const fpga) const {
 
 FPGAEntryMap database::get_fpga_entries(Wafer const wafer) const {
 	return mData.at(wafer).fpgas;
+}
+
+void database::add_ananas_entry(ANANASGlobal const ananas, ANANASEntry const entry) {
+	mData.at(ananas.toWafer()).ananas[ananas] = entry;
+}
+
+bool database::remove_ananas_entry(ANANASGlobal const ananas) {
+	return mData.at(ananas.toWafer()).ananas.erase(ananas);
+}
+
+bool database::has_ananas_entry(ANANASGlobal const ananas) const {
+	if (has_wafer_entry(ananas.toWafer())) {
+		return mData.at(ananas.toWafer()).ananas.count(ananas);
+	}
+	return false;
+}
+
+ANANASEntry const& database::get_ananas_entry(ANANASGlobal const ananas) const {
+	return mData.at(ananas.toWafer()).ananas.at(ananas);
+}
+
+ANANASEntryMap database::get_ananas_entries(Wafer const wafer) const {
+	return mData.at(wafer).ananas;
 }
 
 void database::add_hicann_entry(HICANNGlobal const hicann, HICANNEntry const entry) {
