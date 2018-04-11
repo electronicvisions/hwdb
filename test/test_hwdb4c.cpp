@@ -265,4 +265,8 @@ TEST_F(HWDB4C_Test, coord)
 	EXPECT_EQ(hwdb4c_HICANNOnWafer_toFPGAOnWafer(0, &ret), HWDB4C_SUCCESS);
 	EXPECT_EQ(ret, 12);
 	EXPECT_EQ(hwdb4c_HICANNOnWafer_toFPGAOnWafer(1008, &ret), HWDB4C_FAILURE);
+
+	EXPECT_EQ(hwdb4c_FPGAOnWafer_toTriggerOnWafer(12, &ret), HWDB4C_SUCCESS);
+	EXPECT_EQ(ret, 5);
+	EXPECT_EQ(hwdb4c_FPGAOnWafer_toTriggerOnWafer(1008, &ret), HWDB4C_FAILURE);
 }

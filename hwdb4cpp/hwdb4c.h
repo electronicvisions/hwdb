@@ -124,6 +124,7 @@ size_t hwdb4c_HICANNOnWafer_size() SYMBOL_VISIBLE;
 size_t hwdb4c_master_FPGA_enum() SYMBOL_VISIBLE;
 int hwdb4c_ReticleOnWafer_toFPGAOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 int hwdb4c_FPGAOnWafer_toReticleOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
+int hwdb4c_FPGAOnWafer_toTriggerOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 int hwdb4c_HICANNOnWafer_toReticleOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 int hwdb4c_HICANNOnWafer_toFPGAOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 

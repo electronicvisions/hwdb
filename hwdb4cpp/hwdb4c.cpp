@@ -398,6 +398,15 @@ int hwdb4c_FPGAOnWafer_toReticleOnWafer(size_t id, size_t* ret) {
 	return HWDB4C_SUCCESS;
 }
 
+int hwdb4c_FPGAOnWafer_toTriggerOnWafer(size_t id, size_t* ret) {
+	try {
+		*ret = FPGAOnWafer(Enum(id)).toTriggerOnWafer().toEnum();
+	} catch(const std::overflow_error& oor) {
+		return HWDB4C_FAILURE;
+	}
+	return HWDB4C_SUCCESS;
+}
+
 int hwdb4c_HICANNOnWafer_toReticleOnWafer(size_t id, size_t* ret) {
 	try {
 		*ret = HICANNOnWafer(Enum(id)).toDNCOnWafer().id().value();
