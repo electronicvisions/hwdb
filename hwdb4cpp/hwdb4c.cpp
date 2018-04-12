@@ -241,6 +241,20 @@ int hwdb4c_get_wafer_entry(struct hwdb4c_database_t* handle, size_t wafer_id, st
 	return _convert_wafer_entry(wafer_entry_cpp, Wafer(wafer_id), ret);
 }
 
+int hwdb4c_get_wafer_coordinates(struct hwdb4c_database_t* handle, size_t** wafer, size_t* num_wafer) {
+	std::vector<halco::hicann::v2::Wafer> wafer_list = handle->database.get_wafer_coordinates();
+	*num_wafer = wafer_list.size();
+	*wafer = (size_t*) malloc(sizeof(size_t*) * *num_wafer);
+	if(!*wafer)
+		return HWDB4C_FAILURE;
+	size_t wafer_counter = 0;
+	for (auto wafer_coord : wafer_list) {
+		*wafer[wafer_counter] = wafer_coord.toEnum();
+		wafer_counter++;
+	}
+	return HWDB4C_SUCCESS;
+}
+
 int hwdb4c_get_hicann_entries_of_FPGAGlobal(struct hwdb4c_database_t* handle, size_t fpgaglobal_id, struct hwdb4c_hicann_entry*** hicanns, size_t* num_hicanns) {
 	std::map<HICANNGlobal, hwdb4cpp::HICANNEntry> hicann_map;
 	try {

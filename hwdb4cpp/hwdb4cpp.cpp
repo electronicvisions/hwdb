@@ -403,6 +403,15 @@ WaferEntry const& database::get_wafer_entry(Wafer const wafer) const {
 	return mData.at(wafer);
 }
 
+std::vector<halco::hicann::v2::Wafer> database::get_wafer_coordinates() const
+{
+	std::vector<halco::hicann::v2::Wafer> ret;
+	for (auto it : mData) {
+		ret.push_back(it.first);
+	}
+	return ret;
+}
+
 void database::add_fpga_entry(FPGAGlobal const fpga, FPGAEntry const entry) {
 	mData.at(fpga.toWafer()).fpgas[fpga] = entry;
 }

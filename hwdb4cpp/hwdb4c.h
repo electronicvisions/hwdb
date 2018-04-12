@@ -101,6 +101,9 @@ int hwdb4c_get_hicann_entry(struct hwdb4c_database_t* handle, size_t hicanngloba
 int hwdb4c_get_adc_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id, size_t analogonhicann, struct hwdb4c_adc_entry** ret) SYMBOL_VISIBLE;
 int hwdb4c_get_wafer_entry(struct hwdb4c_database_t* handle, size_t wafer_id, struct hwdb4c_wafer_entry** ret) SYMBOL_VISIBLE;
 
+// returns all Wafer IDs in database as size_t array of size num_wafer, ownership of array lies with user
+int hwdb4c_get_wafer_coordinates(struct hwdb4c_database_t* handle, size_t** wafer, size_t* num_wafer) SYMBOL_VISIBLE;
+
 // get array of entries, size of array given with num_xxx, if num_xxx ist zero than pointer is NULL
 // return HWDB4C_SUCCESS on success, if coord invalid returns HWDB4C_FAILURE
 // onwership of entries lies with user, use corresponding hwdb4c_free_xxx_entry function to free memory

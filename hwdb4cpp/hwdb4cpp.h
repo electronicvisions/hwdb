@@ -124,6 +124,7 @@ public:
 	bool has_wafer_entry(halco::hicann::v2::Wafer const wafer) const;
 	WaferEntry& get_wafer_entry(halco::hicann::v2::Wafer const wafer);
 	WaferEntry const& get_wafer_entry(halco::hicann::v2::Wafer const wafer) const;
+	std::vector<halco::hicann::v2::Wafer> get_wafer_coordinates() const;
 
 	/// Insert (and replace) an FPGA into the database.
 	/// The corresponding WaferEntry has to exist.

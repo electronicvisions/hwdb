@@ -137,6 +137,13 @@ namespace {
 
 void get_entry_test_impl(hwdb4c_database_t* hwdb)
 {
+	size_t* wafer_list = NULL;
+	size_t num_wafer = 0;
+	ASSERT_EQ(hwdb4c_get_wafer_coordinates(hwdb, &wafer_list, &num_wafer), HWDB4C_SUCCESS);
+	ASSERT_TRUE(wafer_list != NULL);
+	ASSERT_EQ(num_wafer, 1);
+	ASSERT_EQ(wafer_list[0], 5);
+
 	hwdb4c_fpga_entry* fpga = NULL;
 	ASSERT_EQ(hwdb4c_get_fpga_entry(hwdb, fpgas_per_wafer * testwafer_id + 3, &fpga), HWDB4C_SUCCESS);
 	ASSERT_TRUE(fpga != NULL);
