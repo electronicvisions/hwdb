@@ -40,43 +40,29 @@ hicanns:
     version: 4
 ---
 wafer: 5
+# cube2 in cleanrom
 setuptype: cubesetup
 fpgas:
   - fpga: 0
     ip: 192.168.5.1
-  - fpga: 3
-    ip: 192.168.5.4
 adcs:
   - fpga: 0
     analog: 0
-    adc: B201331
+    adc: B291686
     channel: 0
     trigger: 1
   - fpga: 0
     analog: 1
-    adc: B201331
-    channel: 1
-    trigger: 1
-  - fpga: 3
-    analog: 0
-    adc: B201259
-    channel: 0
-    trigger: 1
-  - fpga: 3
-    analog: 1
-    adc: B201259
+    adc: B291686
     channel: 1
     trigger: 1
 hicanns:
-  - hicann: 88
-    version: 4
-    label: v4-26
-  - hicann: 116 
-    version: 4
-    label: v4-26
   - hicann: 144
     version: 4
-    label: v4-15
+    label: v4-1
+  - hicann: 180
+    version: 4
+    label: v4-1
 ---
 wafer: 6
 setuptype: cubesetup
