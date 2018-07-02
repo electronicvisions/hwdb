@@ -15,7 +15,7 @@ def configure(cfg):
     cfg.load('compiler_cxx')
 
     cfg.check_cfg(package='yaml-cpp',
-                  args=['yaml-cpp = 0.5.3', '--cflags', '--libs'],
+                  args=['yaml-cpp >= 0.5.3', '--cflags', '--libs'],
                   uselib_store='YAMLCPP')
 
     cfg.check_cxx(uselib_store='GTEST4HWDB',
