@@ -28,16 +28,12 @@ adcs:
     channel: 1
     trigger: 0
 hicanns:
-# temporarily removed because iboard2 is being repaired
-#  - hicann: 88
-#    version: 2
-#  - hicann: 89
-#    version: 4
-#    label: v4-5
-#  - hicann: 116
-#    version: 2
-  - hicann: 145
+  - hicann: 88
     version: 4
+    label: v4-21
+  - hicann: 116
+    version: 4
+    label: v4-21
 ---
 wafer: 5
 # cube2 in cleanrom
