@@ -30,10 +30,10 @@ adcs:
 hicanns:
   - hicann: 88
     version: 4
-    label: v4-21
+    label: v4-25
   - hicann: 116
     version: 4
-    label: v4-21
+    label: v4-25
 ---
 wafer: 5
 # cube2 in cleanrom
