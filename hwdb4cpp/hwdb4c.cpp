@@ -86,7 +86,7 @@ int _convert_wafer_entry(hwdb4cpp::WaferEntry wafer_entry_cpp, Wafer wafercoord,
 	}
 
 	wafer_entry_c->num_hicann_entries = wafer_entry_cpp.hicanns.size();
-	wafer_entry_c->hicanns = (hwdb4c_hicann_entry**) malloc(sizeof(struct hwdb4c_hicann_entry*) * wafer_entry_c->num_fpga_entries);
+	wafer_entry_c->hicanns = (hwdb4c_hicann_entry**) malloc(sizeof(struct hwdb4c_hicann_entry*) * wafer_entry_c->num_hicann_entries);
 	if (!wafer_entry_c->hicanns)
 		return HWDB4C_FAILURE;
 	size_t hicann_counter = 0;
@@ -95,10 +95,9 @@ int _convert_wafer_entry(hwdb4cpp::WaferEntry wafer_entry_cpp, Wafer wafercoord,
 			 return HWDB4C_FAILURE;
 		hicann_counter++;
 	}
-	wafer_entry_c->num_adc_entries = wafer_entry_cpp.adcs.size();
 
 	wafer_entry_c->num_adc_entries = wafer_entry_cpp.adcs.size();
-	wafer_entry_c->adcs = (hwdb4c_adc_entry**) malloc(sizeof(struct hwdb4c_adc_entry*) * wafer_entry_c->num_fpga_entries);
+	wafer_entry_c->adcs = (hwdb4c_adc_entry**) malloc(sizeof(struct hwdb4c_adc_entry*) * wafer_entry_c->num_adc_entries);
 	if (!wafer_entry_c->adcs)
 		return HWDB4C_FAILURE;
 	size_t adc_counter = 0;
