@@ -83,13 +83,6 @@ hicanns:
   - hicann: 118
     version: 2
     label: emv2-1-285
-# temporarily removed to be able to test single hicann chips
-#  - hicann: 91
-#    version: 2
-#    label: emv2-1-317
-#  - hicann: 119
-#    version: 2
-#    label: emv2-1-345
 ---
 wafer: 17
 setuptype: bsswafer
