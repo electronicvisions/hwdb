@@ -20,6 +20,8 @@ for c in ns_hwdb4cpp.classes(allow_empty=True):
     if c.name.startswith('database'):
         for f in c.mem_funs('get_wafer_entry', allow_empty=True):
             f.call_policies = call_policies.return_internal_reference()
+        for f in c.mem_funs('get_dls_entry', allow_empty=True):
+            f.call_policies = call_policies.return_internal_reference()
 
 # expose only public interfaces
 namespaces.exclude_by_access_type(mb, ['variables', 'calldefs', 'classes'], 'private')

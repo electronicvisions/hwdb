@@ -24,6 +24,8 @@ class Test_Pyhwdb(unittest.TestCase):
         self.ADC_IP = coord.IPv4.from_string("192.168.10.120")
         self.ADC_PORT = coord.TCPPort(10101)
 
+        self.DLS_SETUP_ID = "07_20"
+
     def test_default_path_valid(self):
         import os
         default_path = pyhwdb.database.get_default_path()
@@ -56,6 +58,14 @@ class Test_Pyhwdb(unittest.TestCase):
         self.assertEqual(mydb.get_wafer_entry(wafer_coord).setup_type, wafer.setup_type)
         mydb.remove_wafer_entry(wafer_coord)
         self.assertFalse(mydb.has_wafer_entry(wafer_coord))
+
+        dls_entry = pyhwdb.DLSSetupEntry()
+        dls_setup_id = self.DLS_SETUP_ID
+        self.assertFalse(mydb.has_dls_entry(dls_setup_id))
+        mydb.add_dls_entry(dls_setup_id, dls_entry)
+        self.assertTrue(mydb.has_dls_entry(dls_setup_id))
+        mydb.remove_dls_entry(dls_setup_id)
+        self.assertFalse(mydb.has_dls_entry(dls_setup_id))
 
         # require wafer entry to write other entry typed into
         mydb.add_wafer_entry(wafer_coord, wafer)

@@ -133,6 +133,27 @@ int _convert_wafer_entry(hwdb4cpp::WaferEntry wafer_entry_cpp, Wafer wafercoord,
 	return HWDB4C_SUCCESS;
 }
 
+int _convert_dls_entry(hwdb4cpp::DLSSetupEntry dls_setup_entry_cpp, char* dls_setup, struct hwdb4c_dls_setup_entry** ret) {
+	struct hwdb4c_dls_setup_entry* dls_setup_entry_c = (hwdb4c_dls_setup_entry*) malloc(sizeof(struct hwdb4c_dls_setup_entry));
+	if (!dls_setup_entry_c)
+		return HWDB4C_FAILURE;
+
+	dls_setup_entry_c->dls_setup = dls_setup;
+	dls_setup_entry_c->fpga_name = (char*)malloc((dls_setup_entry_cpp.fpga_name.length() + 1) * sizeof(char));
+	strncpy(dls_setup_entry_c->fpga_name, dls_setup_entry_cpp.fpga_name.c_str(), dls_setup_entry_cpp.fpga_name.length() + 1);
+	dls_setup_entry_c->board_name = (char*)malloc((dls_setup_entry_cpp.board_name.length() + 1) * sizeof(char));
+	strncpy(dls_setup_entry_c->board_name, dls_setup_entry_cpp.board_name.c_str(), dls_setup_entry_cpp.board_name.length() + 1);
+	dls_setup_entry_c->board_version = dls_setup_entry_cpp.board_version;
+	dls_setup_entry_c->chip_id = dls_setup_entry_cpp.chip_id;
+	dls_setup_entry_c->chip_version = dls_setup_entry_cpp.chip_version;
+	dls_setup_entry_c->ntpwr_ip = (char*)malloc((dls_setup_entry_cpp.ntpwr_ip.length() + 1) * sizeof(char));
+	strncpy(dls_setup_entry_c->ntpwr_ip, dls_setup_entry_cpp.ntpwr_ip.c_str(), dls_setup_entry_cpp.ntpwr_ip.length() + 1);
+	dls_setup_entry_c->ntpwr_slot = dls_setup_entry_cpp.ntpwr_slot;
+
+	*ret = dls_setup_entry_c;
+	return HWDB4C_SUCCESS;
+}
+
 int hwdb4c_alloc_hwdb(struct hwdb4c_database_t** handle) {
 	try {
 		*handle = new struct hwdb4c_database_t();
@@ -185,6 +206,15 @@ void hwdb4c_free_hwdb(struct hwdb4c_database_t* handle) {
 int hwdb4c_has_wafer_entry(struct hwdb4c_database_t* handle, size_t wafer_id, bool* ret) {
 	try {
 		*ret = handle->database.has_wafer_entry(Wafer(wafer_id));
+	} catch(const std::out_of_range& hdke) {
+		return HWDB4C_FAILURE;
+	}
+	return HWDB4C_SUCCESS;
+}
+
+int hwdb4c_has_dls_entry(struct hwdb4c_database_t* handle, char* dls_entry, bool* ret) {
+	try {
+		*ret = handle->database.has_dls_entry(dls_entry);
 	} catch(const std::out_of_range& hdke) {
 		return HWDB4C_FAILURE;
 	}
@@ -280,6 +310,16 @@ int hwdb4c_get_wafer_entry(struct hwdb4c_database_t* handle, size_t wafer_id, st
 	return _convert_wafer_entry(wafer_entry_cpp, Wafer(wafer_id), ret);
 }
 
+int hwdb4c_get_dls_entry(struct hwdb4c_database_t* handle, char* dls_setup, struct hwdb4c_dls_setup_entry** ret) {
+	hwdb4cpp::DLSSetupEntry dls_setup_entry_cpp;
+	try {
+		dls_setup_entry_cpp = handle->database.get_dls_entry(dls_setup);
+	} catch(const std::out_of_range& hdke) {
+		return HWDB4C_FAILURE;
+	}
+	return _convert_dls_entry(dls_setup_entry_cpp, dls_setup, ret);
+}
+
 int hwdb4c_get_wafer_coordinates(struct hwdb4c_database_t* handle, size_t** wafer, size_t* num_wafer) {
 	std::vector<halco::hicann::v2::Wafer> wafer_list = handle->database.get_wafer_coordinates();
 	*num_wafer = wafer_list.size();
@@ -290,6 +330,21 @@ int hwdb4c_get_wafer_coordinates(struct hwdb4c_database_t* handle, size_t** wafe
 	for (auto wafer_coord : wafer_list) {
 		*wafer[wafer_counter] = wafer_coord.toEnum();
 		wafer_counter++;
+	}
+	return HWDB4C_SUCCESS;
+}
+
+int hwdb4c_get_dls_setup_ids(struct hwdb4c_database_t* handle, char*** dls_setups, size_t* num_dls_setups) {
+	std::vector<std::string> dls_setup_list = handle->database.get_dls_setup_ids();
+	*num_dls_setups = dls_setup_list.size();
+	*dls_setups = (char**) malloc(*num_dls_setups * sizeof(char*));
+	if(!num_dls_setups)
+		return HWDB4C_FAILURE;
+	size_t dls_counter = 0;
+	for (auto dls_setup : dls_setup_list) {
+		*dls_setups[dls_counter] = (char*) malloc((dls_setup.length() + 1) * sizeof(char));
+		strncpy(*dls_setups[dls_counter], dls_setup.c_str(), dls_setup.length() + 1);
+		dls_counter++;
 	}
 	return HWDB4C_SUCCESS;
 }
@@ -409,6 +464,13 @@ void hwdb4c_free_wafer_entry(struct hwdb4c_wafer_entry* wafer) {
 	}
 	free(wafer->adcs);
 	free(wafer);
+}
+
+void hwdb4c_free_dls_setup_entry(struct hwdb4c_dls_setup_entry* dls_setup) {
+	free(dls_setup->fpga_name);
+	free(dls_setup->board_name);
+	free(dls_setup->ntpwr_ip);
+	free(dls_setup);
 }
 
 void hwdb4c_free_hicann_entries(struct hwdb4c_hicann_entry** hicanns, size_t num_hicanns) {

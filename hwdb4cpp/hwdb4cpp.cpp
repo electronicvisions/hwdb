@@ -256,66 +256,121 @@ namespace hwdb4cpp {
 
 void database::clear()
 {
-	mData.clear();
+	mWaferData.clear();
+	mDLSData.clear();
 }
 
 void database::load(std::string const path)
 {
-	if (!mData.empty())
+	if (!(mWaferData.empty() or mDLSData.empty()))
 		throw std::runtime_error("database has to be empty before loading new file");
 
 	for (YAML::Node config : YAML::LoadAllFromFile(path)) {
-		Wafer wafer(YAML::get_entry<size_t>(config, "wafer"));
-		// FIXME: use encode/decode schema (see FPGAYAML below)
-		WaferEntry entry;
-		entry.setup_type = YAML::get_entry<SetupType>(config, "setuptype");
-		entry.macu = YAML::get_entry<IPv4>(config, "macu", IPv4());
-		add_wafer_entry(wafer, entry);
 
-		auto fpga_entries = config["fpgas"];
-		if (fpga_entries.IsDefined()) {
-			for (const auto& entry : fpga_entries.as<std::vector<FPGAYAML> >()) {
-				FPGAGlobal fpga(FPGAGlobal(FPGAOnWafer(entry.coordinate), wafer));
-				add_fpga_entry(fpga, entry);
-			}
-		}
+		// If yaml document is from a wafer
+		if (config["wafer"].IsDefined()) {
 
-		auto ananas_entries = config["ananas"];
-		if (ananas_entries.IsDefined()) {
-			for (const auto& entry : ananas_entries.as<std::vector<ANANASYAML> >()) {
-				ANANASGlobal ananas(ANANASGlobal(ANANASOnWafer(entry.coordinate), wafer));
-				add_ananas_entry(ananas, entry);
-			}
-		}
+			Wafer wafer(YAML::get_entry<size_t>(config, "wafer"));
+			// FIXME: use encode/decode schema (see FPGAYAML below)
+			WaferEntry entry;
+			entry.setup_type = YAML::get_entry<SetupType>(config, "setuptype");
+			entry.macu = YAML::get_entry<IPv4>(config, "macu", IPv4());
+			add_wafer_entry(wafer, entry);
 
-		auto adc_entries = config["adcs"];
-		if (adc_entries.IsDefined()) {
-			for (const auto& entry : adc_entries.as<std::vector<ADCYAML> >()) {
-				FPGAGlobal fpga(FPGAOnWafer(entry.fpga), wafer);
-				GlobalAnalog_t coord(fpga, AnalogOnHICANN(entry.analog));
-				add_adc_entry(coord, entry);
-			}
-		}
-
-		YAML::Node hicanns_node = config["hicanns"];
-		if (!hicanns_node.IsDefined()) {
-			// No HICANNs -> ignore
-		} else if (hicanns_node.IsSequence()) {
-			auto hicann_entries = hicanns_node.as<std::vector<HICANNYAML> >();
-			for (const auto& entry : hicann_entries) {
-				HICANNGlobal hicann(HICANNOnWafer(Enum(entry.coordinate)), wafer);
-				add_hicann_entry(hicann, entry);
-			}
-		} else if (hicanns_node.IsMap()) {
-			const HICANNYAML entry = hicanns_node.as<HICANNYAML>();
-			for (auto hicann : iter_all<HICANNOnWafer>()) {
-				if (has_fpga_entry(HICANNGlobal(hicann, wafer).toFPGAGlobal())) {
-					HICANNGlobal hicann_global(hicann, wafer);
-					add_hicann_entry(hicann_global, entry);
+			auto fpga_entries = config["fpgas"];
+			if (fpga_entries.IsDefined()) {
+				for (const auto& entry : fpga_entries.as<std::vector<FPGAYAML> >()) {
+					FPGAGlobal fpga(FPGAGlobal(FPGAOnWafer(entry.coordinate), wafer));
+					add_fpga_entry(fpga, entry);
 				}
 			}
-		} else {
-			throw std::runtime_error("hicanns entry must be a squence or a map");
+
+			auto ananas_entries = config["ananas"];
+			if (ananas_entries.IsDefined()) {
+				for (const auto& entry : ananas_entries.as<std::vector<ANANASYAML> >()) {
+					ANANASGlobal ananas(ANANASGlobal(ANANASOnWafer(entry.coordinate), wafer));
+					add_ananas_entry(ananas, entry);
+				}
+			}
+
+			auto adc_entries = config["adcs"];
+			if (adc_entries.IsDefined()) {
+				for (const auto& entry : adc_entries.as<std::vector<ADCYAML> >()) {
+					FPGAGlobal fpga(FPGAOnWafer(entry.fpga), wafer);
+					GlobalAnalog_t coord(fpga, AnalogOnHICANN(entry.analog));
+					add_adc_entry(coord, entry);
+				}
+			}
+
+			YAML::Node hicanns_node = config["hicanns"];
+			if (!hicanns_node.IsDefined()) {
+				// No HICANNs -> ignore
+			} else if (hicanns_node.IsSequence()) {
+				auto hicann_entries = hicanns_node.as<std::vector<HICANNYAML> >();
+				for (const auto& entry : hicann_entries) {
+					HICANNGlobal hicann(HICANNOnWafer(Enum(entry.coordinate)), wafer);
+					add_hicann_entry(hicann, entry);
+				}
+			} else if (hicanns_node.IsMap()) {
+				const HICANNYAML entry = hicanns_node.as<HICANNYAML>();
+				for (auto hicann : iter_all<HICANNOnWafer>()) {
+					if (has_fpga_entry(HICANNGlobal(hicann, wafer).toFPGAGlobal())) {
+						HICANNGlobal hicann_global(hicann, wafer);
+						add_hicann_entry(hicann_global, entry);
+					}
+				}
+			} else {
+				throw std::runtime_error("hicanns entry must be a squence or a map");
+			}
+
+		}
+
+		// If yaml document is from a dls setup
+		else if (config["dls_setup"].IsDefined()) {
+
+			auto dls_setup = config["dls_setup"].as<std::string>();
+			DLSSetupEntry entry;
+			add_dls_entry(dls_setup, entry);
+
+			auto fpga_name_entry = config["fpga_name"];
+			if (fpga_name_entry.IsDefined()) {
+				mDLSData.at(dls_setup).fpga_name = fpga_name_entry.as<std::string>();
+			}
+
+			auto board_name_entry = config["board_name"];
+			if (board_name_entry.IsDefined()) {
+				mDLSData.at(dls_setup).board_name = board_name_entry.as<std::string>();
+			}
+
+			auto board_version_entry = config["board_version"];
+			if (board_version_entry.IsDefined()) {
+				mDLSData.at(dls_setup).board_version = board_version_entry.as<size_t>();
+			}
+
+			auto chip_id_entry = config["chip_id"];
+			if (chip_id_entry.IsDefined()) {
+				mDLSData.at(dls_setup).chip_id = chip_id_entry.as<size_t>();
+			}
+
+			auto chip_version_entry = config["chip_version"];
+			if (chip_version_entry.IsDefined()) {
+				mDLSData.at(dls_setup).chip_version = chip_version_entry.as<size_t>();
+			}
+
+			auto ntpwr_ip_entry = config["ntpwr_ip"];
+			if (ntpwr_ip_entry.IsDefined()) {
+				mDLSData.at(dls_setup).ntpwr_ip = ntpwr_ip_entry.as<std::string>();
+			}
+
+			auto ntpwr_slot_entry = config["ntpwr_slot"];
+			if (ntpwr_slot_entry.IsDefined()) {
+				mDLSData.at(dls_setup).ntpwr_slot = ntpwr_slot_entry.as<size_t>();
+			}
+		}
+
+		// If yaml document does not containe wafer or dls setup
+		else {
+			throw std::runtime_error("entry neither from a wafer nor a dls setup");
 		}
 	}
 }
@@ -347,7 +402,8 @@ void database::dump(std::ostream& out) const
 	// There is an unresolved issue about this
 	// https://github.com/jbeder/yaml-cpp/issues/169
 	// so this might getting nicer in future
-	for (const auto& item : mData) {
+	// First dump the wafer entries
+	for (const auto& item : mWaferData) {
 		const Wafer wafer = item.first;
 		const WaferEntry& data = item.second;
 
@@ -431,43 +487,100 @@ void database::dump(std::ostream& out) const
 			out << config << '\n';
 		}
 	}
+
+	// Also dump the dls setups
+	for (const auto& item : mDLSData) {
+		const std::string dls_entry = item.first;
+		const DLSSetupEntry& data = item.second;
+
+		out << "---\n";
+
+		{
+			YAML::Node config;
+			config["dls_setup"] = dls_entry;
+			out << config << '\n';
+		}
+
+		{
+			YAML::Node config;
+			config["fpga_name"] = data.fpga_name;
+			out << config << '\n';
+		}
+
+		{
+			YAML::Node config;
+			config["board_name"] = data.board_name;
+			out << config << '\n';
+		}
+
+		{
+			YAML::Node config;
+			config["board_version"] = data.board_version;
+			out << config << '\n';
+		}
+
+		{
+			YAML::Node config;
+			config["chip_id"] = data.chip_id;
+			out << config << '\n';
+		}
+
+		{
+			YAML::Node config;
+			config["chip_version"] = data.chip_version;
+			out << config << '\n';
+		}
+
+		if (data.ntpwr_ip != " ") {
+			YAML::Node config;
+			config["ntpwr_ip"] = data.ntpwr_ip;
+			out << config << '\n';
+		}
+
+		if (data.ntpwr_slot != 0) {
+			YAML::Node config;
+			config["ntpwr_slot"] = data.ntpwr_slot;
+			out << config << '\n';
+		}
+
+	}
 }
 
 void database::add_wafer_entry(Wafer const wafer, WaferEntry const entry) {
-	mData[wafer] = entry;
+	mWaferData[wafer] = entry;
 }
 
 bool database::remove_wafer_entry(Wafer const wafer) {
-	return mData.erase(wafer);
+	return mWaferData.erase(wafer);
 }
 
 bool database::has_wafer_entry(Wafer const wafer) const {
-	return mData.count(wafer);
+	return mWaferData.count(wafer);
 }
 
 WaferEntry& database::get_wafer_entry(Wafer const wafer) {
-	return mData.at(wafer);
+	return mWaferData.at(wafer);
 }
 
 WaferEntry const& database::get_wafer_entry(Wafer const wafer) const {
-	return mData.at(wafer);
+	return mWaferData.at(wafer);
 }
 
 std::vector<halco::hicann::v2::Wafer> database::get_wafer_coordinates() const
 {
 	std::vector<halco::hicann::v2::Wafer> ret;
-	for (auto it : mData) {
+	for (auto it : mWaferData) {
 		ret.push_back(it.first);
 	}
 	return ret;
 }
 
 void database::add_fpga_entry(FPGAGlobal const fpga, FPGAEntry const entry) {
-	mData.at(fpga.toWafer()).fpgas[fpga] = entry;
+	mWaferData.at(fpga.toWafer()).fpgas[fpga] = entry;
 }
 
 bool database::remove_fpga_entry(FPGAGlobal const fpga) {
-	bool ok = mData.at(fpga.toWafer()).fpgas.erase(fpga);
+	bool ok = mWaferData.at(fpga.toWafer()).fpgas.erase(fpga);
 	if (ok) {
 		for (auto hicann : fpga.toHICANNGlobal()) {
 			remove_hicann_entry(hicann);
@@ -478,65 +591,65 @@ bool database::remove_fpga_entry(FPGAGlobal const fpga) {
 
 bool database::has_fpga_entry(FPGAGlobal const fpga) const {
 	if (has_wafer_entry(fpga.toWafer())) {
-		return mData.at(fpga.toWafer()).fpgas.count(fpga);
+		return mWaferData.at(fpga.toWafer()).fpgas.count(fpga);
 	}
 	return false;
 }
 
 FPGAEntry const& database::get_fpga_entry(FPGAGlobal const fpga) const {
-	return mData.at(fpga.toWafer()).fpgas.at(fpga);
+	return mWaferData.at(fpga.toWafer()).fpgas.at(fpga);
 }
 
 FPGAEntryMap database::get_fpga_entries(Wafer const wafer) const {
-	return mData.at(wafer).fpgas;
+	return mWaferData.at(wafer).fpgas;
 }
 
 void database::add_ananas_entry(ANANASGlobal const ananas, ANANASEntry const entry) {
-	mData.at(ananas.toWafer()).ananas[ananas] = entry;
+	mWaferData.at(ananas.toWafer()).ananas[ananas] = entry;
 }
 
 bool database::remove_ananas_entry(ANANASGlobal const ananas) {
-	return mData.at(ananas.toWafer()).ananas.erase(ananas);
+	return mWaferData.at(ananas.toWafer()).ananas.erase(ananas);
 }
 
 bool database::has_ananas_entry(ANANASGlobal const ananas) const {
 	if (has_wafer_entry(ananas.toWafer())) {
-		return mData.at(ananas.toWafer()).ananas.count(ananas);
+		return mWaferData.at(ananas.toWafer()).ananas.count(ananas);
 	}
 	return false;
 }
 
 ANANASEntry const& database::get_ananas_entry(ANANASGlobal const ananas) const {
-	return mData.at(ananas.toWafer()).ananas.at(ananas);
+	return mWaferData.at(ananas.toWafer()).ananas.at(ananas);
 }
 
 ANANASEntryMap database::get_ananas_entries(Wafer const wafer) const {
-	return mData.at(wafer).ananas;
+	return mWaferData.at(wafer).ananas;
 }
 
 void database::add_hicann_entry(HICANNGlobal const hicann, HICANNEntry const entry) {
-	WaferEntry& wafer = mData.at(hicann.toWafer());
+	WaferEntry& wafer = mWaferData.at(hicann.toWafer());
 	wafer.fpgas.at(hicann.toFPGAGlobal());
 	wafer.hicanns[hicann] = entry;
 }
 
 bool database::remove_hicann_entry(HICANNGlobal const hicann) {
-	return mData.at(hicann.toWafer()).hicanns.erase(hicann);
+	return mWaferData.at(hicann.toWafer()).hicanns.erase(hicann);
 }
 
 bool database::has_hicann_entry(HICANNGlobal const hicann) const {
 	if (has_wafer_entry(hicann.toWafer())) {
-		return mData.at(hicann.toWafer()).hicanns.count(hicann);
+		return mWaferData.at(hicann.toWafer()).hicanns.count(hicann);
 	}
 	return false;
 }
 
 HICANNEntry const& database::get_hicann_entry(HICANNGlobal const hicann) const {
-	return mData.at(hicann.toWafer()).hicanns.at(hicann);
+	return mWaferData.at(hicann.toWafer()).hicanns.at(hicann);
 }
 
 HICANNEntryMap database::get_hicann_entries(Wafer const wafer) const {
-	return mData.at(wafer).hicanns;
+	return mWaferData.at(wafer).hicanns;
 }
 
 HICANNEntryMap database::get_hicann_entries(FPGAGlobal const fpga) const {
@@ -546,40 +659,69 @@ HICANNEntryMap database::get_hicann_entries(FPGAGlobal const fpga) const {
 		auto dnconwafer = gridLookupDNCGlobal(FPGAGlobal(fpga), DNCOnFPGA(Enum(0))).toDNCOnWafer();
 		auto hicannglobal = HICANNGlobal(hicann.toHICANNOnWafer(dnconwafer), Wafer(fpga.toWafer()));
 		if (has_hicann_entry(hicannglobal)) {
-			ret_map[hicannglobal] = mData.at(hicannglobal.toWafer()).hicanns.at(hicannglobal);
+			ret_map[hicannglobal] = mWaferData.at(hicannglobal.toWafer()).hicanns.at(hicannglobal);
 		}
 	}
 	return ret_map;
 }
 
 void database::add_adc_entry(GlobalAnalog_t const analog, ADCEntry const entry) {
-	mData.at(analog.first.toWafer()).adcs[analog] = entry;
+	mWaferData.at(analog.first.toWafer()).adcs[analog] = entry;
 }
 
 bool database::remove_adc_entry(GlobalAnalog_t const analog) {
-	return mData.at(analog.first.toWafer()).adcs.erase(analog);
+	return mWaferData.at(analog.first.toWafer()).adcs.erase(analog);
 }
 
 bool database::has_adc_entry(GlobalAnalog_t const analog) const {
-	return mData.at(analog.first.toWafer()).adcs.count(analog);
+	return mWaferData.at(analog.first.toWafer()).adcs.count(analog);
 }
 
 ADCEntry const& database::get_adc_entry(GlobalAnalog_t const analog) const {
-	return mData.at(analog.first.toWafer()).adcs.at(analog);
+	return mWaferData.at(analog.first.toWafer()).adcs.at(analog);
 }
 
 ADCEntryMap database::get_adc_entries(Wafer const wafer) const {
-	return mData.at(wafer).adcs;
+	return mWaferData.at(wafer).adcs;
 }
 
 ADCEntryMap database::get_adc_entries(FPGAGlobal const fpga) const {
 	ADCEntryMap ret_map;
 	for (auto analog : iter_all<AnalogOnHICANN>()) {
-		if (mData.at(fpga.toWafer()).adcs.count(GlobalAnalog_t(fpga, analog)) > 0) {
-			ret_map[GlobalAnalog_t(fpga, analog)] = mData.at(fpga.toWafer()).adcs.at(GlobalAnalog_t(fpga, analog));
+		if (mWaferData.at(fpga.toWafer()).adcs.count(GlobalAnalog_t(fpga, analog)) > 0) {
+			ret_map[GlobalAnalog_t(fpga, analog)] = mWaferData.at(fpga.toWafer()).adcs.at(GlobalAnalog_t(fpga, analog));
 		}
 	}
 	return ret_map;
+}
+
+void database::add_dls_entry(std::string const dls_setup, DLSSetupEntry const entry) {
+	mDLSData[dls_setup] = entry;
+}
+
+bool database::remove_dls_entry(std::string const dls_setup) {
+	return mDLSData.erase(dls_setup);
+}
+
+bool database::has_dls_entry(std::string const dls_setup) const {
+	return mDLSData.count(dls_setup);
+}
+
+DLSSetupEntry& database::get_dls_entry(std::string const dls_setup) {
+	return mDLSData.at(dls_setup);
+}
+
+DLSSetupEntry const& database::get_dls_entry(std::string const dls_setup) const {
+	return mDLSData.at(dls_setup);
+}
+
+std::vector<std::string> database::get_dls_setup_ids() const
+{
+	std::vector<std::string> ret;
+	for (auto it : mDLSData) {
+		ret.push_back(it.first);
+	}
+	return ret;
 }
 
 

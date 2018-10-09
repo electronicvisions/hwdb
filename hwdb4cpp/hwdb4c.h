@@ -86,6 +86,20 @@ struct SYMBOL_VISIBLE hwdb4c_wafer_entry {
 	ip_addr_t macu_ip;
 };
 
+struct SYMBOL_VISIBLE hwdb4c_dls_setup_entry {
+	//key
+	char* dls_setup;
+
+	//values
+	char* fpga_name;
+	char* board_name;
+	size_t board_version;
+	size_t chip_id;
+	size_t chip_version;
+	char* ntpwr_ip;
+	size_t ntpwr_slot;
+};
+
 
 // functions to allocate cpp hwdb object
 int hwdb4c_alloc_hwdb(struct hwdb4c_database_t** ret) SYMBOL_VISIBLE;
@@ -104,6 +118,7 @@ int hwdb4c_has_ananas_entry(struct hwdb4c_database_t* handle, size_t ananasgloba
 int hwdb4c_has_hicann_entry(struct hwdb4c_database_t* handle, size_t hicannglobal_id, bool* ret) SYMBOL_VISIBLE;
 int hwdb4c_has_adc_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id, size_t analogonhicann, bool* ret) SYMBOL_VISIBLE;
 int hwdb4c_has_wafer_entry(struct hwdb4c_database_t* handle, size_t wafer_id, bool* ret) SYMBOL_VISIBLE;
+int hwdb4c_has_dls_entry(struct hwdb4c_database_t* handle, char* dls_setup, bool* ret) SYMBOL_VISIBLE;
 
 // get entry from hwdb, if entry not in hwdb or invalid coord returns HWDB4C_FAILURE
 // onwership of entries lies with user, use corresponding hwdb4c_free_xxx_entry function to free memory
@@ -112,9 +127,13 @@ int hwdb4c_get_ananas_entry(struct hwdb4c_database_t* handle, size_t ananasgloba
 int hwdb4c_get_hicann_entry(struct hwdb4c_database_t* handle, size_t hicannglobal_id, struct hwdb4c_hicann_entry** ret) SYMBOL_VISIBLE;
 int hwdb4c_get_adc_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id, size_t analogonhicann, struct hwdb4c_adc_entry** ret) SYMBOL_VISIBLE;
 int hwdb4c_get_wafer_entry(struct hwdb4c_database_t* handle, size_t wafer_id, struct hwdb4c_wafer_entry** ret) SYMBOL_VISIBLE;
+int hwdb4c_get_dls_entry(struct hwdb4c_database_t* handle, char* dls_setup, struct hwdb4c_dls_setup_entry** ret) SYMBOL_VISIBLE;
 
 // returns all Wafer IDs in database as size_t array of size num_wafer, ownership of array lies with user
 int hwdb4c_get_wafer_coordinates(struct hwdb4c_database_t* handle, size_t** wafer, size_t* num_wafer) SYMBOL_VISIBLE;
+
+// returns all DLS setup IDs in database as char* array of size num_dls_setups
+int hwdb4c_get_dls_setup_ids(struct hwdb4c_database_t* handle, char*** dls_setups, size_t* num_dls_setups) SYMBOL_VISIBLE;
 
 // get array of entries, size of array given with num_xxx, if num_xxx ist zero than pointer is NULL
 // return HWDB4C_SUCCESS on success, if coord invalid returns HWDB4C_FAILURE
@@ -130,6 +149,7 @@ void hwdb4c_free_ananas_entry(struct hwdb4c_ananas_entry* ananas) SYMBOL_VISIBLE
 void hwdb4c_free_hicann_entry(struct hwdb4c_hicann_entry* hicann) SYMBOL_VISIBLE;
 void hwdb4c_free_adc_entry(struct hwdb4c_adc_entry* adc) SYMBOL_VISIBLE;
 void hwdb4c_free_wafer_entry(struct hwdb4c_wafer_entry* wafer) SYMBOL_VISIBLE;
+void hwdb4c_free_dls_setup_entry(struct hwdb4c_dls_setup_entry* dls_setup) SYMBOL_VISIBLE;
 void hwdb4c_free_hicann_entries(struct hwdb4c_hicann_entry** hicanns, size_t num_hicanns) SYMBOL_VISIBLE;
 void hwdb4c_free_adc_entries(struct hwdb4c_adc_entry** adcs, size_t num_adcs) SYMBOL_VISIBLE;
 

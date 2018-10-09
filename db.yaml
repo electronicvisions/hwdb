@@ -6372,3 +6372,64 @@ fpgas:
     ip: 192.168.100.108
 hicanns:
   version: 2
+---
+dls_setup: '07_20'
+fpga_name: '07'
+board_name: 'Gaston'
+board_version: 2
+chip_id: 20
+chip_version: 2
+ntpwr_ip: '192.168.200.54'
+ntpwr_slot: 1
+---
+dls_setup: 'B201319_22'
+fpga_name: 'B201319'
+board_name: 'Lucky Luke'
+board_version: 3
+chip_id: 22
+chip_version: 2
+ntpwr_ip: '192.168.200.53'
+ntpwr_slot: 3
+---
+dls_setup: 'B201330_24'
+fpga_name: 'B201330'
+board_name: 'Averell Dalton'
+board_version: 2
+chip_id: 24
+chip_version: 2
+ntpwr_ip: '192.168.200.53'
+ntpwr_slot: 2
+---
+dls_setup: 'B291660_8'
+fpga_name: 'B291660'
+board_name: 'Jack London'
+board_version: 3
+chip_id: 8
+chip_version: 3
+ntpwr_ip: '192.168.200.53'
+ntpwr_slot: 1
+---
+dls_setup: 'B291698_23'
+fpga_name: 'B291698'
+board_name: 'Joe Dalton'
+board_version: 2
+chip_id: 23
+chip_version: 2
+ntpwr_ip: '192.168.200.53'
+ntpwr_slot: 4
+---
+dls_setup: 'B291656_30'
+fpga_name: 'B291656'
+board_name: 'Fantasio'
+board_version: 2
+chip_id: 30
+chip_version: 2
+ntpwr_ip: '192.168.200.54'
+ntpwr_slot: 4
+---
+dls_setup: 'B291673_7'
+fpga_name: 'B291673'
+board_name: 'Sitting Bull'
+board_version: 3
+chip_id: 7
+chip_version: 3

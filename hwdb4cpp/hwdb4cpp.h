@@ -10,9 +10,10 @@ namespace hwdb4cpp {
 /// YAML Hardware Database File Format:
 /// ===================================
 ///
-/// Each wafer is a seperate YAML document (YAML documents in a single file
-/// are seperated by a line containing '---').
-/// The document has a map entry with the keys:
+/// Each wafer/DLS setup is a seperate YAML document (YAML documents in a single
+/// file are seperated by a line containing '---').
+///
+/// The wafer entries have a map entry with the keys:
 ///  - wafer: Numerical coordinate of the wafer
 ///  - setuptype: vsetup facetswafer cubesetup bsswafer (case-insensitive)
 ///  - adcs: A sequence of mappings describing ADCs connection (see below)
@@ -55,6 +56,14 @@ namespace hwdb4cpp {
 /// are connected, the HICANN sequence can be replaced by a map. In this case
 /// all HICANNs on all specified FPGAs will be available. The mapping contains:
 ///  - version: HICANN version
+///
+/// The DLS setups have a map entry with the keys:
+///  - fpga_name: Individual FPGA id as string
+///  - board_version: Version of the baseboard
+///  - chip_id: Individual id of the chip
+///  - chip_version: Version of the DLS-chip
+///  - ntpwr_ip: IP of the correspoding Netpower for remote power cycling
+///  - ntpwr_slot: Slot of the setup in the Netpower
 
 
 /* HWDB Entry Types: Structs representing the data in the YAML database */
@@ -107,6 +116,23 @@ struct WaferEntry
 	ANANASEntryMap ananas;
 	HICANNEntryMap hicanns;
 	halco::hicann::v2::IPv4 macu;
+};
+
+struct DLSSetupEntry
+{
+	std::string fpga_name;
+	std::string board_name;
+	size_t board_version;
+	size_t chip_id;
+	size_t chip_version;
+	std::string ntpwr_ip;
+	size_t ntpwr_slot;
+
+	DLSSetupEntry()
+	{
+		ntpwr_ip = " ";
+		ntpwr_slot = 0;
+	}
 };
 /* ******************************************************************** */
 
@@ -187,6 +213,15 @@ public:
 	/// Get all entries for all ADCs on a FPGAGlobal
 	ADCEntryMap get_adc_entries(halco::hicann::v2::FPGAGlobal const fpga) const;
 
+	/// Insert (and replace) a new dls entry into the database
+	void add_dls_entry(std::string const dls_setup, DLSSetupEntry const entry);
+	bool remove_dls_entry(std::string const dls_setup);
+	/// Check if dls entry exists
+	bool has_dls_entry(std::string const dls_setup) const;
+	DLSSetupEntry& get_dls_entry(std::string const dls_setup);
+	DLSSetupEntry const& get_dls_entry(std::string const dls_setup) const;
+	std::vector<std::string> get_dls_setup_ids() const;
+
 private:
 	// used by yaml-cpp => FIXME: change to add_{fpga,hicann,adc}_entry
 	void add_fpga(halco::hicann::v2::FPGAGlobal const, const FPGAEntry& data);
@@ -194,7 +229,8 @@ private:
 	void add_hicann(halco::hicann::v2::HICANNGlobal const, const HICANNEntry& data);
 	void add_adc(GlobalAnalog_t const, const ADCEntry& data);
 
-	std::map<halco::hicann::v2::Wafer, WaferEntry> mData;
+	std::map<halco::hicann::v2::Wafer, WaferEntry> mWaferData;
+	std::map<std::string, DLSSetupEntry> mDLSData;
 
 	static std::string const default_path;
 };
