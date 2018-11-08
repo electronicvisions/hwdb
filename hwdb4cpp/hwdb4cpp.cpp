@@ -274,7 +274,11 @@ void database::load(std::string const path)
 			// FIXME: use encode/decode schema (see FPGAYAML below)
 			WaferEntry entry;
 			entry.setup_type = YAML::get_entry<SetupType>(config, "setuptype");
-			entry.macu = YAML::get_entry<IPv4>(config, "macu", IPv4());
+			if (entry.setup_type == SetupType::BSSWafer) {
+				entry.macu = YAML::get_entry<IPv4>(config, "macu");
+			} else {
+				entry.macu = YAML::get_entry<IPv4>(config, "macu", IPv4());
+			}
 			add_wafer_entry(wafer, entry);
 
 			auto fpga_entries = config["fpgas"];

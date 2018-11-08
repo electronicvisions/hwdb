@@ -28,8 +28,10 @@ class Test_Pyhwdb(unittest.TestCase):
 
     def test_default_path_valid(self):
         import os
-        default_path = pyhwdb.database.get_default_path()
+        db = pyhwdb.database()
+        default_path = db.get_default_path()
         self.assertTrue(os.path.exists(default_path))
+        db.load(default_path)
 
     def test_add_to_empty_db(self):
         mydb = pyhwdb.database()
