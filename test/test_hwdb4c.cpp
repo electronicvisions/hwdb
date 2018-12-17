@@ -45,7 +45,7 @@ protected:
 	std::string test_path;
 	int fd;
 
-std::string const test_db_string =
+	std::string const test_db_string =
 "---\n\
 wafer: 5\n\
 setuptype: bsswafer\n\
@@ -107,11 +107,20 @@ TEST_F(HWDB4C_Test, HWDB_Handle)
 	ASSERT_TRUE(hwdb != NULL);
 	ASSERT_EQ(hwdb4c_load_hwdb(hwdb, test_path.c_str()), HWDB4C_SUCCESS);
 	hwdb4c_free_hwdb(hwdb);
-	// test if default HWDB can be loaded
-	ASSERT_EQ(hwdb4c_alloc_hwdb(&hwdb), HWDB4C_SUCCESS);
-	ASSERT_TRUE(hwdb != NULL);
-	ASSERT_EQ(hwdb4c_load_hwdb(hwdb, NULL), HWDB4C_SUCCESS);
-	hwdb4c_free_hwdb(hwdb);
+}
+
+TEST_F(HWDB4C_Test, HWDB_default_path)
+{
+	// only run this test at deployment time
+	if (std::getenv("GERRIT_EVENT_TYPE") != 0 && strcmp(std::getenv("GERRIT_EVENT_TYPE"), "change-merged") == 0)
+	{
+		hwdb4c_database_t* hwdb = NULL;
+
+		ASSERT_EQ(hwdb4c_alloc_hwdb(&hwdb), HWDB4C_SUCCESS);
+		ASSERT_TRUE(hwdb != NULL);
+		ASSERT_EQ(hwdb4c_load_hwdb(hwdb, NULL), HWDB4C_SUCCESS);
+		hwdb4c_free_hwdb(hwdb);
+	}
 }
 
 TEST_F(HWDB4C_Test, has_entry)

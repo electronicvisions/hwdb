@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import unittest
+import os
 import pyhwdb
 import pyhalco_hicann_v2 as coord
 
@@ -26,8 +27,8 @@ class Test_Pyhwdb(unittest.TestCase):
 
         self.DLS_SETUP_ID = "07_20"
 
+    @unittest.skipUnless("GERRIT_EVENT_TYPE" in os.environ and os.environ["GERRIT_EVENT_TYPE"]=="change-merged", "for deployment tests only")
     def test_default_path_valid(self):
-        import os
         db = pyhwdb.database()
         default_path = db.get_default_path()
         self.assertTrue(os.path.exists(default_path))
