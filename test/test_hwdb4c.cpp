@@ -50,6 +50,7 @@ protected:
 wafer: 5\n\
 setuptype: bsswafer\n\
 macu: 192.168.200.165\n\
+macuversion: 1\n\
 fpgas:\n\
   - fpga: 0\n\
     ip: 192.168.5.1\n\
@@ -263,6 +264,7 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(wafer->num_hicann_entries, 3);
 	EXPECT_EQ(wafer->num_adc_entries, 3);
 	EXPECT_EQ(std::string(inet_ntoa(wafer->macu_ip)), "192.168.200.165");
+	EXPECT_EQ(wafer->macu_version, 1);
 
 	bool ret = false;
 	ASSERT_EQ(

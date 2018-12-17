@@ -116,6 +116,7 @@ struct WaferEntry
 	ANANASEntryMap ananas;
 	HICANNEntryMap hicanns;
 	halco::hicann::v2::IPv4 macu;
+	size_t macu_version;
 };
 
 struct DLSSetupEntry

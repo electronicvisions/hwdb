@@ -84,6 +84,7 @@ struct SYMBOL_VISIBLE hwdb4c_wafer_entry {
 	struct hwdb4c_adc_entry** adcs;
 	size_t num_adc_entries;
 	ip_addr_t macu_ip;
+	size_t macu_version;
 };
 
 struct SYMBOL_VISIBLE hwdb4c_dls_setup_entry {

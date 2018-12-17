@@ -276,8 +276,10 @@ void database::load(std::string const path)
 			entry.setup_type = YAML::get_entry<SetupType>(config, "setuptype");
 			if (entry.setup_type == SetupType::BSSWafer) {
 				entry.macu = YAML::get_entry<IPv4>(config, "macu");
+				entry.macu_version = YAML::get_entry<size_t>(config, "macuversion");
 			} else {
 				entry.macu = YAML::get_entry<IPv4>(config, "macu", IPv4());
+				entry.macu_version = YAML::get_entry<size_t>(config, "macuversion", 0);
 			}
 			add_wafer_entry(wafer, entry);
 
@@ -428,6 +430,7 @@ void database::dump(std::ostream& out) const
 		{
 			YAML::Node config;
 			config["macu"] = data.macu;
+			config["macuversion"] = data.macu_version;
 			out << config << '\n';
 		}
 

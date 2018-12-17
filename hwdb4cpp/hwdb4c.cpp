@@ -129,6 +129,7 @@ int _convert_wafer_entry(hwdb4cpp::WaferEntry wafer_entry_cpp, Wafer wafercoord,
 	}
 
 	inet_aton(wafer_entry_cpp.macu.to_string().c_str(), &(wafer_entry_c->macu_ip));
+	wafer_entry_c->macu_version = wafer_entry_cpp.macu_version;
 	*ret = wafer_entry_c;
 	return HWDB4C_SUCCESS;
 }

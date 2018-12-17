@@ -87,6 +87,7 @@ hicanns:
 wafer: 17
 setuptype: bsswafer
 macu: 192.168.200.182
+macuversion: 3
 fpgas:
   - fpga: 0
     ip: 192.168.17.1
@@ -195,6 +196,7 @@ hicanns:
 wafer: 19
 setuptype: bsswafer
 macu: 192.168.200.165
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.19.1
@@ -973,6 +975,7 @@ adcs:
 wafer: 18
 setuptype: bsswafer
 macu: 192.168.200.148
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.18.1
@@ -1751,6 +1754,7 @@ adcs:
 wafer: 20
 setuptype: bsswafer
 macu: 192.168.200.160
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.20.1
@@ -1856,6 +1860,7 @@ hicanns:
 wafer: 21
 setuptype: bsswafer
 macu: 192.168.200.178
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.21.1
@@ -1961,6 +1966,7 @@ hicanns:
 wafer: 22
 setuptype: bsswafer
 macu: 192.168.200.169
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.22.1
@@ -2739,6 +2745,7 @@ adcs:
 wafer: 23
 setuptype: bsswafer
 macu: 192.168.200.170
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.23.1
@@ -2844,6 +2851,7 @@ hicanns:
 wafer: 24
 setuptype: bsswafer
 macu: 192.168.200.149
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.24.1
@@ -3230,6 +3238,7 @@ adcs:
 wafer: 25
 setuptype: bsswafer
 macu: 192.168.200.149
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.25.1
@@ -3335,6 +3344,7 @@ hicanns:
 wafer: 26
 setuptype: bsswafer
 macu: 192.168.200.150
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.26.1
@@ -3440,6 +3450,7 @@ hicanns:
 wafer: 27
 setuptype: bsswafer
 macu: 192.168.200.147
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.27.1
@@ -3545,6 +3556,7 @@ hicanns:
 wafer: 28
 setuptype: bsswafer
 macu: 192.168.200.164
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.28.1
@@ -3650,6 +3662,7 @@ hicanns:
 wafer: 29
 setuptype: bsswafer
 macu: 192.168.200.162
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.29.1
@@ -3980,6 +3993,7 @@ hicanns:
 wafer: 30
 setuptype: bsswafer
 macu: 192.168.200.161
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.30.1
@@ -4085,6 +4099,7 @@ hicanns:
 wafer: 31
 setuptype: bsswafer
 macu: 192.168.200.159
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.31.1
@@ -4190,6 +4205,7 @@ hicanns:
 wafer: 33
 setuptype: bsswafer
 macu: 192.168.200.172
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.33.1
@@ -4968,6 +4984,7 @@ adcs:
 wafer: 34
 setuptype: bsswafer
 macu: 192.168.200.171
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.34.1
@@ -5073,6 +5090,7 @@ hicanns:
 wafer: 35
 setuptype: bsswafer
 macu: 192.168.200.174
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.35.1
@@ -5178,6 +5196,7 @@ hicanns:
 wafer: 36
 setuptype: bsswafer
 macu: 192.168.200.168
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.36.1
@@ -5283,6 +5302,7 @@ hicanns:
 wafer: 37
 setuptype: bsswafer
 macu: 192.168.200.158
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.37.1
@@ -6061,6 +6081,7 @@ adcs:
 wafer: 38
 setuptype: bsswafer
 macu: 192.168.200.156
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.38.1
@@ -6166,6 +6187,7 @@ hicanns:
 wafer: 39
 setuptype: bsswafer
 macu: 192.168.200.163
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.39.1
@@ -6271,6 +6293,7 @@ hicanns:
 wafer: 100
 setuptype: bsswafer
 macu: 192.168.101.254
+macuversion: 1
 fpgas:
   - fpga: 0
     ip: 192.168.100.1
