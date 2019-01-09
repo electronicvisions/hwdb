@@ -267,7 +267,7 @@ void database::load(std::string const path)
 
 	for (YAML::Node config : YAML::LoadAllFromFile(path)) {
 
-		// If yaml document is from a wafer
+		// yaml node is from a wafer
 		if (config["wafer"].IsDefined()) {
 
 			Wafer wafer(YAML::get_entry<size_t>(config, "wafer"));
@@ -331,7 +331,7 @@ void database::load(std::string const path)
 
 		}
 
-		// If yaml document is from a dls setup
+		// yaml node is from a dls setup
 		else if (config["dls_setup"].IsDefined()) {
 
 			auto dls_setup = config["dls_setup"].as<std::string>();
@@ -374,9 +374,9 @@ void database::load(std::string const path)
 			}
 		}
 
-		// If yaml document does not containe wafer or dls setup
+		// yaml node does not contain wafer or dls setup
 		else {
-			throw std::runtime_error("entry neither from a wafer nor a dls setup");
+			LOG4CXX_WARN(logger, "Found node entry neither from wafer nor dls setup, ignore");
 		}
 	}
 }
