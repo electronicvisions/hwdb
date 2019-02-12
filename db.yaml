@@ -4,6 +4,10 @@ setuptype: cubesetup
 fpgas:
   - fpga: 0
     ip: 192.168.4.1
+  - fpga: 1
+    ip: 192.168.4.2
+  - fpga: 2
+    ip: 192.168.4.3
   - fpga: 3
     ip: 192.168.4.4
 adcs:
