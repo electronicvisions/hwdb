@@ -1,0 +1,18 @@
+@Library("jenlib") _
+
+// BrainScaleS Wafer
+wafDefaultPipeline(projects: ["hwdb"],
+                   container: [app: "visionary-wafer"],
+                   prePipelineCleanup: true,
+                   testOptions: "--test-execall -j1",
+                   testSlurmResource: [partition: "jenkins"],
+                   notificationChannel: "#visionary-wafer-users")
+
+// DLSv2
+wafDefaultPipeline(projects: ["hwdb"],
+                   container: [app: "visionary-dls"],
+                   prePipelineCleanup: true,
+                   testOptions: "--test-execall -j1",
+                   testSlurmResource: [partition: "jenkins"],
+                   notificationChannel: "#dls-software")
+
