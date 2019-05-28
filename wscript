@@ -5,6 +5,7 @@ APPNAME='hwdb'
 
 def depends(ctx):
     ctx('halco')
+    ctx('logger')
     ctx('pywrap')
 
 def options(opt):
