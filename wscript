@@ -62,14 +62,13 @@ def build(bld):
 
     bld(
         target         = 'pyhwdb',
-        features       = 'cxx cxxshlib pypp pyembed pyext post_task',
+        features       = 'cxx cxxshlib pypp pyembed pyext',
         script         = 'pyhwdb/generate.py',
         gen_defines    = 'PYPLUSPLUS __STRICT_ANSI__',
         defines        = 'PYBINDINGS',
         headers        = 'pyhwdb/pyhwdb.h',
         use            = ['hwdb4cpp', 'pyhalco_hicann_v2', 'pywrap'],
         install_path   = '${PREFIX}/lib',
-        post_task      = ['pyhwdb_tests'],
         linkflags      = '-Wl,-z,defs',
     )
 
