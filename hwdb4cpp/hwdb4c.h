@@ -166,6 +166,10 @@ int hwdb4c_FPGAOnWafer_toTriggerOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 int hwdb4c_HICANNOnWafer_toReticleOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 int hwdb4c_HICANNOnWafer_toFPGAOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 int hwdb4c_TriggerOnWafer_toANANASOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
+int hwdb4c_HICANNOnWafer_east(size_t hicann_id, size_t* ret_east_id) SYMBOL_VISIBLE;
+int hwdb4c_HICANNOnWafer_south(size_t hicann_id, size_t* ret_south_id) SYMBOL_VISIBLE;
+int hwdb4c_HICANNOnWafer_west(size_t hicann_id, size_t* ret_west_id) SYMBOL_VISIBLE;
+int hwdb4c_HICANNOnWafer_north(size_t hicann_id, size_t* ret_north_id) SYMBOL_VISIBLE;
 
 #ifdef __cplusplus
 } // extern "C"

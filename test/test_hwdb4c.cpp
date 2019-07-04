@@ -331,4 +331,26 @@ TEST_F(HWDB4C_Test, coord)
 	EXPECT_EQ(hwdb4c_FPGAOnWafer_toTriggerOnWafer(12, &ret), HWDB4C_SUCCESS);
 	EXPECT_EQ(ret, 5);
 	EXPECT_EQ(hwdb4c_FPGAOnWafer_toTriggerOnWafer(1008, &ret), HWDB4C_FAILURE);
+
+	EXPECT_EQ(hwdb4c_HICANNOnWafer_north(13, &ret), HWDB4C_SUCCESS);
+	EXPECT_EQ(ret, 1);
+	EXPECT_EQ(hwdb4c_HICANNOnWafer_east(13, &ret), HWDB4C_SUCCESS);
+	EXPECT_EQ(ret, 14);
+	EXPECT_EQ(hwdb4c_HICANNOnWafer_south(13, &ret), HWDB4C_SUCCESS);
+	EXPECT_EQ(ret, 29);
+	EXPECT_EQ(hwdb4c_HICANNOnWafer_west(13, &ret), HWDB4C_SUCCESS);
+	EXPECT_EQ(ret, 12);
+
+	EXPECT_EQ(
+	    hwdb4c_HICANNOnWafer_north(halco::hicann::v2::HICANNOnWafer::enum_type::min, &ret),
+	    HWDB4C_FAILURE);
+	EXPECT_EQ(
+	    hwdb4c_HICANNOnWafer_west(halco::hicann::v2::HICANNOnWafer::enum_type::min, &ret),
+	    HWDB4C_FAILURE);
+	EXPECT_EQ(
+	    hwdb4c_HICANNOnWafer_east(halco::hicann::v2::HICANNOnWafer::enum_type::max, &ret),
+	    HWDB4C_FAILURE);
+	EXPECT_EQ(
+	    hwdb4c_HICANNOnWafer_south(halco::hicann::v2::HICANNOnWafer::enum_type::max, &ret),
+	    HWDB4C_FAILURE);
 }

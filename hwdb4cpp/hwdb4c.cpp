@@ -562,4 +562,68 @@ int hwdb4c_TriggerOnWafer_toANANASOnWafer(size_t id, size_t* ret) {
 	return HWDB4C_SUCCESS;
 }
 
+int hwdb4c_HICANNOnWafer_east(size_t hicann_id, size_t* ret_east_id)
+{
+	/* There are two possible error cases. overflow_error is thrown if the resulting HICANN is
+	 * out of bounds, i.e. X or Y < 0 or too large. domain_error is thrown if the position would be
+	 * legal but no HICANN exists at that position, e.g. X(0),Y(0)*/
+	try {
+		auto const east_hicann = HICANNOnWafer(Enum(hicann_id)).east();
+		*ret_east_id = east_hicann.toEnum().value();
+	} catch (const std::overflow_error&) {
+		return HWDB4C_FAILURE;
+	} catch (const std::domain_error&) {
+		return HWDB4C_FAILURE;
+	}
+	return HWDB4C_SUCCESS;
+}
+
+int hwdb4c_HICANNOnWafer_south(size_t hicann_id, size_t* ret_south_id)
+{
+	/* There are two possible error cases. overflow_error is thrown if the resulting HICANN is
+	 * out of bounds, i.e. X or Y < 0 or too large. domain_error is thrown if the position would be
+	 * legal but no HICANN exists at that position, e.g. X(0),Y(0)*/
+	try {
+		auto const south_hicann = HICANNOnWafer(Enum(hicann_id)).south();
+		*ret_south_id = south_hicann.toEnum().value();
+	} catch (const std::overflow_error&) {
+		return HWDB4C_FAILURE;
+	} catch (const std::domain_error&) {
+		return HWDB4C_FAILURE;
+	}
+	return HWDB4C_SUCCESS;
+}
+
+int hwdb4c_HICANNOnWafer_west(size_t hicann_id, size_t* ret_west_id)
+{
+	/* There are two possible error cases. overflow_error is thrown if the resulting HICANN is
+	 * out of bounds, i.e. X or Y < 0 or too large. domain_error is thrown if the position would be
+	 * legal but no HICANN exists at that position, e.g. X(0),Y(0)*/
+	try {
+		auto const west_hicann = HICANNOnWafer(Enum(hicann_id)).west();
+		*ret_west_id = west_hicann.toEnum().value();
+	} catch (const std::overflow_error&) {
+		return HWDB4C_FAILURE;
+	} catch (const std::domain_error&) {
+		return HWDB4C_FAILURE;
+	}
+	return HWDB4C_SUCCESS;
+}
+
+int hwdb4c_HICANNOnWafer_north(size_t hicann_id, size_t* ret_north_id)
+{
+	/* There are two possible error cases. overflow_error is thrown if the resulting HICANN is
+	 * out of bounds, i.e. X or Y < 0 or too large. domain_error is thrown if the position would be
+	 * legal but no HICANN exists at that position, e.g. X(0),Y(0)*/
+	try {
+		auto const north_hicann = HICANNOnWafer(Enum(hicann_id)).north();
+		*ret_north_id = north_hicann.toEnum().value();
+	} catch (const std::overflow_error&) {
+		return HWDB4C_FAILURE;
+	} catch (const std::domain_error&) {
+		return HWDB4C_FAILURE;
+	}
+	return HWDB4C_SUCCESS;
+}
+
 } // extern "C"
