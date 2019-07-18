@@ -7170,6 +7170,60 @@ fpgas:
 hicanns:
   version: 2
 ---
+wafer: 60
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.60.1
+  - fpga: 3
+    ip: 192.168.60.4
+---
+wafer: 61
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.61.1
+  - fpga: 3
+    ip: 192.168.61.4
+---
+wafer: 62
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.62.1
+  - fpga: 3
+    ip: 192.168.62.4
+---
+wafer: 63
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.63.1
+  - fpga: 3
+    ip: 192.168.63.4
+---
+wafer: 64
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.64.1
+  - fpga: 3
+    ip: 192.168.64.4
+---
+wafer: 65
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.65.1
+  - fpga: 3
+    ip: 192.168.65.4
+---
 wafer: 100
 setuptype: bsswafer
 macu: 192.168.101.254
