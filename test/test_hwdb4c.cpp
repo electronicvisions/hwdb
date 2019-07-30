@@ -15,7 +15,8 @@ extern "C" {
 }
 
 static size_t constexpr testwafer_id = 5;
-static char testdls_id[] = "07_20";
+static char testdls_id0[] = "07_20";
+static char testdls_id1[] = "B123456_42";
 static char testdls_id_false[] = "07_21";
 static size_t constexpr fpgas_per_wafer = halco::hicann::v2::FPGAOnWafer::size;
 static size_t constexpr ananas_per_wafer = halco::hicann::v2::ANANASOnWafer::size;
@@ -95,7 +96,16 @@ board_version: 2\n\
 chip_id: '20'\n\
 chip_version: 2\n\
 ntpwr_ip: '192.168.200.54'\n\
-ntpwr_slot: 1";
+ntpwr_slot: 1\n\
+---\n\
+dls_setup: 'B123456_42'\n\
+fpga_name: 'B123456'\n\
+board_name: 'Herbert'\n\
+board_version: 5\n\
+chip_id: '42'\n\
+chip_version: 4\n\
+ntpwr_ip: '192.168.200.108'\n\
+ntpwr_slot: 3";
 };
 
 
@@ -138,7 +148,7 @@ TEST_F(HWDB4C_Test, has_entry)
 	EXPECT_FALSE(ret);
 
 	ret = false;
-	ASSERT_EQ(hwdb4c_has_dls_entry(hwdb, testdls_id, &ret), HWDB4C_SUCCESS);
+	ASSERT_EQ(hwdb4c_has_dls_entry(hwdb, testdls_id0, &ret), HWDB4C_SUCCESS);
 	EXPECT_TRUE(ret);
 	ASSERT_EQ(hwdb4c_has_dls_entry(hwdb, testdls_id_false, &ret), HWDB4C_SUCCESS);
 	EXPECT_FALSE(ret);
@@ -186,8 +196,9 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	size_t num_dls_setups = 0;
 	ASSERT_EQ(hwdb4c_get_dls_setup_ids(hwdb, &dls_setup_list, &num_dls_setups), HWDB4C_SUCCESS);
 	ASSERT_TRUE(dls_setup_list[0] != NULL);
-	ASSERT_EQ(num_dls_setups, 1);
-	ASSERT_EQ(strncmp(dls_setup_list[0], testdls_id, 5), 0);
+	ASSERT_EQ(num_dls_setups, 2);
+	ASSERT_EQ(strcmp(dls_setup_list[0], testdls_id0), 0);
+	ASSERT_EQ(strcmp(dls_setup_list[1], testdls_id1), 0);
 
 	hwdb4c_fpga_entry* fpga = NULL;
 	ASSERT_EQ(hwdb4c_get_fpga_entry(hwdb, fpgas_per_wafer * testwafer_id + 3, &fpga), HWDB4C_SUCCESS);

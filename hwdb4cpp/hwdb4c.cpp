@@ -343,8 +343,8 @@ int hwdb4c_get_dls_setup_ids(struct hwdb4c_database_t* handle, char*** dls_setup
 		return HWDB4C_FAILURE;
 	size_t dls_counter = 0;
 	for (auto dls_setup : dls_setup_list) {
-		*dls_setups[dls_counter] = (char*) malloc((dls_setup.length() + 1) * sizeof(char));
-		strncpy(*dls_setups[dls_counter], dls_setup.c_str(), dls_setup.length() + 1);
+		(*dls_setups)[dls_counter] = (char*) malloc((dls_setup.length() + 1) * sizeof(char));
+		strncpy((*dls_setups)[dls_counter], dls_setup.c_str(), dls_setup.length() + 1);
 		dls_counter++;
 	}
 	return HWDB4C_SUCCESS;
