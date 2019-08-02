@@ -18,6 +18,7 @@ static size_t constexpr testwafer_id = 5;
 static char testdls_id0[] = "07_20";
 static char testdls_id1[] = "B123456_42";
 static char testdls_id_false[] = "07_21";
+static size_t constexpr testhxcube_id = 6;
 static size_t constexpr fpgas_per_wafer = halco::hicann::v2::FPGAOnWafer::size;
 static size_t constexpr ananas_per_wafer = halco::hicann::v2::ANANASOnWafer::size;
 static size_t constexpr hicanns_per_wafer = halco::hicann::v2::HICANNOnWafer::size;
@@ -105,7 +106,15 @@ board_version: 5\n\
 chip_id: '42'\n\
 chip_version: 4\n\
 ntpwr_ip: '192.168.200.108'\n\
-ntpwr_slot: 3";
+ntpwr_slot: 3\n\
+---\n\
+hxcube_id: 6\n\
+fpga_ips: ['192.168.66.1', '192.168.66.4']\n\
+usb_host: 'AMTHost11'\n\
+ldo_version: 2\n\
+usb_serial: 'AFEABC1230456789'\n\
+chip_serial: 0x1234ABCD\
+";
 };
 
 
@@ -151,6 +160,12 @@ TEST_F(HWDB4C_Test, has_entry)
 	ASSERT_EQ(hwdb4c_has_dls_entry(hwdb, testdls_id0, &ret), HWDB4C_SUCCESS);
 	EXPECT_TRUE(ret);
 	ASSERT_EQ(hwdb4c_has_dls_entry(hwdb, testdls_id_false, &ret), HWDB4C_SUCCESS);
+	EXPECT_FALSE(ret);
+
+	ret = false;
+	ASSERT_EQ(hwdb4c_has_hxcube_entry(hwdb, testhxcube_id, &ret), HWDB4C_SUCCESS);
+	EXPECT_TRUE(ret);
+	ASSERT_EQ(hwdb4c_has_hxcube_entry(hwdb, testhxcube_id + 1, &ret), HWDB4C_SUCCESS);
 	EXPECT_FALSE(ret);
 
 	ret = false;
@@ -238,6 +253,18 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(adc->remote_port, 44489);
 	hwdb4c_free_adc_entry(adc);
 	adc = NULL;
+
+	hwdb4c_hxcube_entry* hxcube = NULL;
+	ASSERT_EQ(hwdb4c_get_hxcube_entry(hwdb, testhxcube_id, &hxcube), HWDB4C_SUCCESS);
+	ASSERT_TRUE(hxcube != NULL);
+	EXPECT_EQ(hxcube->hxcube_id, testhxcube_id);
+	EXPECT_EQ(std::string(inet_ntoa(hxcube->fpga_ips[0])), "192.168.66.1");
+	EXPECT_EQ(std::string(inet_ntoa(hxcube->fpga_ips[1])), "192.168.66.4");
+	EXPECT_EQ(hxcube->ldo_version, 2);
+	EXPECT_EQ(std::string(hxcube->usb_serial), "AFEABC1230456789");
+	EXPECT_EQ(hxcube->chip_serial, 0x1234ABCD);
+	hwdb4c_free_hxcube_entry(hxcube);
+	hxcube = NULL;
 
 	//just check if num of entries is correct from now, not all entry elements
 	hwdb4c_hicann_entry** hicanns = NULL;

@@ -26,6 +26,7 @@ class Test_Pyhwdb(unittest.TestCase):
         self.ADC_PORT = coord.TCPPort(10101)
 
         self.DLS_SETUP_ID = "07_20"
+        self.HXCUBE_ID = 9
 
     @unittest.skipUnless("GERRIT_EVENT_TYPE" in os.environ and os.environ["GERRIT_EVENT_TYPE"]=="change-merged", "for deployment tests only")
     def test_default_path_valid(self):
@@ -69,6 +70,21 @@ class Test_Pyhwdb(unittest.TestCase):
         self.assertTrue(mydb.has_dls_entry(dls_setup_id))
         mydb.remove_dls_entry(dls_setup_id)
         self.assertFalse(mydb.has_dls_entry(dls_setup_id))
+
+        hxcube_entry = pyhwdb.HXCubeSetupEntry()
+        hxcube_id = self.HXCUBE_ID
+        hxcube_entry.fpga_ips[0] = self.FPGA_IP
+        hxcube_entry.fpga_ips[1] = self.ADC_IP  # just a different IP
+        hxcube_entry.usb_host = "fantasy"
+        hxcube_entry.ldo_version = 8
+        hxcube_entry.usb_serial = "ABACD1243"
+        hxcube_entry.chip_serial = 0x987DE
+        self.assertFalse(mydb.has_hxcube_entry(hxcube_id))
+        mydb.add_hxcube_entry(hxcube_id, hxcube_entry)
+        self.assertTrue(mydb.has_hxcube_entry(hxcube_id))
+        mydb.remove_hxcube_entry(hxcube_id)
+        self.assertFalse(mydb.has_hxcube_entry(hxcube_id))
+        
 
         # require wafer entry to write other entry typed into
         mydb.add_wafer_entry(wafer_coord, wafer)

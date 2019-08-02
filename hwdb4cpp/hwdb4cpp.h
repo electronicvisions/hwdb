@@ -64,6 +64,14 @@ namespace hwdb4cpp {
 ///  - chip_version: Version of the DLS-chip
 ///  - ntpwr_ip: IP of the correspoding Netpower for remote power cycling
 ///  - ntpwr_slot: Slot of the setup in the Netpower
+///
+/// HICANN-X cube setups have a map entry with the keys:
+///  - hxcube_id: wafer id = hxcube_id + 60, defining FPGA IP range
+///  - fpga_ips: FPGA ips
+///  - usb_host: host that connects to MSP430 on cube-io
+///  - ldo_version: variant of the linear regulators on xboard
+///  - usb_serial: serial number of MSP430 (as string)
+///  - chip_serial: EEPROM serial on chip carrier (hex)
 
 
 /* HWDB Entry Types: Structs representing the data in the YAML database */
@@ -133,6 +141,24 @@ struct DLSSetupEntry
 	{
 		ntpwr_ip = " ";
 		ntpwr_slot = 0;
+	}
+};
+
+struct HXCubeSetupEntry
+{
+	size_t hxcube_id;
+	std::array<halco::hicann::v2::IPv4, 2> fpga_ips;
+	std::string usb_host;
+	size_t ldo_version;
+	std::string usb_serial;
+	size_t chip_serial;
+
+	HXCubeSetupEntry()
+	{
+		hxcube_id = 0;
+		usb_host = "None";
+		ldo_version = 0; // valid versions start from 1
+		chip_serial = 0;
 	}
 };
 /* ******************************************************************** */
@@ -223,6 +249,20 @@ public:
 	DLSSetupEntry const& get_dls_entry(std::string const dls_setup) const;
 	std::vector<std::string> get_dls_setup_ids() const;
 
+	/// Insert (and replace) a new HICANN-X cube setup entry into the database
+	void add_hxcube_entry(size_t const hxcube_id, HXCubeSetupEntry const entry);
+
+	/// Remove HICANN-X cube setup entry from the database
+	bool remove_hxcube_entry(size_t const hxcube_id);
+	/// Check if entry exists
+	bool has_hxcube_entry(size_t const hxcube_id) const;
+	/// Get a HICANN-X cube setup entry
+	HXCubeSetupEntry& get_hxcube_entry(size_t const hxcube_id);
+	/// Get a HICANN-X cube setup entry
+	HXCubeSetupEntry const& get_hxcube_entry(size_t const hxcube_id) const;
+	/// Get all HICANN-X cube setup entry ids
+	std::vector<size_t> get_hxcube_ids() const;
+
 private:
 	// used by yaml-cpp => FIXME: change to add_{fpga,hicann,adc}_entry
 	void add_fpga(halco::hicann::v2::FPGAGlobal const, const FPGAEntry& data);
@@ -232,6 +272,7 @@ private:
 
 	std::map<halco::hicann::v2::Wafer, WaferEntry> mWaferData;
 	std::map<std::string, DLSSetupEntry> mDLSData;
+	std::map<size_t, HXCubeSetupEntry> mHXCubeData;
 
 	static std::string const default_path;
 };

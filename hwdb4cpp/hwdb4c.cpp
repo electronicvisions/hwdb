@@ -155,6 +155,28 @@ int _convert_dls_entry(hwdb4cpp::DLSSetupEntry dls_setup_entry_cpp, char* dls_se
 	return HWDB4C_SUCCESS;
 }
 
+// converts hwdb4cpp::HXCubeSetupEntry to hwdb4c_hxcube_entry (required for SLURM)
+int _convert_hxcube_entry(hwdb4cpp::HXCubeSetupEntry hxcube_entry_cpp, size_t hxcube_id, struct hwdb4c_hxcube_entry** ret) {
+	struct hwdb4c_hxcube_entry* hxcube_entry_c = (hwdb4c_hxcube_entry*) malloc(sizeof(struct hwdb4c_hxcube_entry));
+	if (!hxcube_entry_c)
+		return HWDB4C_FAILURE;
+
+	hxcube_entry_c->hxcube_id = hxcube_id;
+
+	for (size_t i = 0; i < 2; i++) {
+		inet_aton(hxcube_entry_cpp.fpga_ips[i].to_string().c_str(), &(hxcube_entry_c->fpga_ips[i]));
+	}
+	hxcube_entry_c->usb_host = (char*)malloc((hxcube_entry_cpp.usb_host.length() + 1) * sizeof(char));
+	strncpy(hxcube_entry_c->usb_host, hxcube_entry_cpp.usb_host.c_str(), hxcube_entry_cpp.usb_host.length() + 1);
+	hxcube_entry_c->ldo_version = hxcube_entry_cpp.ldo_version;
+	hxcube_entry_c->usb_serial = (char*)malloc((hxcube_entry_cpp.usb_serial.length() + 1) * sizeof(char));
+	strncpy(hxcube_entry_c->usb_serial, hxcube_entry_cpp.usb_serial.c_str(), hxcube_entry_cpp.usb_serial.length() + 1);
+	hxcube_entry_c->chip_serial = hxcube_entry_cpp.chip_serial;
+
+	*ret = hxcube_entry_c;
+	return HWDB4C_SUCCESS;
+}
+
 int hwdb4c_alloc_hwdb(struct hwdb4c_database_t** handle) {
 	try {
 		*handle = new struct hwdb4c_database_t();
@@ -216,6 +238,15 @@ int hwdb4c_has_wafer_entry(struct hwdb4c_database_t* handle, size_t wafer_id, bo
 int hwdb4c_has_dls_entry(struct hwdb4c_database_t* handle, char* dls_entry, bool* ret) {
 	try {
 		*ret = handle->database.has_dls_entry(dls_entry);
+	} catch(const std::out_of_range& hdke) {
+		return HWDB4C_FAILURE;
+	}
+	return HWDB4C_SUCCESS;
+}
+
+int hwdb4c_has_hxcube_entry(struct hwdb4c_database_t* handle, size_t hxcube_entry, bool* ret) {
+	try {
+		*ret = handle->database.has_hxcube_entry(hxcube_entry);
 	} catch(const std::out_of_range& hdke) {
 		return HWDB4C_FAILURE;
 	}
@@ -321,6 +352,16 @@ int hwdb4c_get_dls_entry(struct hwdb4c_database_t* handle, char* dls_setup, stru
 	return _convert_dls_entry(dls_setup_entry_cpp, dls_setup, ret);
 }
 
+int hwdb4c_get_hxcube_entry(struct hwdb4c_database_t* handle, size_t hxcube_id, struct hwdb4c_hxcube_entry** ret) {
+	hwdb4cpp::HXCubeSetupEntry hxcube_entry_cpp;
+	try {
+		hxcube_entry_cpp = handle->database.get_hxcube_entry(hxcube_id);
+	} catch(const std::out_of_range& hdke) {
+		return HWDB4C_FAILURE;
+	}
+	return _convert_hxcube_entry(hxcube_entry_cpp, hxcube_id, ret);
+}
+
 int hwdb4c_get_wafer_coordinates(struct hwdb4c_database_t* handle, size_t** wafer, size_t* num_wafer) {
 	std::vector<halco::hicann::v2::Wafer> wafer_list = handle->database.get_wafer_coordinates();
 	*num_wafer = wafer_list.size();
@@ -346,6 +387,20 @@ int hwdb4c_get_dls_setup_ids(struct hwdb4c_database_t* handle, char*** dls_setup
 		(*dls_setups)[dls_counter] = (char*) malloc((dls_setup.length() + 1) * sizeof(char));
 		strncpy((*dls_setups)[dls_counter], dls_setup.c_str(), dls_setup.length() + 1);
 		dls_counter++;
+	}
+	return HWDB4C_SUCCESS;
+}
+
+int hwdb4c_get_hxcube_ids(struct hwdb4c_database_t* handle, size_t** hxcubes, size_t* num_hxcubes) {
+	std::vector<size_t> hxcube_list = handle->database.get_hxcube_ids();
+	*num_hxcubes = hxcube_list.size();
+	*hxcubes = (size_t*) malloc(*num_hxcubes * sizeof(size_t));
+	if(!num_hxcubes)
+		return HWDB4C_FAILURE;
+	size_t hxcube_counter = 0;
+	for (auto hxcube_id : hxcube_list) {
+		(*hxcubes)[hxcube_counter] = hxcube_id;
+		hxcube_counter++;
 	}
 	return HWDB4C_SUCCESS;
 }
@@ -472,6 +527,12 @@ void hwdb4c_free_dls_setup_entry(struct hwdb4c_dls_setup_entry* dls_setup) {
 	free(dls_setup->board_name);
 	free(dls_setup->ntpwr_ip);
 	free(dls_setup);
+}
+
+void hwdb4c_free_hxcube_entry(struct hwdb4c_hxcube_entry* entry) {
+	free(entry->usb_host);
+	free(entry->usb_serial);
+	free(entry);
 }
 
 void hwdb4c_free_hicann_entries(struct hwdb4c_hicann_entry** hicanns, size_t num_hicanns) {

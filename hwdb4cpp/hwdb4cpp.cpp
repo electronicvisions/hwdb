@@ -258,11 +258,12 @@ void database::clear()
 {
 	mWaferData.clear();
 	mDLSData.clear();
+	mHXCubeData.clear();
 }
 
 void database::load(std::string const path)
 {
-	if (!(mWaferData.empty() or mDLSData.empty()))
+	if (!(mWaferData.empty() && mDLSData.empty() && mHXCubeData.empty()))
 		throw std::runtime_error("database has to be empty before loading new file");
 
 	for (YAML::Node config : YAML::LoadAllFromFile(path)) {
@@ -373,8 +374,42 @@ void database::load(std::string const path)
 				mDLSData.at(dls_setup).ntpwr_slot = ntpwr_slot_entry.as<size_t>();
 			}
 		}
+		// yaml node is from a HXCube setup
+		else if (config["hxcube_id"].IsDefined()) {
+			auto hxcube_id = config["hxcube_id"].as<size_t>();
+			HXCubeSetupEntry entry;
+			add_hxcube_entry(hxcube_id, entry);
 
-		// yaml node does not contain wafer or dls setup
+			auto fpga_entries = config["fpga_ips"];
+			if (fpga_entries.IsDefined()) {
+				try {
+					mHXCubeData.at(hxcube_id).fpga_ips = fpga_entries.as<std::array<IPv4, 2> >();
+				} catch (const YAML::TypedBadConversion<std::array<IPv4, 2> >& e) {
+					throw std::runtime_error(std::string("Two FPGA IP addresses must be defined:") + e.what());
+				}
+			}
+
+			auto usb_host_entry = config["usb_host"];
+			if (usb_host_entry.IsDefined()) {
+				mHXCubeData.at(hxcube_id).usb_host = usb_host_entry.as<std::string>();
+			}
+
+			auto ldo_version_entry = config["ldo_version"];
+			if (ldo_version_entry.IsDefined()) {
+				mHXCubeData.at(hxcube_id).ldo_version = ldo_version_entry.as<size_t>();
+			}
+
+			auto usb_serial_entry = config["usb_serial"];
+			if (usb_serial_entry.IsDefined()) {
+				mHXCubeData.at(hxcube_id).usb_serial = usb_serial_entry.as<std::string>();
+			}
+
+			auto chip_serial_entry = config["chip_serial"];
+			if (chip_serial_entry.IsDefined()) {
+				mHXCubeData.at(hxcube_id).chip_serial = chip_serial_entry.as<size_t>();
+			}
+		}
+		// yaml node does not contain wafer or dls setup or hxcube setup
 		else {
 			LOG4CXX_WARN(logger, "Found node entry neither from wafer nor dls setup, ignore");
 		}
@@ -550,6 +585,49 @@ void database::dump(std::ostream& out) const
 			out << config << '\n';
 		}
 
+	}
+
+	for (const auto& item : mHXCubeData) {
+		const size_t hxcube_id = item.first;
+		const HXCubeSetupEntry& data = item.second;
+
+		out << "---\n";
+
+		{
+			YAML::Node config;
+			config["hxcube_id"] = hxcube_id;
+			out << config << '\n';
+		}
+
+		if (!data.fpga_ips.empty()) {
+			YAML::Node config;
+			config["fpga_ips"] = data.fpga_ips;
+			out << config << '\n';
+		}
+
+		if (data.usb_host != "") {
+			YAML::Node config;
+			config["usb_host"] = data.usb_host;
+			out << config << '\n';
+		}
+
+		if (data.ldo_version != 0) {
+			YAML::Node config;
+			config["ldo_version"] = data.ldo_version;
+			out << config << '\n';
+		}
+
+		if (data.usb_serial != "") {
+			YAML::Node config;
+			config["usb_serial"] = data.usb_serial;
+			out << config << '\n';
+		}
+
+		if (data.chip_serial != 0) {
+			YAML::Node config;
+			config["chip_serial"] = data.chip_serial;
+			out << config << '\n';
+		}
 	}
 }
 
@@ -731,6 +809,33 @@ std::vector<std::string> database::get_dls_setup_ids() const
 	return ret;
 }
 
+void database::add_hxcube_entry(size_t const hxcube_id, HXCubeSetupEntry const entry) {
+	mHXCubeData[hxcube_id] = entry;
+}
+
+bool database::remove_hxcube_entry(size_t const hxcube_id) {
+	return mHXCubeData.erase(hxcube_id);
+}
+
+bool database::has_hxcube_entry(size_t const hxcube_id) const {
+	return mHXCubeData.count(hxcube_id);
+}
+
+HXCubeSetupEntry& database::get_hxcube_entry(size_t const hxcube_id) {
+	return mHXCubeData.at(hxcube_id);
+}
+
+HXCubeSetupEntry const& database::get_hxcube_entry(size_t const hxcube_id) const {
+	return mHXCubeData.at(hxcube_id);
+}
+
+std::vector<size_t> database::get_hxcube_ids() const {
+	std::vector<size_t> ret;
+	for (auto it : mHXCubeData) {
+		ret.push_back(it.first);
+	}
+	return ret;
+}
 
 std::string const& database::get_default_path()
 {
