@@ -60,6 +60,8 @@ class Test_Pyhwdb(unittest.TestCase):
         mydb.add_wafer_entry(wafer_coord, wafer)
         self.assertTrue(mydb.has_wafer_entry(wafer_coord))
         self.assertEqual(mydb.get_wafer_entry(wafer_coord).setup_type, wafer.setup_type)
+        wafer_coords = mydb.get_wafer_coordinates()
+        self.assertEqual(len(wafer_coords), 1)
         mydb.remove_wafer_entry(wafer_coord)
         self.assertFalse(mydb.has_wafer_entry(wafer_coord))
 
