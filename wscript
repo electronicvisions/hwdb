@@ -107,12 +107,27 @@ def build(bld):
             pythonpath      = ["test"],
         )
 
+    if bld.env.build_python_bindings:
         bld(
-            target          = 'pyhwdb_tools',
+            target          = 'pyhwdb_bss1_tools',
             features        = 'use py',
             use             = 'pyhwdb',
-            source          = bld.path.ant_glob('pyhwdb/tools/*.py'),
+            source          = bld.path.ant_glob('pyhwdb/tools/bss1/*.py'),
             install_path    = '${PREFIX}/bin',
             relative_trick  = False,
             chmod           = Utils.O755
+        )
+
+        tools_tests_path='pyhwdb/test/bss1/pyhwdb_tools_test.py'
+
+        bld(
+            name="pyhwdb_bss1_tools_tests",
+            tests=tools_tests_path,
+            source=tools_tests_path,
+            features='use pytest py',
+            use='pyhwdb_bss1_tools',
+            install_path='${PREFIX}/bin',
+            test_timeout=15,
+            relative_trick=False,
+            chmod=Utils.O755
         )
