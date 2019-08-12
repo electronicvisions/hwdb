@@ -3,9 +3,12 @@
 #include <map>
 #include <string>
 
+#include "halco/common/misc_types.h"
 #include "halco/hicann/v2/coordinates.h"
 
-namespace hwdb4cpp {
+#include "genpybind.h"
+
+namespace hwdb4cpp GENPYBIND_TAG_HWDB {
 
 /// YAML Hardware Database File Format:
 /// ===================================
@@ -147,7 +150,7 @@ struct WaferEntry
 	size_t macu_version;
 };
 
-struct DLSSetupEntry
+struct GENPYBIND(visible) DLSSetupEntry
 {
 	std::string fpga_name;
 	std::string board_name;
@@ -164,10 +167,10 @@ struct DLSSetupEntry
 	}
 };
 
-struct HXCubeSetupEntry
+struct GENPYBIND(visible) HXCubeSetupEntry
 {
 	size_t hxcube_id;
-	std::array<halco::hicann::v2::IPv4, 2> fpga_ips;
+	std::array<halco::common::IPv4, 2> fpga_ips;
 	std::string usb_host;
 	size_t ldo_version;
 	std::string usb_serial;
@@ -189,7 +192,7 @@ struct HXCubeSetupEntry
 
 
 /// This class provides an interface to the low-level database.
-class database
+class GENPYBIND(visible) database
 {
 public:
 
@@ -200,7 +203,7 @@ public:
 	void load(std::string const path);
 
 	/// dump database
-	void dump(std::ostream& out) const;
+	void dump(std::ostream& out) const GENPYBIND(hidden);
 
 	/// get default_path member
 	static std::string const& get_default_path();
@@ -208,72 +211,83 @@ public:
 	// FIXME: add const getters everywhere?
 
 	/// Insert (and replace) a new wafer entry into the database
-	void add_wafer_entry(halco::hicann::v2::Wafer const wafer, WaferEntry const entry);
-	bool remove_wafer_entry(halco::hicann::v2::Wafer const wafer);
+	void add_wafer_entry(halco::hicann::v2::Wafer const wafer, WaferEntry const entry)
+	    GENPYBIND(hidden);
+	bool remove_wafer_entry(halco::hicann::v2::Wafer const wafer) GENPYBIND(hidden);
 	/// Check if wafer entry exists
-	bool has_wafer_entry(halco::hicann::v2::Wafer const wafer) const;
-	WaferEntry& get_wafer_entry(halco::hicann::v2::Wafer const wafer);
-	WaferEntry const& get_wafer_entry(halco::hicann::v2::Wafer const wafer) const;
-	std::vector<halco::hicann::v2::Wafer> get_wafer_coordinates() const;
+	bool has_wafer_entry(halco::hicann::v2::Wafer const wafer) const GENPYBIND(hidden);
+	WaferEntry& get_wafer_entry(halco::hicann::v2::Wafer const wafer) GENPYBIND(hidden);
+	WaferEntry const& get_wafer_entry(halco::hicann::v2::Wafer const wafer) const GENPYBIND(hidden);
+	std::vector<halco::hicann::v2::Wafer> get_wafer_coordinates() const GENPYBIND(hidden);
 
 	/// Insert (and replace) an FPGA into the database.
 	/// The corresponding WaferEntry has to exist.
-	void add_fpga_entry(halco::hicann::v2::FPGAGlobal const fpga, FPGAEntry const entry);
-	bool remove_fpga_entry(halco::hicann::v2::FPGAGlobal const fpga);
+	void add_fpga_entry(halco::hicann::v2::FPGAGlobal const fpga, FPGAEntry const entry)
+	    GENPYBIND(hidden);
+	bool remove_fpga_entry(halco::hicann::v2::FPGAGlobal const fpga) GENPYBIND(hidden);
 	/// Check if fpga entry exists
-	bool has_fpga_entry(halco::hicann::v2::FPGAGlobal const fpga) const;
+	bool has_fpga_entry(halco::hicann::v2::FPGAGlobal const fpga) const GENPYBIND(hidden);
 	/// Get fpga entry (throws if coordinate isn't found)
-	FPGAEntry const& get_fpga_entry(halco::hicann::v2::FPGAGlobal const fpga) const;
+	FPGAEntry const& get_fpga_entry(halco::hicann::v2::FPGAGlobal const fpga) const
+	    GENPYBIND(hidden);
 	/// Get all entries for all FPGAs on a Wafer
-	FPGAEntryMap get_fpga_entries(halco::hicann::v2::Wafer const wafer) const;
+	FPGAEntryMap get_fpga_entries(halco::hicann::v2::Wafer const wafer) const GENPYBIND(hidden);
 
 	/// Insert (and replace) an Reticle into the database.
 	/// The corresponding WaferEntry has to exist.
-	void add_reticle_entry(halco::hicann::v2::DNCGlobal const reticle, ReticleEntry const entry);
-	bool remove_reticle_entry(halco::hicann::v2::DNCGlobal const reticle);
+	void add_reticle_entry(halco::hicann::v2::DNCGlobal const reticle, ReticleEntry const entry)
+	    GENPYBIND(hidden);
+	bool remove_reticle_entry(halco::hicann::v2::DNCGlobal const reticle) GENPYBIND(hidden);
 	/// Check if reticle entry exists
-	bool has_reticle_entry(halco::hicann::v2::DNCGlobal const reticle) const;
+	bool has_reticle_entry(halco::hicann::v2::DNCGlobal const reticle) const GENPYBIND(hidden);
 	/// Get reticle entry (throws if coordinate isn't found)
-	ReticleEntry const& get_reticle_entry(halco::hicann::v2::DNCGlobal const reticle) const;
+	ReticleEntry const& get_reticle_entry(halco::hicann::v2::DNCGlobal const reticle) const
+	    GENPYBIND(hidden);
 	/// Get all entries for all Reticles on a Wafer
-	ReticleEntryMap get_reticle_entries(halco::hicann::v2::Wafer const wafer) const;
+	ReticleEntryMap get_reticle_entries(halco::hicann::v2::Wafer const wafer) const
+	    GENPYBIND(hidden);
 
 	/// Insert (and replace) an Ananas into the database.
 	/// The corresponding WaferEntry has to exist.
-	void add_ananas_entry(halco::hicann::v2::AnanasGlobal const ananas, AnanasEntry const entry);
-	bool remove_ananas_entry(halco::hicann::v2::AnanasGlobal const ananas);
+	void add_ananas_entry(halco::hicann::v2::AnanasGlobal const ananas, AnanasEntry const entry)
+	    GENPYBIND(hidden);
+	bool remove_ananas_entry(halco::hicann::v2::AnanasGlobal const ananas) GENPYBIND(hidden);
 	/// Check if Ananans entry exists
-	bool has_ananas_entry(halco::hicann::v2::AnanasGlobal const ananas) const;
+	bool has_ananas_entry(halco::hicann::v2::AnanasGlobal const ananas) const GENPYBIND(hidden);
 	/// Get Ananans entry (throws if coordinate isn't found)
-	AnanasEntry const& get_ananas_entry(halco::hicann::v2::AnanasGlobal const ananas) const;
+	AnanasEntry const& get_ananas_entry(halco::hicann::v2::AnanasGlobal const ananas) const
+	    GENPYBIND(hidden);
 	/// Get all entries for all Ananas on a Wafer
-	AnanasEntryMap get_ananas_entries(halco::hicann::v2::Wafer const wafer) const;
+	AnanasEntryMap get_ananas_entries(halco::hicann::v2::Wafer const wafer) const GENPYBIND(hidden);
 
 	/// Insert (and replace) a HICANN into the database.
 	/// The corresponding FPGAEntry has to exist.
-	void add_hicann_entry(halco::hicann::v2::HICANNGlobal const hicann, HICANNEntry const entry);
-	bool remove_hicann_entry(halco::hicann::v2::HICANNGlobal const hicann);
+	void add_hicann_entry(halco::hicann::v2::HICANNGlobal const hicann, HICANNEntry const entry)
+	    GENPYBIND(hidden);
+	bool remove_hicann_entry(halco::hicann::v2::HICANNGlobal const hicann) GENPYBIND(hidden);
 	/// Check if hicann entry exists
-	bool has_hicann_entry(halco::hicann::v2::HICANNGlobal const hicann) const;
+	bool has_hicann_entry(halco::hicann::v2::HICANNGlobal const hicann) const GENPYBIND(hidden);
 	/// Get hicann entry (throws if coordinate isn't found)
-	HICANNEntry const& get_hicann_entry(halco::hicann::v2::HICANNGlobal const hicann) const;
+	HICANNEntry const& get_hicann_entry(halco::hicann::v2::HICANNGlobal const hicann) const
+	    GENPYBIND(hidden);
 	/// Get all entries for all HICANNs on a Wafer
-	HICANNEntryMap get_hicann_entries(halco::hicann::v2::Wafer const wafer) const;
+	HICANNEntryMap get_hicann_entries(halco::hicann::v2::Wafer const wafer) const GENPYBIND(hidden);
 	/// Get all entries for all HICANNs on a FPGAGlobal
-	HICANNEntryMap get_hicann_entries(halco::hicann::v2::FPGAGlobal const fpga) const;
+	HICANNEntryMap get_hicann_entries(halco::hicann::v2::FPGAGlobal const fpga) const
+	    GENPYBIND(hidden);
 
 	/// Insert (and replace) an ADC  into the database.
 	/// The corresponding Wafer has to exist.
-	void add_adc_entry(GlobalAnalog_t const analog, ADCEntry const entry);
-	bool remove_adc_entry(GlobalAnalog_t const analog);
+	void add_adc_entry(GlobalAnalog_t const analog, ADCEntry const entry) GENPYBIND(hidden);
+	bool remove_adc_entry(GlobalAnalog_t const analog) GENPYBIND(hidden);
 	/// Check if adc entry exists
-	bool has_adc_entry(GlobalAnalog_t const analog) const;
+	bool has_adc_entry(GlobalAnalog_t const analog) const GENPYBIND(hidden);
 	/// Get adc entry (throws if coordinate isn't found)
-	ADCEntry const& get_adc_entry(GlobalAnalog_t const analog) const;
+	ADCEntry const& get_adc_entry(GlobalAnalog_t const analog) const GENPYBIND(hidden);
 	/// Get all entries for all ADCs on a Wafer
-	ADCEntryMap get_adc_entries(halco::hicann::v2::Wafer const wafer) const;
+	ADCEntryMap get_adc_entries(halco::hicann::v2::Wafer const wafer) const GENPYBIND(hidden);
 	/// Get all entries for all ADCs on a FPGAGlobal
-	ADCEntryMap get_adc_entries(halco::hicann::v2::FPGAGlobal const fpga) const;
+	ADCEntryMap get_adc_entries(halco::hicann::v2::FPGAGlobal const fpga) const GENPYBIND(hidden);
 
 	/// Insert (and replace) a new dls entry into the database
 	void add_dls_entry(std::string const dls_setup, DLSSetupEntry const entry);

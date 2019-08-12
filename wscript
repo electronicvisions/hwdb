@@ -15,6 +15,10 @@ def options(opt):
 
 def configure(cfg):
     cfg.load('compiler_cxx')
+    cfg.load('python')
+    cfg.check_python_version()
+    cfg.check_python_headers()
+    cfg.load('genpybind')
 
     cfg.check_cfg(package='yaml-cpp',
                   args=['yaml-cpp >= 0.5.3', '--cflags', '--libs'],
@@ -25,6 +29,14 @@ def configure(cfg):
                    header_name='gtest/gtest.h',
                    lib='gtest'
     )
+    if cfg.env.with_pybind:
+        cfg.check(
+            compiler='cxx',
+            features='cxx pyembed',
+            uselib_store='PYBIND11HWDB',
+            mandatory=True,
+            header_name='pybind11/pybind11.h',
+        )
 
 def build(bld):
     bld.add_post_fun(summary)
@@ -60,7 +72,8 @@ def build(bld):
         use = [ 'GTEST4HWDB', 'hwdb4c' ],
     )
 
-    if bld.env.build_python_bindings: # from pywrap == options.with_pywrap_bindings
+    if bld.env.build_python_bindings:
+        assert not bld.env.with_pybind
         bld(
             target         = 'pyhwdb',
             features       = 'cxx cxxshlib pypp pyembed pyext',
@@ -73,6 +86,19 @@ def build(bld):
             linkflags      = '-Wl,-z,defs',
         )
 
+    if bld.env.with_pybind:
+        assert not bld.env.build_python_bindings
+        bld(
+            target         = 'pyhwdb',
+            features       = 'genpybind cxx cxxshlib pyembed pyext',
+            source         = 'pyhwdb/pyhwdb.h',
+            genpybind_tags = 'hwdb',
+            use            = ['hwdb4cpp', 'pyhalco_common'],
+            install_path   = '${PREFIX}/lib',
+            linkflags      = '-Wl,-z,defs',
+        )
+
+    if bld.env.build_python_bindings or bld.env.with_pybind:
         bld(
             name            = "pyhwdb_tests",
             tests           = 'pyhwdb/test/pyhwdb_test.py',
@@ -92,5 +118,4 @@ def build(bld):
             install_path    = '${PREFIX}/bin',
             relative_trick  = False,
             chmod           = Utils.O755
-
         )

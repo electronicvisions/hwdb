@@ -36,7 +36,7 @@ if __name__ == '__main__':
         raise RuntimeError("No hwdb entry assigned to {}. ")
 
     try:
-        print getattr(hwdb_entry, args.entry_property)
+        print(getattr(hwdb_entry, args.entry_property))
     except AttributeError as e:
-        print "{}, available properties are: {}".format(e, ', '.join(i for i in dir(hwdb_entry) if not i.startswith('__')))
+        print("{}, available properties are: {}".format(e, ', '.join(i for i in dir(hwdb_entry) if not i.startswith('__'))))
         exit(1)
