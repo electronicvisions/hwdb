@@ -6782,6 +6782,151 @@ fpgas:
     ip: 192.168.39.108
 hicanns:
   version: 2
+# FIXME ugly temporary workaround to handle HX cube setups until slurm supports the hxsetup types
+---
+wafer: 60
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.60.1
+  - fpga: 3
+    ip: 192.168.60.4
+---
+wafer: 61
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.61.1
+  - fpga: 3
+    ip: 192.168.61.4
+---
+wafer: 62
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.62.1
+  - fpga: 3
+    ip: 192.168.62.4
+---
+wafer: 63
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.63.1
+  - fpga: 3
+    ip: 192.168.63.4
+---
+wafer: 64
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.64.1
+  - fpga: 3
+    ip: 192.168.64.4
+---
+wafer: 65
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.65.1
+  - fpga: 3
+    ip: 192.168.65.4
+---
+wafer: 66
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.66.1
+  - fpga: 3
+    ip: 192.168.66.4
+---
+wafer: 67
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.67.1
+  - fpga: 3
+    ip: 192.168.67.4
+---
+wafer: 68
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.68.1
+  - fpga: 3
+    ip: 192.168.68.4
+---
+wafer: 69
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.69.1
+  - fpga: 3
+    ip: 192.168.69.4
+---
+wafer: 70
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.70.1
+  - fpga: 3
+    ip: 192.168.70.4
+---
+wafer: 71
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.71.1
+  - fpga: 3
+    ip: 192.168.71.4
+---
+wafer: 72
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.72.1
+  - fpga: 3
+    ip: 192.168.72.4
+---
+wafer: 73
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.73.1
+  - fpga: 3
+    ip: 192.168.73.4
+---
+wafer: 74
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.74.1
+  - fpga: 3
+    ip: 192.168.74.4
+---
+wafer: 75
+setuptype: cubesetup
+# HICANN-X
+fpgas:
+  - fpga: 0
+    ip: 192.168.75.1
+  - fpga: 3
+    ip: 192.168.75.4
 ---
 wafer: 100
 setuptype: bsswafer
