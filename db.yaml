@@ -7090,8 +7090,8 @@ board_name: 'Sitting Bull'
 board_version: 3
 chip_id: 7
 chip_version: 3
-ntpwr_ip: '129.206.176.148'
-ntpwr_slot: 3
+ntpwr_ip: '192.168.200.53'
+ntpwr_slot: 1
 ---
 hxcube_id: 0
 fpga_ips: [192.168.60.1, 192.168.60.4]
