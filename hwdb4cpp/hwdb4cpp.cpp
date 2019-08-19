@@ -411,7 +411,7 @@ void database::load(std::string const path)
 		}
 		// yaml node does not contain wafer or dls setup or hxcube setup
 		else {
-			LOG4CXX_WARN(logger, "Found node entry neither from wafer nor dls setup, ignore");
+			LOG4CXX_WARN(logger, "Found node entry neither from Wafer, DLS setup nor HX setup, ignore");
 		}
 	}
 }
