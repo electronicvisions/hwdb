@@ -60,25 +60,26 @@ def build(bld):
         use = [ 'GTEST4HWDB', 'hwdb4c' ],
     )
 
-    bld(
-        target         = 'pyhwdb',
-        features       = 'cxx cxxshlib pypp pyembed pyext',
-        script         = 'pyhwdb/generate.py',
-        gen_defines    = 'PYPLUSPLUS __STRICT_ANSI__',
-        defines        = 'PYBINDINGS',
-        headers        = 'pyhwdb/pyhwdb.h',
-        use            = ['hwdb4cpp', 'pyhalco_hicann_v2', 'pywrap'],
-        install_path   = '${PREFIX}/lib',
-        linkflags      = '-Wl,-z,defs',
-    )
+    if bld.env.build_python_bindings: # from pywrap == options.with_pywrap_bindings
+        bld(
+            target         = 'pyhwdb',
+            features       = 'cxx cxxshlib pypp pyembed pyext',
+            script         = 'pyhwdb/generate.py',
+            gen_defines    = 'PYPLUSPLUS __STRICT_ANSI__',
+            defines        = 'PYBINDINGS',
+            headers        = 'pyhwdb/pyhwdb.h',
+            use            = ['hwdb4cpp', 'pyhalco_hicann_v2', 'pywrap'],
+            install_path   = '${PREFIX}/lib',
+            linkflags      = '-Wl,-z,defs',
+        )
 
-    bld(
-        name            = "pyhwdb_tests",
-        tests           = 'pyhwdb/test/pyhwdb_test.py',
-        features        = 'use pytest',
-        use             = 'pyhwdb',
-        install_path    = '${PREFIX}/bin',
-        linkflags      = '-Wl,-z,defs',
-        test_timeout    = 45,
-        pythonpath      = ["test"],
-    )
+        bld(
+            name            = "pyhwdb_tests",
+            tests           = 'pyhwdb/test/pyhwdb_test.py',
+            features        = 'use pytest',
+            use             = 'pyhwdb',
+            install_path    = '${PREFIX}/bin',
+            linkflags      = '-Wl,-z,defs',
+            test_timeout    = 45,
+            pythonpath      = ["test"],
+        )
