@@ -28,6 +28,20 @@ class Test_Pyhwdb(unittest.TestCase):
         self.DLS_SETUP_ID = "07_20"
         self.HXCUBE_ID = 9
 
+    @unittest.skipUnless(os.path.split(os.getcwd())[-1] == "hwdb", "assuming test is executed with cwd == hwdb/ as done by waf")
+    def test_hxcube_entries_have_serial(self):
+        path = os.path.join(os.getcwd(), "db.yaml")
+        db = pyhwdb.database()
+        self.assertTrue(os.path.exists(path))
+        db.load(path)
+        unique_serial_numbers = set()
+        all_ids = db.get_hxcube_ids()
+        for hxcube_id in all_ids:
+            entry = db.get_hxcube_entry(hxcube_id)
+            self.assertNotEqual(entry.usb_serial, "", "USB serial number is present for setup {}".format(hxcube_id))
+            unique_serial_numbers.add(entry.usb_serial)
+        self.assertEqual(len(all_ids), len(unique_serial_numbers), "HX cube setups have unique USB serial")
+
     @unittest.skipUnless("GERRIT_EVENT_TYPE" in os.environ and os.environ["GERRIT_EVENT_TYPE"]=="change-merged", "for deployment tests only")
     def test_default_path_valid(self):
         db = pyhwdb.database()

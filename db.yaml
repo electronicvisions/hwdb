@@ -7110,9 +7110,6 @@ usb_serial: 'AFE25B4712002000'
 ldo_version: 1
 chip_serial: 0x0021FF03
 ---
-hxcube_id: 1
-fpga_ips: [192.168.61.1, 192.168.61.4]
----
 hxcube_id: 2
 fpga_ips: [192.168.62.1, 192.168.62.4]
 usb_host: 'AMTHost11'
@@ -7126,6 +7123,7 @@ usb_serial: 'AFE25B471D002000'
 ---
 hxcube_id: 4
 fpga_ips: [192.168.64.1, 192.168.64.4]
+usb_serial: 'AFE25B4717002000'
 ---
 hxcube_id: 5
 fpga_ips: [192.168.65.1, 192.168.65.4]
@@ -7155,6 +7153,7 @@ usb_serial: 'AFE25B472D002000'
 ---
 hxcube_id: 11
 fpga_ips: [192.168.71.1, 192.168.71.4]
+usb_serial: 'AFE25B4716002000'
 ---
 hxcube_id: 12
 fpga_ips: [192.168.72.1, 192.168.72.4]
