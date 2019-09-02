@@ -687,4 +687,52 @@ int hwdb4c_HICANNOnWafer_north(size_t hicann_id, size_t* ret_north_id)
 	return HWDB4C_SUCCESS;
 }
 
+int hwdb4c_ANANASGlobal_slurm_license(size_t ananas_id, char** ret)
+{
+	if (*ret) {
+		return HWDB4C_FAILURE;
+	}
+	auto const ananas = ANANASGlobal(Enum(ananas_id));
+	auto const ananas_string = slurm_license(ananas);
+	*ret = (char*) malloc(ananas_string.size() + 1);
+	strcpy(*ret, ananas_string.c_str());
+	return HWDB4C_SUCCESS;
+}
+
+int hwdb4c_FPGAGlobal_slurm_license(size_t fpga_id, char** ret)
+{
+	if (*ret) {
+		return HWDB4C_FAILURE;
+	}
+	auto const fpga = FPGAGlobal(Enum(fpga_id));
+	auto const fpga_string = slurm_license(fpga);
+	*ret = (char*) malloc(fpga_string.size() + 1);
+	strcpy(*ret, fpga_string.c_str());
+	return HWDB4C_SUCCESS;
+}
+
+int hwdb4c_HICANNGlobal_slurm_license(size_t hicann_id, char** ret)
+{
+	if (*ret) {
+		return HWDB4C_FAILURE;
+	}
+	auto const hicann = HICANNGlobal(Enum(hicann_id));
+	auto const hicann_string = slurm_license(hicann);
+	*ret = (char*) malloc(hicann_string.size() + 1);
+	strcpy(*ret, hicann_string.c_str());
+	return HWDB4C_SUCCESS;
+}
+
+int hwdb4c_TriggerGlobal_slurm_license(size_t trigger_id, char** ret)
+{
+	if (*ret) {
+		return HWDB4C_FAILURE;
+	}
+	auto const trigger = TriggerGlobal(Enum(trigger_id));
+	auto const trigger_string = slurm_license(trigger);
+	*ret = (char*) malloc(trigger_string.size() + 1);
+	strcpy(*ret, trigger_string.c_str());
+	return HWDB4C_SUCCESS;
+}
+
 } // extern "C"

@@ -344,10 +344,13 @@ TEST_F(HWDB4C_Test, get_entry_after_store_and_load)
 
 TEST_F(HWDB4C_Test, coord)
 {
-	EXPECT_EQ(hwdb4c_HICANNOnWafer_size(), halco::hicann::v2::HICANNOnWafer::size);
-	EXPECT_EQ(hwdb4c_FPGAOnWafer_size(), halco::hicann::v2::FPGAOnWafer::size);
-	EXPECT_EQ(hwdb4c_master_FPGA_enum(), halco::hicann::v2::FPGAOnWafer::Master.toEnum().value());
-	EXPECT_EQ(hwdb4c_ANANASOnWafer_size(), halco::hicann::v2::ANANASOnWafer::size);
+	using namespace halco::hicann::v2;
+	using namespace halco::common;
+
+	EXPECT_EQ(hwdb4c_HICANNOnWafer_size(), HICANNOnWafer::size);
+	EXPECT_EQ(hwdb4c_FPGAOnWafer_size(), FPGAOnWafer::size);
+	EXPECT_EQ(hwdb4c_master_FPGA_enum(), FPGAOnWafer::Master.toEnum().value());
+	EXPECT_EQ(hwdb4c_ANANASOnWafer_size(), ANANASOnWafer::size);
 
 	size_t ret = 0;
 	EXPECT_EQ(hwdb4c_ReticleOnWafer_toFPGAOnWafer(0, &ret), HWDB4C_SUCCESS);
@@ -379,16 +382,37 @@ TEST_F(HWDB4C_Test, coord)
 	EXPECT_EQ(hwdb4c_HICANNOnWafer_west(13, &ret), HWDB4C_SUCCESS);
 	EXPECT_EQ(ret, 12);
 
-	EXPECT_EQ(
-	    hwdb4c_HICANNOnWafer_north(halco::hicann::v2::HICANNOnWafer::enum_type::min, &ret),
+	EXPECT_EQ(hwdb4c_HICANNOnWafer_north(HICANNOnWafer::enum_type::min, &ret), HWDB4C_FAILURE);
+	EXPECT_EQ(hwdb4c_HICANNOnWafer_west(HICANNOnWafer::enum_type::min, &ret), HWDB4C_FAILURE);
+	EXPECT_EQ(hwdb4c_HICANNOnWafer_east(HICANNOnWafer::enum_type::max, &ret), HWDB4C_FAILURE);
+	EXPECT_EQ(hwdb4c_HICANNOnWafer_south(HICANNOnWafer::enum_type::max, &ret), HWDB4C_FAILURE);
+
+	char* ret_string = NULL;
+	ASSERT_EQ(
+	    hwdb4c_FPGAGlobal_slurm_license(FPGAGlobal(Enum(49)).toEnum(), &ret_string),
+	    HWDB4C_SUCCESS);
+	// ret_string needs to be 0
+	ASSERT_EQ(
+	    hwdb4c_FPGAGlobal_slurm_license(FPGAGlobal(Enum(49)).toEnum(), &ret_string),
 	    HWDB4C_FAILURE);
-	EXPECT_EQ(
-	    hwdb4c_HICANNOnWafer_west(halco::hicann::v2::HICANNOnWafer::enum_type::min, &ret),
-	    HWDB4C_FAILURE);
-	EXPECT_EQ(
-	    hwdb4c_HICANNOnWafer_east(halco::hicann::v2::HICANNOnWafer::enum_type::max, &ret),
-	    HWDB4C_FAILURE);
-	EXPECT_EQ(
-	    hwdb4c_HICANNOnWafer_south(halco::hicann::v2::HICANNOnWafer::enum_type::max, &ret),
-	    HWDB4C_FAILURE);
+	EXPECT_EQ(std::string(ret_string), "W1F1");
+	free(ret_string);
+	ret_string = NULL;
+	ASSERT_EQ(
+	    hwdb4c_HICANNGlobal_slurm_license(HICANNGlobal(Enum(123)).toEnum(), &ret_string),
+	    HWDB4C_SUCCESS);
+	EXPECT_EQ(std::string(ret_string), "W0H123");
+	free(ret_string);
+	ret_string = NULL;
+	ASSERT_EQ(
+	    hwdb4c_ANANASGlobal_slurm_license(ANANASGlobal(Enum(6)).toEnum(), &ret_string),
+	    HWDB4C_SUCCESS);
+	EXPECT_EQ(std::string(ret_string), "W3A0");
+	free(ret_string);
+	ret_string = NULL;
+	ASSERT_EQ(
+	    hwdb4c_TriggerGlobal_slurm_license(TriggerGlobal(Enum(5)).toEnum(), &ret_string),
+	    HWDB4C_SUCCESS);
+	EXPECT_EQ(std::string(ret_string), "W0T5");
+	free(ret_string);
 }

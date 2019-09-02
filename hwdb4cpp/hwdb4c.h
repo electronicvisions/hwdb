@@ -186,6 +186,12 @@ int hwdb4c_HICANNOnWafer_south(size_t hicann_id, size_t* ret_south_id) SYMBOL_VI
 int hwdb4c_HICANNOnWafer_west(size_t hicann_id, size_t* ret_west_id) SYMBOL_VISIBLE;
 int hwdb4c_HICANNOnWafer_north(size_t hicann_id, size_t* ret_north_id) SYMBOL_VISIBLE;
 
+// Converts coordinate to slurm license string. ret needs to be freed
+int hwdb4c_ANANASGlobal_slurm_license(size_t ananas_id, char** ret) SYMBOL_VISIBLE;
+int hwdb4c_FPGAGlobal_slurm_license(size_t fpga_id, char** ret) SYMBOL_VISIBLE;
+int hwdb4c_HICANNGlobal_slurm_license(size_t hicann_id, char** ret) SYMBOL_VISIBLE;
+int hwdb4c_TriggerGlobal_slurm_license(size_t trigger_id, char** ret) SYMBOL_VISIBLE;
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
