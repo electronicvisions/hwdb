@@ -484,8 +484,12 @@ reticles:
 ananas:
   - ananas: 0
     ip: 192.168.15.190
+    baseport_data: 0xafe0
+    baseport_reset: 0x2570
   - ananas: 1
     ip: 192.168.15.191
+    baseport_data: 0xafe0
+    baseport_reset: 0x2570
 hicanns:
   version: 2
 ---
@@ -690,8 +694,12 @@ reticles:
 ananas:
   - ananas: 0
     ip: 192.168.17.190
+    baseport_data: 0xafe0
+    baseport_reset: 0x2570
   - ananas: 1
     ip: 192.168.17.191
+    baseport_data: 0xafe0
+    baseport_reset: 0x2570
 hicanns:
   version: 2
 ---
@@ -4541,8 +4549,12 @@ reticles:
 ananas:
   - ananas: 0
     ip: 192.168.27.190
+    baseport_data: 0xafe0
+    baseport_reset: 0x2570
   - ananas: 1
     ip: 192.168.27.191
+    baseport_data: 0xafe0
+    baseport_reset: 0x2570
 hicanns:
   version: 2
 ---

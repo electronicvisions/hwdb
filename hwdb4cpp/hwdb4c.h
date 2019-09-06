@@ -20,6 +20,7 @@ extern "C" {
 #define HWDB4C_FAILURE -1
 
 typedef struct in_addr ip_addr_t; // in network byte order
+typedef uint16_t udp_port_t;
 struct SYMBOL_VISIBLE hwdb4c_database_t;
 
 struct SYMBOL_VISIBLE hwdb4c_fpga_entry {
@@ -45,6 +46,8 @@ struct SYMBOL_VISIBLE hwdb4c_ananas_entry {
 
 	//values
 	ip_addr_t ip;
+	udp_port_t baseport_data;
+	udp_port_t baseport_reset;
 };
 
 struct SYMBOL_VISIBLE hwdb4c_hicann_entry {
@@ -187,7 +190,7 @@ void hwdb4c_free_adc_entries(struct hwdb4c_adc_entry** adcs, size_t num_adcs) SY
 //FIXME should be its own API
 size_t hwdb4c_FPGAOnWafer_size() SYMBOL_VISIBLE;
 size_t hwdb4c_DNCOnWafer_size() SYMBOL_VISIBLE;
-size_t hwdb4c_ANANASOnWafer_size() SYMBOL_VISIBLE;
+size_t hwdb4c_AnanasOnWafer_size() SYMBOL_VISIBLE;
 size_t hwdb4c_HICANNOnWafer_size() SYMBOL_VISIBLE;
 size_t hwdb4c_master_FPGA_enum() SYMBOL_VISIBLE;
 int hwdb4c_ReticleOnWafer_toFPGAOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
@@ -195,14 +198,14 @@ int hwdb4c_FPGAOnWafer_toReticleOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 int hwdb4c_FPGAOnWafer_toTriggerOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 int hwdb4c_HICANNOnWafer_toReticleOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 int hwdb4c_HICANNOnWafer_toFPGAOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
-int hwdb4c_TriggerOnWafer_toANANASOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
+int hwdb4c_TriggerOnWafer_toAnanasOnWafer(size_t id, size_t* ret) SYMBOL_VISIBLE;
 int hwdb4c_HICANNOnWafer_east(size_t hicann_id, size_t* ret_east_id) SYMBOL_VISIBLE;
 int hwdb4c_HICANNOnWafer_south(size_t hicann_id, size_t* ret_south_id) SYMBOL_VISIBLE;
 int hwdb4c_HICANNOnWafer_west(size_t hicann_id, size_t* ret_west_id) SYMBOL_VISIBLE;
 int hwdb4c_HICANNOnWafer_north(size_t hicann_id, size_t* ret_north_id) SYMBOL_VISIBLE;
 
 // Converts coordinate to slurm license string. ret needs to be freed
-int hwdb4c_ANANASGlobal_slurm_license(size_t ananas_id, char** ret) SYMBOL_VISIBLE;
+int hwdb4c_AnanasGlobal_slurm_license(size_t ananas_id, char** ret) SYMBOL_VISIBLE;
 int hwdb4c_FPGAGlobal_slurm_license(size_t fpga_id, char** ret) SYMBOL_VISIBLE;
 int hwdb4c_HICANNGlobal_slurm_license(size_t hicann_id, char** ret) SYMBOL_VISIBLE;
 int hwdb4c_TriggerGlobal_slurm_license(size_t trigger_id, char** ret) SYMBOL_VISIBLE;

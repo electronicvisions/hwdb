@@ -17,7 +17,7 @@ namespace hwdb4cpp {
 ///  - wafer: Numerical coordinate of the wafer
 ///  - setuptype: vsetup facetswafer cubesetup bsswafer (case-insensitive)
 ///  - adcs: A sequence of mappings describing ADCs connection (see below)
-///  - ananas: A sequence of mappings describing ANANAS setting (see below)
+///  - ananas: A sequence of mappings describing Ananas setting (see below)
 ///  - fpgas: A sequence of mappings describing the fpga setting (see below)
 ///  - reticles: A sequence of mappings describing the reticle setting (see below)
 ///  - hicanns: Either a sequence of the individual available HICANNs (see below)
@@ -35,10 +35,12 @@ namespace hwdb4cpp {
 ///  - dnc_on_fpga: Coordinate of the DNC on FPGA (optional, required only
 ///                 for old facet systems)
 ///
-/// ANANAS sequence entries. Each entry describes an ANANAS available in
+/// Ananas sequence entries. Each entry describes an Ananas available in
 /// the system. Each is a mapping containing the following entries:
-///  - ananas: Coordinate of the ANANAS
-///  - ip: IP of the FlySpi on ANANAS
+///  - ananas: Coordinate of the Ananas
+///  - ip: IP of the FlySpi on Ananas
+///  - baseport_data: base UDP data port for all AnanasSlices
+///  - baseport_reset: base UDP reset port for all AnanasSlices
 ///
 /// FPGA sequence entries. Each entry describes an FPGA available in the
 /// system. Each is a mapping containing the following entries:
@@ -95,9 +97,11 @@ struct ReticleEntry
 	bool to_be_powered;
 };
 
-struct ANANASEntry
+struct AnanasEntry
 {
 	halco::hicann::v2::IPv4 ip;
+	halco::hicann::v2::UDPPort baseport_data;
+	halco::hicann::v2::UDPPort baseport_reset;
 };
 
 struct HICANNEntry
@@ -126,7 +130,7 @@ typedef std::pair< halco::hicann::v2::FPGAGlobal, halco::hicann::v2::AnalogOnHIC
 typedef std::map< GlobalAnalog_t, ADCEntry> ADCEntryMap;
 typedef std::map< halco::hicann::v2::FPGAGlobal, FPGAEntry> FPGAEntryMap;
 typedef std::map< halco::hicann::v2::DNCGlobal, ReticleEntry> ReticleEntryMap;
-typedef std::map< halco::hicann::v2::ANANASGlobal, ANANASEntry> ANANASEntryMap;
+typedef std::map<halco::hicann::v2::AnanasGlobal, AnanasEntry> AnanasEntryMap;
 typedef std::map< halco::hicann::v2::HICANNGlobal, HICANNEntry> HICANNEntryMap;
 
 struct WaferEntry
@@ -135,7 +139,7 @@ struct WaferEntry
 	ADCEntryMap adcs;
 	FPGAEntryMap fpgas;
 	ReticleEntryMap reticles;
-	ANANASEntryMap ananas;
+	AnanasEntryMap ananas;
 	HICANNEntryMap hicanns;
 	halco::hicann::v2::IPv4 macu;
 	size_t macu_version;
@@ -230,16 +234,16 @@ public:
 	/// Get all entries for all Reticles on a Wafer
 	ReticleEntryMap get_reticle_entries(halco::hicann::v2::Wafer const wafer) const;
 
-	/// Insert (and replace) an ANANAS into the database.
+	/// Insert (and replace) an Ananas into the database.
 	/// The corresponding WaferEntry has to exist.
-	void add_ananas_entry(halco::hicann::v2::ANANASGlobal const ananas, ANANASEntry const entry);
-	bool remove_ananas_entry(halco::hicann::v2::ANANASGlobal const ananas);
-	/// Check if fpga entry exists
-	bool has_ananas_entry(halco::hicann::v2::ANANASGlobal const ananas) const;
-	/// Get fpga entry (throws if coordinate isn't found)
-	ANANASEntry const& get_ananas_entry(halco::hicann::v2::ANANASGlobal const ananas) const;
-	/// Get all entries for all ANANAS on a Wafer
-	ANANASEntryMap get_ananas_entries(halco::hicann::v2::Wafer const wafer) const;
+	void add_ananas_entry(halco::hicann::v2::AnanasGlobal const ananas, AnanasEntry const entry);
+	bool remove_ananas_entry(halco::hicann::v2::AnanasGlobal const ananas);
+	/// Check if Ananans entry exists
+	bool has_ananas_entry(halco::hicann::v2::AnanasGlobal const ananas) const;
+	/// Get Ananans entry (throws if coordinate isn't found)
+	AnanasEntry const& get_ananas_entry(halco::hicann::v2::AnanasGlobal const ananas) const;
+	/// Get all entries for all Ananas on a Wafer
+	AnanasEntryMap get_ananas_entries(halco::hicann::v2::Wafer const wafer) const;
 
 	/// Insert (and replace) a HICANN into the database.
 	/// The corresponding FPGAEntry has to exist.
@@ -294,7 +298,7 @@ private:
 	// used by yaml-cpp => FIXME: change to add_{fpga,hicann,adc}_entry
 	void add_fpga(halco::hicann::v2::FPGAGlobal const, const FPGAEntry& data);
 	void add_reticle(halco::hicann::v2::DNCGlobal const, const ReticleEntry& data);
-	void add_ananas(halco::hicann::v2::ANANASGlobal const, const ANANASEntry& data);
+	void add_ananas(halco::hicann::v2::AnanasGlobal const, const AnanasEntry& data);
 	void add_hicann(halco::hicann::v2::HICANNGlobal const, const HICANNEntry& data);
 	void add_adc(GlobalAnalog_t const, const ADCEntry& data);
 

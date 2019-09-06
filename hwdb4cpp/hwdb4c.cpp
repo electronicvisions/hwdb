@@ -40,12 +40,18 @@ int _convert_reticle_entry(hwdb4cpp::ReticleEntry reticle_entry_cpp, DNCGlobal r
 	return HWDB4C_SUCCESS;
 }
 
-int _convert_ananas_entry(hwdb4cpp::ANANASEntry ananas_entry_cpp, ANANASGlobal ananascoord, struct hwdb4c_ananas_entry** ret) {
+int _convert_ananas_entry(
+	hwdb4cpp::AnanasEntry ananas_entry_cpp,
+	AnanasGlobal ananascoord,
+	struct hwdb4c_ananas_entry** ret)
+{
 	struct hwdb4c_ananas_entry* ananas_entry_c = (hwdb4c_ananas_entry*) malloc(sizeof(struct hwdb4c_ananas_entry));
 	if (!ananas_entry_c)
 		return HWDB4C_FAILURE;
 	ananas_entry_c->ananasglobal_id = ananascoord.toEnum();
 	inet_aton(ananas_entry_cpp.ip.to_string().c_str(), &(ananas_entry_c->ip));
+	ananas_entry_c->baseport_data = ananas_entry_cpp.baseport_data;
+	ananas_entry_c->baseport_reset = ananas_entry_cpp.baseport_reset;
 	*ret = ananas_entry_c;
 	return HWDB4C_SUCCESS;
 }
@@ -296,7 +302,7 @@ int hwdb4c_has_reticle_entry(struct hwdb4c_database_t* handle, size_t reticleglo
 
 int hwdb4c_has_ananas_entry(struct hwdb4c_database_t* handle, size_t ananasglobal_id, bool* ret) {
 	try {
-		*ret = handle->database.has_ananas_entry(ANANASGlobal(Enum(ananasglobal_id)));
+		*ret = handle->database.has_ananas_entry(AnanasGlobal(Enum(ananasglobal_id)));
 	} catch(const std::out_of_range& hdke) {
 		return HWDB4C_FAILURE;
 	}
@@ -342,13 +348,13 @@ int hwdb4c_get_reticle_entry(struct hwdb4c_database_t* handle, size_t reticleglo
 }
 
 int hwdb4c_get_ananas_entry(struct hwdb4c_database_t* handle, size_t ananasglobal_id, struct hwdb4c_ananas_entry** ret) {
-	hwdb4cpp::ANANASEntry ananas_entry_cpp;
+	hwdb4cpp::AnanasEntry ananas_entry_cpp;
 	try {
-		ananas_entry_cpp = handle->database.get_ananas_entry(ANANASGlobal(Enum(ananasglobal_id)));
+		ananas_entry_cpp = handle->database.get_ananas_entry(AnanasGlobal(Enum(ananasglobal_id)));
 	} catch(const std::out_of_range& hdke) {
 		return HWDB4C_FAILURE;
 	}
-	return _convert_ananas_entry(ananas_entry_cpp, ANANASGlobal(Enum(ananasglobal_id)), ret);
+	return _convert_ananas_entry(ananas_entry_cpp, AnanasGlobal(Enum(ananasglobal_id)), ret);
 }
 
 int hwdb4c_get_hicann_entry(struct hwdb4c_database_t* handle, size_t hicannglobal_id, struct hwdb4c_hicann_entry** ret) {
@@ -609,8 +615,9 @@ size_t hwdb4c_DNCOnWafer_size() {
 	return DNCOnWafer::size;
 }
 
-size_t hwdb4c_ANANASOnWafer_size() {
-	return ANANASOnWafer::size;
+size_t hwdb4c_AnanasOnWafer_size()
+{
+	return AnanasOnWafer::size;
 }
 
 size_t hwdb4c_HICANNOnWafer_size()
@@ -668,9 +675,10 @@ int hwdb4c_HICANNOnWafer_toFPGAOnWafer(size_t id, size_t* ret) {
 	return HWDB4C_SUCCESS;
 }
 
-int hwdb4c_TriggerOnWafer_toANANASOnWafer(size_t id, size_t* ret) {
+int hwdb4c_TriggerOnWafer_toAnanasOnWafer(size_t id, size_t* ret)
+{
 	try {
-		*ret = TriggerOnWafer(Enum(id)).toANANASOnWafer().value() ;
+		*ret = TriggerOnWafer(Enum(id)).toAnanasOnWafer().value();
 	} catch(const std::overflow_error& oor) {
 		return HWDB4C_FAILURE;
 	}
@@ -741,12 +749,12 @@ int hwdb4c_HICANNOnWafer_north(size_t hicann_id, size_t* ret_north_id)
 	return HWDB4C_SUCCESS;
 }
 
-int hwdb4c_ANANASGlobal_slurm_license(size_t ananas_id, char** ret)
+int hwdb4c_AnanasGlobal_slurm_license(size_t ananas_id, char** ret)
 {
 	if (*ret) {
 		return HWDB4C_FAILURE;
 	}
-	auto const ananas = ANANASGlobal(Enum(ananas_id));
+	auto const ananas = AnanasGlobal(Enum(ananas_id));
 	auto const ananas_string = slurm_license(ananas);
 	*ret = (char*) malloc(ananas_string.size() + 1);
 	strcpy(*ret, ananas_string.c_str());

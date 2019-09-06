@@ -21,7 +21,7 @@ static char testdls_id_false[] = "07_21";
 static size_t constexpr testhxcube_id = 6;
 static size_t constexpr fpgas_per_wafer = halco::hicann::v2::FPGAOnWafer::size;
 static size_t constexpr reticles_per_wafer = halco::hicann::v2::DNCOnWafer::size;
-static size_t constexpr ananas_per_wafer = halco::hicann::v2::ANANASOnWafer::size;
+static size_t constexpr ananas_per_wafer = halco::hicann::v2::AnanasOnWafer::size;
 static size_t constexpr hicanns_per_wafer = halco::hicann::v2::HICANNOnWafer::size;
 
 class HWDB4C_Test : public ::testing::Test
@@ -66,6 +66,8 @@ reticles:\n\
 ananas:\n\
   - ananas: 0\n\
     ip: 192.168.5.190\n\
+    baseport_data: 0xafe0\n\
+    baseport_reset: 0x2570\n\
 adcs:\n\
   - fpga: 0\n\
     analog: 0\n\
@@ -260,6 +262,8 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	ASSERT_TRUE(ananas != NULL);
 	EXPECT_EQ(ananas->ananasglobal_id, ananas_per_wafer * testwafer_id);
 	EXPECT_EQ(std::string(inet_ntoa(ananas->ip)), "192.168.5.190");
+	EXPECT_EQ(ananas->baseport_data, 0xafe0);
+	EXPECT_EQ(ananas->baseport_reset, 0x2570);
 	hwdb4c_free_ananas_entry(ananas);
 	ananas = NULL;
 
@@ -382,7 +386,7 @@ TEST_F(HWDB4C_Test, coord)
 	EXPECT_EQ(hwdb4c_HICANNOnWafer_size(), HICANNOnWafer::size);
 	EXPECT_EQ(hwdb4c_FPGAOnWafer_size(), FPGAOnWafer::size);
 	EXPECT_EQ(hwdb4c_master_FPGA_enum(), FPGAOnWafer::Master.toEnum().value());
-	EXPECT_EQ(hwdb4c_ANANASOnWafer_size(), ANANASOnWafer::size);
+	EXPECT_EQ(hwdb4c_AnanasOnWafer_size(), AnanasOnWafer::size);
 
 	size_t ret = 0;
 	EXPECT_EQ(hwdb4c_ReticleOnWafer_toFPGAOnWafer(0, &ret), HWDB4C_SUCCESS);
@@ -437,7 +441,7 @@ TEST_F(HWDB4C_Test, coord)
 	free(ret_string);
 	ret_string = NULL;
 	ASSERT_EQ(
-	    hwdb4c_ANANASGlobal_slurm_license(ANANASGlobal(Enum(6)).toEnum(), &ret_string),
+	    hwdb4c_AnanasGlobal_slurm_license(AnanasGlobal(Enum(6)).toEnum(), &ret_string),
 	    HWDB4C_SUCCESS);
 	EXPECT_EQ(std::string(ret_string), "W3A0");
 	free(ret_string);

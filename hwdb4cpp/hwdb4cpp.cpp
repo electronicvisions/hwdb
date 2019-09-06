@@ -49,10 +49,10 @@ struct ReticleYAML : public ReticleEntry
 	size_t coordinate;
 };
 
-struct ANANASYAML : public ANANASEntry
+struct AnanasYAML : public AnanasEntry
 {
-	ANANASYAML() {}
-	ANANASYAML(ANANASEntry const& base) : ANANASEntry(base) {}
+	AnanasYAML() {}
+	AnanasYAML(AnanasEntry const& base) : AnanasEntry(base) {}
 	size_t coordinate;
 };
 
@@ -232,24 +232,28 @@ struct convert<ReticleYAML>
 };
 
 template <>
-struct convert<ANANASYAML>
+struct convert<AnanasYAML>
 {
-	static Node encode(const ANANASYAML& data)
+	static Node encode(const AnanasYAML& data)
 	{
 		Node node;
 		node["ananas"] = data.coordinate;
 		node["ip"] = data.ip.to_string();
+		node["baseport_data"] = data.baseport_data.value();
+		node["baseport_reset"] = data.baseport_reset.value();
 		return node;
 	}
 
-	static bool decode(const Node& node, ANANASYAML& data)
+	static bool decode(const Node& node, AnanasYAML& data)
 	{
-		if (!node.IsMap() || node.size() > 2) {
+		if (!node.IsMap() || node.size() > 4) {
 			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''")
 			return false;
 		}
 		data.coordinate = get_entry<size_t>(node, "ananas");
 		data.ip = IPv4::from_string(get_entry<std::string>(node, "ip"));
+		data.baseport_data = halco::hicann::v2::UDPPort(get_entry<size_t>(node, "baseport_data"));
+		data.baseport_reset = halco::hicann::v2::UDPPort(get_entry<size_t>(node, "baseport_reset"));
 		return true;
 	}
 };
@@ -334,8 +338,8 @@ void database::load(std::string const path)
 
 			auto ananas_entries = config["ananas"];
 			if (ananas_entries.IsDefined()) {
-				for (const auto& entry : ananas_entries.as<std::vector<ANANASYAML> >()) {
-					ANANASGlobal const ananas(ANANASOnWafer(entry.coordinate), wafer);
+				for (const auto& entry : ananas_entries.as<std::vector<AnanasYAML> >()) {
+					AnanasGlobal const ananas(AnanasOnWafer(entry.coordinate), wafer);
 					add_ananas_entry(ananas, entry);
 				}
 			}
@@ -540,10 +544,10 @@ void database::dump(std::ostream& out) const
 
 		if (!data.ananas.empty()) {
 			YAML::Node config;
-			std::vector<ANANASYAML> ananas_data;
+			std::vector<AnanasYAML> ananas_data;
 			for (auto& it : data.ananas) {
-				ANANASYAML entry(it.second);
-				entry.coordinate = it.first.toANANASOnWafer().toEnum().value();
+				AnanasYAML entry(it.second);
+				entry.coordinate = it.first.toAnanasOnWafer().toEnum().value();
 				ananas_data.push_back(entry);
 			}
 			config["ananas"] = ananas_data;
@@ -780,26 +784,31 @@ ReticleEntryMap database::get_reticle_entries(Wafer const wafer) const {
 	return mWaferData.at(wafer).reticles;
 }
 
-void database::add_ananas_entry(ANANASGlobal const ananas, ANANASEntry const entry) {
+void database::add_ananas_entry(AnanasGlobal const ananas, AnanasEntry const entry)
+{
 	mWaferData.at(ananas.toWafer()).ananas[ananas] = entry;
 }
 
-bool database::remove_ananas_entry(ANANASGlobal const ananas) {
+bool database::remove_ananas_entry(AnanasGlobal const ananas)
+{
 	return mWaferData.at(ananas.toWafer()).ananas.erase(ananas);
 }
 
-bool database::has_ananas_entry(ANANASGlobal const ananas) const {
+bool database::has_ananas_entry(AnanasGlobal const ananas) const
+{
 	if (has_wafer_entry(ananas.toWafer())) {
 		return mWaferData.at(ananas.toWafer()).ananas.count(ananas);
 	}
 	return false;
 }
 
-ANANASEntry const& database::get_ananas_entry(ANANASGlobal const ananas) const {
+AnanasEntry const& database::get_ananas_entry(AnanasGlobal const ananas) const
+{
 	return mWaferData.at(ananas.toWafer()).ananas.at(ananas);
 }
 
-ANANASEntryMap database::get_ananas_entries(Wafer const wafer) const {
+AnanasEntryMap database::get_ananas_entries(Wafer const wafer) const
+{
 	return mWaferData.at(wafer).ananas;
 }
 
