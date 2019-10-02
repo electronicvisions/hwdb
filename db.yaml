@@ -7059,6 +7059,8 @@ board_name: 'Lucky Luke'
 board_version: 3
 chip_id: 22
 chip_version: 2
+ntpwr_ip: '192.168.200.53'
+ntpwr_slot: 4
 ---
 dls_setup: 'B201330_24'
 fpga_name: 'B201330'
