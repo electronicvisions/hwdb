@@ -580,7 +580,7 @@ int hwdb4c_ReticleOnWafer_toFPGAOnWafer(size_t id, size_t* ret) {
 
 int hwdb4c_FPGAOnWafer_toReticleOnWafer(size_t id, size_t* ret) {
 	try {
-		*ret = gridLookupDNCGlobal(FPGAGlobal(FPGAOnWafer(Enum(id)), Wafer(HWDB4C_DEFAULT_WAFER_ID)), DNCOnFPGA(Enum(0))).toDNCOnWafer().id().value() ;
+		*ret = gridLookupDNCGlobal(FPGAGlobal(FPGAOnWafer(Enum(id)), Wafer(HWDB4C_DEFAULT_WAFER_ID)), DNCOnFPGA(Enum(0))).toDNCOnWafer().toEnum().value() ;
 	} catch(const std::overflow_error& oor) {
 		return HWDB4C_FAILURE;
 	}
@@ -598,7 +598,7 @@ int hwdb4c_FPGAOnWafer_toTriggerOnWafer(size_t id, size_t* ret) {
 
 int hwdb4c_HICANNOnWafer_toReticleOnWafer(size_t id, size_t* ret) {
 	try {
-		*ret = HICANNOnWafer(Enum(id)).toDNCOnWafer().id().value();
+		*ret = HICANNOnWafer(Enum(id)).toDNCOnWafer().toEnum().value();
 	} catch(const std::overflow_error& oor) {
 		return HWDB4C_FAILURE;
 	}
