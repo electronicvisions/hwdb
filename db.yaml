@@ -1,7 +1,6 @@
 ---
 wafer: 4
 setuptype: cubesetup
-# HICANN-X
 fpgas:
   - fpga: 0
     ip: 192.168.4.1
@@ -7169,6 +7168,7 @@ usb_serial: 'AFE25B471E002000'
 ---
 hxcube_id: 14
 fpga_ips: [192.168.74.1, 192.168.74.4]
+usb_host: 'AMTHost11'
 usb_serial: 'AFE25B471A002000'
 ---
 hxcube_id: 15
