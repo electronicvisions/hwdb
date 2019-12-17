@@ -20,6 +20,7 @@ static char testdls_id1[] = "B123456_42";
 static char testdls_id_false[] = "07_21";
 static size_t constexpr testhxcube_id = 6;
 static size_t constexpr fpgas_per_wafer = halco::hicann::v2::FPGAOnWafer::size;
+static size_t constexpr reticles_per_wafer = halco::hicann::v2::DNCOnWafer::size;
 static size_t constexpr ananas_per_wafer = halco::hicann::v2::ANANASOnWafer::size;
 static size_t constexpr hicanns_per_wafer = halco::hicann::v2::HICANNOnWafer::size;
 
@@ -58,6 +59,11 @@ fpgas:\n\
     ip: 192.168.5.1\n\
   - fpga: 3\n\
     ip: 192.168.5.4\n\
+reticles:\n\
+  - reticle: 0\n\
+    to_be_powered: true\n\
+  - reticle: 1\n\
+    to_be_powered: false\n\
 ananas:\n\
   - ananas: 0\n\
     ip: 192.168.5.190\n\
@@ -177,6 +183,14 @@ TEST_F(HWDB4C_Test, has_entry)
 	EXPECT_TRUE(ret);
 
 	ret = false;
+	ASSERT_EQ(hwdb4c_has_reticle_entry(hwdb, reticles_per_wafer * testwafer_id + 0, &ret), HWDB4C_SUCCESS);
+	EXPECT_TRUE(ret);
+	ASSERT_EQ(hwdb4c_has_reticle_entry(hwdb, reticles_per_wafer * testwafer_id + 1, &ret), HWDB4C_SUCCESS);
+	EXPECT_TRUE(ret);
+	ASSERT_EQ(hwdb4c_has_reticle_entry(hwdb, reticles_per_wafer * testwafer_id + 2, &ret), HWDB4C_SUCCESS);
+	EXPECT_FALSE(ret);
+
+	ret = false;
 	ASSERT_EQ(hwdb4c_has_ananas_entry(hwdb, ananas_per_wafer * testwafer_id + 0, &ret), HWDB4C_SUCCESS);
 	EXPECT_TRUE(ret);
 	ASSERT_EQ(hwdb4c_has_ananas_entry(hwdb, ananas_per_wafer * testwafer_id + 1, &ret), HWDB4C_SUCCESS);
@@ -225,6 +239,21 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(fpga->highspeed, true);
 	hwdb4c_free_fpga_entry(fpga);
 	fpga = NULL;
+
+	hwdb4c_reticle_entry* reticle = NULL;
+	ASSERT_EQ(hwdb4c_get_reticle_entry(hwdb, reticles_per_wafer * testwafer_id + 0, &reticle), HWDB4C_SUCCESS);
+	ASSERT_TRUE(reticle != NULL);
+	EXPECT_EQ(reticle->reticleglobal_id, reticles_per_wafer * testwafer_id + 0);
+	EXPECT_EQ(reticle->to_be_powered, true);
+	hwdb4c_free_reticle_entry(reticle);
+	reticle = NULL;
+
+	ASSERT_EQ(hwdb4c_get_reticle_entry(hwdb, reticles_per_wafer * testwafer_id + 1, &reticle), HWDB4C_SUCCESS);
+	ASSERT_TRUE(reticle != NULL);
+	EXPECT_EQ(reticle->reticleglobal_id, reticles_per_wafer * testwafer_id + 1);
+	EXPECT_EQ(reticle->to_be_powered, false);
+	hwdb4c_free_reticle_entry(reticle);
+	reticle = NULL;
 
 	hwdb4c_ananas_entry* ananas = NULL;
 	ASSERT_EQ(hwdb4c_get_ananas_entry(hwdb, ananas_per_wafer * testwafer_id, &ananas), HWDB4C_SUCCESS);

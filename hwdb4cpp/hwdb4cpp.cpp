@@ -42,6 +42,13 @@ struct FPGAYAML : public FPGAEntry
 	size_t coordinate;
 };
 
+struct ReticleYAML : public ReticleEntry
+{
+	ReticleYAML() {}
+	ReticleYAML(ReticleEntry const& base) : ReticleEntry(base) {}
+	size_t coordinate;
+};
+
 struct ANANASYAML : public ANANASEntry
 {
 	ANANASYAML() {}
@@ -200,6 +207,31 @@ struct convert<FPGAYAML>
 };
 
 template <>
+struct convert<ReticleYAML>
+{
+	static Node encode(const ReticleYAML& data)
+	{
+		Node node;
+		node["reticle"] = data.coordinate;
+		if (data.to_be_powered == false) {
+			node["to_be_powered"] = data.to_be_powered;
+		}
+		return node;
+	}
+
+	static bool decode(const Node& node, ReticleYAML& data)
+	{
+		if (!node.IsMap() || node.size() > 2) {
+			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''")
+			return false;
+		}
+		data.coordinate = get_entry<size_t>(node, "reticle");
+		data.to_be_powered = get_entry<bool>(node, "to_be_powered", true);
+		return true;
+	}
+};
+
+template <>
 struct convert<ANANASYAML>
 {
 	static Node encode(const ANANASYAML& data)
@@ -289,6 +321,14 @@ void database::load(std::string const path)
 				for (const auto& entry : fpga_entries.as<std::vector<FPGAYAML> >()) {
 					FPGAGlobal const fpga(FPGAOnWafer(entry.coordinate), wafer);
 					add_fpga_entry(fpga, entry);
+				}
+			}
+
+			auto reticle_entries = config["reticles"];
+			if (reticle_entries.IsDefined()) {
+				for (const auto& entry : reticle_entries.as<std::vector<ReticleYAML> >()) {
+					DNCGlobal const reticle(DNCOnWafer(Enum(entry.coordinate)), wafer);
+					add_reticle_entry(reticle, entry);
 				}
 			}
 
@@ -478,6 +518,18 @@ void database::dump(std::ostream& out) const
 				fpga_data.push_back(entry);
 			}
 			config["fpgas"] = fpga_data;
+			out << config << '\n';
+		}
+
+		if (!data.reticles.empty()) {
+			YAML::Node config;
+			std::vector<ReticleYAML> fpga_data;
+			for (auto& it : data.reticles) {
+				ReticleYAML entry(it.second);
+				entry.coordinate = it.first.toDNCOnWafer().toEnum().value();
+				fpga_data.push_back(entry);
+			}
+			config["reticles"] = fpga_data;
 			out << config << '\n';
 		}
 
@@ -687,6 +739,34 @@ FPGAEntry const& database::get_fpga_entry(FPGAGlobal const fpga) const {
 
 FPGAEntryMap database::get_fpga_entries(Wafer const wafer) const {
 	return mWaferData.at(wafer).fpgas;
+}
+void database::add_reticle_entry(DNCGlobal const reticle, ReticleEntry const entry) {
+	mWaferData.at(reticle.toWafer()).reticles[reticle] = entry;
+}
+
+bool database::remove_reticle_entry(DNCGlobal const reticle) {
+	bool ok = mWaferData.at(reticle.toWafer()).reticles.erase(reticle);
+	if (ok) {
+		for (auto hicann : reticle.toFPGAGlobal().toHICANNGlobal()) {
+			remove_hicann_entry(hicann);
+		}
+	}
+	return ok;
+}
+
+bool database::has_reticle_entry(DNCGlobal const reticle) const {
+	if (has_wafer_entry(reticle.toWafer())) {
+		return mWaferData.at(reticle.toWafer()).reticles.count(reticle);
+	}
+	return false;
+}
+
+ReticleEntry const& database::get_reticle_entry(DNCGlobal const reticle) const {
+	return mWaferData.at(reticle.toWafer()).reticles.at(reticle);
+}
+
+ReticleEntryMap database::get_reticle_entries(Wafer const wafer) const {
+	return mWaferData.at(wafer).reticles;
 }
 
 void database::add_ananas_entry(ANANASGlobal const ananas, ANANASEntry const entry) {

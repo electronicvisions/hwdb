@@ -29,6 +29,17 @@ int _convert_fpga_entry(hwdb4cpp::FPGAEntry fpga_entry_cpp, FPGAGlobal fpgacoord
 	return HWDB4C_SUCCESS;
 }
 
+// converts hwdb4cpp::ReticleEntry to hwdb4c_reticle_entry
+int _convert_reticle_entry(hwdb4cpp::ReticleEntry reticle_entry_cpp, DNCGlobal reticlecoord, struct hwdb4c_reticle_entry** ret) {
+	struct hwdb4c_reticle_entry* reticle_entry_c = (hwdb4c_reticle_entry*) malloc(sizeof(struct hwdb4c_reticle_entry));
+	if (!reticle_entry_c)
+		return HWDB4C_FAILURE;
+	reticle_entry_c->reticleglobal_id = reticlecoord.toEnum();
+	reticle_entry_c->to_be_powered = reticle_entry_cpp.to_be_powered;
+	*ret = reticle_entry_c;
+	return HWDB4C_SUCCESS;
+}
+
 int _convert_ananas_entry(hwdb4cpp::ANANASEntry ananas_entry_cpp, ANANASGlobal ananascoord, struct hwdb4c_ananas_entry** ret) {
 	struct hwdb4c_ananas_entry* ananas_entry_c = (hwdb4c_ananas_entry*) malloc(sizeof(struct hwdb4c_ananas_entry));
 	if (!ananas_entry_c)
@@ -93,6 +104,17 @@ int _convert_wafer_entry(hwdb4cpp::WaferEntry wafer_entry_cpp, Wafer wafercoord,
 		if(_convert_fpga_entry(fpga_it->second, fpga_it->first, &(wafer_entry_c->fpgas[fpga_counter])) == HWDB4C_FAILURE)
 			 return HWDB4C_FAILURE;
 		fpga_counter++;
+	}
+
+	wafer_entry_c->num_reticle_entries = wafer_entry_cpp.reticles.size();
+	wafer_entry_c->reticles = (hwdb4c_reticle_entry**) malloc(sizeof(struct hwdb4c_reticle_entry*) * wafer_entry_c->num_reticle_entries);
+	if (!wafer_entry_c->reticles)
+		return HWDB4C_FAILURE;
+	size_t reticle_counter = 0;
+	for (auto reticle_it = wafer_entry_cpp.reticles.begin(); reticle_it != wafer_entry_cpp.reticles.end(); reticle_it++) {
+		if(_convert_reticle_entry(reticle_it->second, reticle_it->first, &(wafer_entry_c->reticles[reticle_counter])) == HWDB4C_FAILURE)
+			 return HWDB4C_FAILURE;
+		reticle_counter++;
 	}
 
 	wafer_entry_c->num_ananas_entries = wafer_entry_cpp.ananas.size();
@@ -262,6 +284,15 @@ int hwdb4c_has_fpga_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id
 	return HWDB4C_SUCCESS;
 }
 
+int hwdb4c_has_reticle_entry(struct hwdb4c_database_t* handle, size_t reticleglobal_id, bool* ret) {
+	try {
+		*ret = handle->database.has_reticle_entry(DNCGlobal(Enum(reticleglobal_id)));
+	} catch(const std::out_of_range& hdke) {
+		return HWDB4C_FAILURE;
+	}
+	return HWDB4C_SUCCESS;
+}
+
 int hwdb4c_has_ananas_entry(struct hwdb4c_database_t* handle, size_t ananasglobal_id, bool* ret) {
 	try {
 		*ret = handle->database.has_ananas_entry(ANANASGlobal(Enum(ananasglobal_id)));
@@ -297,6 +328,16 @@ int hwdb4c_get_fpga_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id
 		return HWDB4C_FAILURE;
 	}
 	return _convert_fpga_entry(fpga_entry_cpp, FPGAGlobal(Enum(fpgaglobal_id)), ret);
+}
+
+int hwdb4c_get_reticle_entry(struct hwdb4c_database_t* handle, size_t reticleglobal_id, struct hwdb4c_reticle_entry** ret) {
+	hwdb4cpp::ReticleEntry reticle_entry_cpp;
+	try {
+		reticle_entry_cpp = handle->database.get_reticle_entry(DNCGlobal(Enum(reticleglobal_id)));
+	} catch(const std::out_of_range& hdke) {
+		return HWDB4C_FAILURE;
+	}
+	return _convert_reticle_entry(reticle_entry_cpp, DNCGlobal(Enum(reticleglobal_id)), ret);
 }
 
 int hwdb4c_get_ananas_entry(struct hwdb4c_database_t* handle, size_t ananasglobal_id, struct hwdb4c_ananas_entry** ret) {
@@ -489,6 +530,10 @@ void hwdb4c_free_fpga_entry(struct hwdb4c_fpga_entry* fpga) {
 	free(fpga);
 }
 
+void hwdb4c_free_reticle_entry(struct hwdb4c_reticle_entry* reticle) {
+	free(reticle);
+}
+
 void hwdb4c_free_ananas_entry(struct hwdb4c_ananas_entry* ananas) {
 	free(ananas);
 }
@@ -507,6 +552,10 @@ void hwdb4c_free_wafer_entry(struct hwdb4c_wafer_entry* wafer) {
 		hwdb4c_free_fpga_entry(wafer->fpgas[fpga_counter]);
 	}
 	free(wafer->fpgas);
+	for (size_t reticle_counter = 0; reticle_counter < wafer->num_reticle_entries; reticle_counter++) {
+		hwdb4c_free_reticle_entry(wafer->reticles[reticle_counter]);
+	}
+	free(wafer->reticles);
 	for (size_t ananas_counter = 0; ananas_counter < wafer->num_ananas_entries; ananas_counter++) {
 		hwdb4c_free_ananas_entry(wafer->ananas[ananas_counter]);
 	}
@@ -553,6 +602,10 @@ void hwdb4c_free_adc_entries(struct hwdb4c_adc_entry** adcs, size_t num_adcs) {
 
 size_t hwdb4c_FPGAOnWafer_size() {
 	return FPGAOnWafer::size;
+}
+
+size_t hwdb4c_DNCOnWafer_size() {
+	return DNCOnWafer::size;
 }
 
 size_t hwdb4c_ANANASOnWafer_size() {

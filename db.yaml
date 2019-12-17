@@ -181,6 +181,103 @@ fpgas:
     ip: 192.168.14.107
   - fpga: 47
     ip: 192.168.14.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 2
 ---
@@ -287,6 +384,103 @@ fpgas:
     ip: 192.168.15.107
   - fpga: 47
     ip: 192.168.15.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 ananas:
   - ananas: 0
     ip: 192.168.15.190
@@ -396,6 +590,103 @@ fpgas:
     ip: 192.168.17.107
   - fpga: 47
     ip: 192.168.17.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 ananas:
   - ananas: 0
     ip: 192.168.17.190
@@ -408,6 +699,103 @@ wafer: 19
 setuptype: bsswafer
 macu: 192.168.200.165
 macuversion: 1
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 fpgas:
   - fpga: 0
     ip: 192.168.19.1
@@ -1286,6 +1674,103 @@ fpgas:
     ip: 192.168.20.107
   - fpga: 47
     ip: 192.168.20.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 2
 ---
@@ -1392,6 +1877,103 @@ fpgas:
     ip: 192.168.21.107
   - fpga: 47
     ip: 192.168.21.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 4
 ---
@@ -1498,6 +2080,103 @@ fpgas:
     ip: 192.168.22.107
   - fpga: 47
     ip: 192.168.22.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 4
 adcs:
@@ -2277,6 +2956,103 @@ fpgas:
     ip: 192.168.23.107
   - fpga: 47
     ip: 192.168.23.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 2
 ---
@@ -2383,6 +3159,103 @@ fpgas:
     ip: 192.168.24.107
   - fpga: 47
     ip: 192.168.24.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 4
 adcs:
@@ -3162,6 +4035,103 @@ fpgas:
     ip: 192.168.25.107
   - fpga: 47
     ip: 192.168.25.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 2
 ---
@@ -3268,6 +4238,103 @@ fpgas:
     ip: 192.168.26.107
   - fpga: 47
     ip: 192.168.26.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 2
 ---
@@ -3374,6 +4441,103 @@ fpgas:
     ip: 192.168.27.107
   - fpga: 47
     ip: 192.168.27.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 ananas:
   - ananas: 0
     ip: 192.168.27.190
@@ -3485,6 +4649,103 @@ fpgas:
     ip: 192.168.28.107
   - fpga: 47
     ip: 192.168.28.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 4
 ---
@@ -3591,6 +4852,103 @@ fpgas:
     ip: 192.168.29.107
   - fpga: 47
     ip: 192.168.29.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 adcs:
   - fpga: 46
     analog: 0
@@ -3922,6 +5280,103 @@ fpgas:
     ip: 192.168.30.107
   - fpga: 47
     ip: 192.168.30.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 adcs:
   - fpga: 24
     analog: 0
@@ -4701,6 +6156,103 @@ fpgas:
     ip: 192.168.31.107
   - fpga: 47
     ip: 192.168.31.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 2
 ---
@@ -4807,6 +6359,103 @@ fpgas:
     ip: 192.168.33.107
   - fpga: 47
     ip: 192.168.33.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 4
 adcs:
@@ -5586,6 +7235,103 @@ fpgas:
     ip: 192.168.34.107
   - fpga: 47
     ip: 192.168.34.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 2
 ---
@@ -5692,6 +7438,103 @@ fpgas:
     ip: 192.168.35.107
   - fpga: 47
     ip: 192.168.35.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 2
 ---
@@ -5798,6 +7641,103 @@ fpgas:
     ip: 192.168.36.107
   - fpga: 47
     ip: 192.168.36.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 2
 ---
@@ -5904,6 +7844,103 @@ fpgas:
     ip: 192.168.37.107
   - fpga: 47
     ip: 192.168.37.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 4
 adcs:
@@ -6683,6 +8720,103 @@ fpgas:
     ip: 192.168.38.107
   - fpga: 47
     ip: 192.168.38.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 2
 ---
@@ -6789,6 +8923,103 @@ fpgas:
     ip: 192.168.39.107
   - fpga: 47
     ip: 192.168.39.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 2
 # FIXME ugly temporary workaround to handle HX cube setups until slurm supports the hxsetup types
@@ -7040,6 +9271,103 @@ fpgas:
     ip: 192.168.100.107
   - fpga: 47
     ip: 192.168.100.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 hicanns:
   version: 2
 ---

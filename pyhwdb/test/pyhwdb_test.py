@@ -15,6 +15,8 @@ class Test_Pyhwdb(unittest.TestCase):
         self.FPGA_COORD = coord.FPGAOnWafer(0)
         self.FPGA_HIGHSPEED = True
         self.FPGA_IP = coord.IPv4.from_string("192.168.10.1")
+        self.RETICLE_COORD = coord.DNCOnWafer(coord.common.Enum(0))
+        self.RETICLE_TO_BE_POWERED = False
         self.HICANN_COORD = coord.HICANNOnWafer(coord.common.Enum(144))
         self.HICANN_VERSION = 4
         self.HICANN_LABEL = "bla"
@@ -114,6 +116,16 @@ class Test_Pyhwdb(unittest.TestCase):
         self.assertEqual(mydb.get_fpga_entry(fpga_coord).ip, fpga.ip)
         mydb.remove_fpga_entry(fpga_coord)
         self.assertFalse(mydb.has_fpga_entry(fpga_coord))
+
+        reticle = pyhwdb.ReticleEntry()
+        reticle_coord = coord.DNCGlobal(self.RETICLE_COORD, self.WAFER_COORD)
+        reticle.to_be_powered = self.RETICLE_TO_BE_POWERED
+        self.assertFalse(mydb.has_reticle_entry(reticle_coord))
+        mydb.add_reticle_entry(reticle_coord, reticle)
+        self.assertTrue(mydb.has_reticle_entry(reticle_coord))
+        self.assertEqual(mydb.get_reticle_entry(reticle_coord).to_be_powered, reticle.to_be_powered)
+        mydb.remove_reticle_entry(reticle_coord)
+        self.assertFalse(mydb.has_reticle_entry(reticle_coord))
 
 
         # require fpga entry to add hicann entry

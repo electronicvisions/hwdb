@@ -19,6 +19,7 @@ namespace hwdb4cpp {
 ///  - adcs: A sequence of mappings describing ADCs connection (see below)
 ///  - ananas: A sequence of mappings describing ANANAS setting (see below)
 ///  - fpgas: A sequence of mappings describing the fpga setting (see below)
+///  - reticles: A sequence of mappings describing the reticle setting (see below)
 ///  - hicanns: Either a sequence of the individual available HICANNs (see below)
 ///             or a mapping as shorthand for whole wafers(see below).
 ///  - macu: ip of Main System Control Unit (raspberry pi) (default: 0.0.0.0)
@@ -45,6 +46,11 @@ namespace hwdb4cpp {
 ///  - ip: IP of the FPGA
 ///  - highspeed: Discribes, if there is a physical highspeed connection
 ///               available (optional, default true)
+///
+/// Reticle sequence entries. Each entry describes a Reticle available in the
+/// system. Each is a mapping containing the following entries:
+///  - reticle: Coordinate of the Reticle (DNCOnWafer)
+///  - to_be_powered: boolean flag if reticle is allowed to be powered
 ///
 /// HICANN sequence entries. Each entry describes an HICANN available in the
 /// system. Each is a mapping containing the following entries:
@@ -83,6 +89,11 @@ struct FPGAEntry
 	bool highspeed;
 };
 
+struct ReticleEntry
+{
+	bool to_be_powered;
+};
+
 struct ANANASEntry
 {
 	halco::hicann::v2::IPv4 ip;
@@ -113,6 +124,7 @@ struct ADCEntry
 typedef std::pair< halco::hicann::v2::FPGAGlobal, halco::hicann::v2::AnalogOnHICANN> GlobalAnalog_t;
 typedef std::map< GlobalAnalog_t, ADCEntry> ADCEntryMap;
 typedef std::map< halco::hicann::v2::FPGAGlobal, FPGAEntry> FPGAEntryMap;
+typedef std::map< halco::hicann::v2::DNCGlobal, ReticleEntry> ReticleEntryMap;
 typedef std::map< halco::hicann::v2::ANANASGlobal, ANANASEntry> ANANASEntryMap;
 typedef std::map< halco::hicann::v2::HICANNGlobal, HICANNEntry> HICANNEntryMap;
 
@@ -121,6 +133,7 @@ struct WaferEntry
 	halco::hicann::v2::SetupType setup_type;
 	ADCEntryMap adcs;
 	FPGAEntryMap fpgas;
+	ReticleEntryMap reticles;
 	ANANASEntryMap ananas;
 	HICANNEntryMap hicanns;
 	halco::hicann::v2::IPv4 macu;
@@ -203,6 +216,17 @@ public:
 	/// Get all entries for all FPGAs on a Wafer
 	FPGAEntryMap get_fpga_entries(halco::hicann::v2::Wafer const wafer) const;
 
+	/// Insert (and replace) an Reticle into the database.
+	/// The corresponding WaferEntry has to exist.
+	void add_reticle_entry(halco::hicann::v2::DNCGlobal const reticle, ReticleEntry const entry);
+	bool remove_reticle_entry(halco::hicann::v2::DNCGlobal const reticle);
+	/// Check if reticle entry exists
+	bool has_reticle_entry(halco::hicann::v2::DNCGlobal const reticle) const;
+	/// Get reticle entry (throws if coordinate isn't found)
+	ReticleEntry const& get_reticle_entry(halco::hicann::v2::DNCGlobal const reticle) const;
+	/// Get all entries for all Reticles on a Wafer
+	ReticleEntryMap get_reticle_entries(halco::hicann::v2::Wafer const wafer) const;
+
 	/// Insert (and replace) an ANANAS into the database.
 	/// The corresponding WaferEntry has to exist.
 	void add_ananas_entry(halco::hicann::v2::ANANASGlobal const ananas, ANANASEntry const entry);
@@ -266,6 +290,7 @@ public:
 private:
 	// used by yaml-cpp => FIXME: change to add_{fpga,hicann,adc}_entry
 	void add_fpga(halco::hicann::v2::FPGAGlobal const, const FPGAEntry& data);
+	void add_reticle(halco::hicann::v2::DNCGlobal const, const ReticleEntry& data);
 	void add_ananas(halco::hicann::v2::ANANASGlobal const, const ANANASEntry& data);
 	void add_hicann(halco::hicann::v2::HICANNGlobal const, const HICANNEntry& data);
 	void add_adc(GlobalAnalog_t const, const ADCEntry& data);
