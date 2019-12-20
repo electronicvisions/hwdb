@@ -173,6 +173,8 @@ TEST_F(HWDB4C_Test, has_entry)
 	EXPECT_TRUE(ret);
 	ASSERT_EQ(hwdb4c_has_fpga_entry(hwdb, fpgas_per_wafer * testwafer_id + 1, &ret), HWDB4C_SUCCESS);
 	EXPECT_FALSE(ret);
+	ASSERT_EQ(hwdb4c_has_fpga_entry(hwdb, fpgas_per_wafer * testwafer_id + 3, &ret), HWDB4C_SUCCESS);
+	EXPECT_TRUE(ret);
 
 	ret = false;
 	ASSERT_EQ(hwdb4c_has_ananas_entry(hwdb, ananas_per_wafer * testwafer_id + 0, &ret), HWDB4C_SUCCESS);
