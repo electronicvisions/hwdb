@@ -287,7 +287,7 @@ void database::load(std::string const path)
 			auto fpga_entries = config["fpgas"];
 			if (fpga_entries.IsDefined()) {
 				for (const auto& entry : fpga_entries.as<std::vector<FPGAYAML> >()) {
-					FPGAGlobal fpga(FPGAOnWafer(entry.coordinate), wafer);
+					FPGAGlobal const fpga(FPGAOnWafer(entry.coordinate), wafer);
 					add_fpga_entry(fpga, entry);
 				}
 			}
@@ -295,7 +295,7 @@ void database::load(std::string const path)
 			auto ananas_entries = config["ananas"];
 			if (ananas_entries.IsDefined()) {
 				for (const auto& entry : ananas_entries.as<std::vector<ANANASYAML> >()) {
-					ANANASGlobal ananas(ANANASOnWafer(entry.coordinate), wafer);
+					ANANASGlobal const ananas(ANANASOnWafer(entry.coordinate), wafer);
 					add_ananas_entry(ananas, entry);
 				}
 			}
@@ -303,8 +303,8 @@ void database::load(std::string const path)
 			auto adc_entries = config["adcs"];
 			if (adc_entries.IsDefined()) {
 				for (const auto& entry : adc_entries.as<std::vector<ADCYAML> >()) {
-					FPGAGlobal fpga(FPGAOnWafer(entry.fpga), wafer);
-					GlobalAnalog_t coord(fpga, AnalogOnHICANN(entry.analog));
+					FPGAGlobal const fpga(FPGAOnWafer(entry.fpga), wafer);
+					GlobalAnalog_t const coord(fpga, AnalogOnHICANN(entry.analog));
 					add_adc_entry(coord, entry);
 				}
 			}
@@ -315,14 +315,14 @@ void database::load(std::string const path)
 			} else if (hicanns_node.IsSequence()) {
 				auto hicann_entries = hicanns_node.as<std::vector<HICANNYAML> >();
 				for (const auto& entry : hicann_entries) {
-					HICANNGlobal hicann(HICANNOnWafer(Enum(entry.coordinate)), wafer);
+					HICANNGlobal const hicann(HICANNOnWafer(Enum(entry.coordinate)), wafer);
 					add_hicann_entry(hicann, entry);
 				}
 			} else if (hicanns_node.IsMap()) {
 				const HICANNYAML entry = hicanns_node.as<HICANNYAML>();
 				for (auto hicann : iter_all<HICANNOnWafer>()) {
 					if (has_fpga_entry(HICANNGlobal(hicann, wafer).toFPGAGlobal())) {
-						HICANNGlobal hicann_global(hicann, wafer);
+						HICANNGlobal const hicann_global(hicann, wafer);
 						add_hicann_entry(hicann_global, entry);
 					}
 				}
