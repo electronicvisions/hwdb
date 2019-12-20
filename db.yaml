@@ -789,7 +789,7 @@ reticles:
   - reticle: 43
     to_be_powered: true
   - reticle: 44
-    to_be_powered: true
+    to_be_powered: false
   - reticle: 45
     to_be_powered: true
   - reticle: 46
@@ -3187,7 +3187,7 @@ reticles:
   - reticle: 12
     to_be_powered: true
   - reticle: 13
-    to_be_powered: true
+    to_be_powered: false
   - reticle: 14
     to_be_powered: true
   - reticle: 15
@@ -6431,7 +6431,7 @@ reticles:
   - reticle: 34
     to_be_powered: true
   - reticle: 35
-    to_be_powered: true
+    to_be_powered: false
   - reticle: 36
     to_be_powered: true
   - reticle: 37
@@ -7852,7 +7852,7 @@ reticles:
   - reticle: 2
     to_be_powered: true
   - reticle: 3
-    to_be_powered: true
+    to_be_powered: false
   - reticle: 4
     to_be_powered: true
   - reticle: 5
@@ -7884,7 +7884,7 @@ reticles:
   - reticle: 18
     to_be_powered: true
   - reticle: 19
-    to_be_powered: true
+    to_be_powered: false
   - reticle: 20
     to_be_powered: true
   - reticle: 21
@@ -7930,7 +7930,7 @@ reticles:
   - reticle: 41
     to_be_powered: true
   - reticle: 42
-    to_be_powered: true
+    to_be_powered: false
   - reticle: 43
     to_be_powered: true
   - reticle: 44
