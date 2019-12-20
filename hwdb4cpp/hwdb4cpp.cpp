@@ -474,7 +474,7 @@ void database::dump(std::ostream& out) const
 			std::vector<FPGAYAML> fpga_data;
 			for (auto& it : data.fpgas) {
 				FPGAYAML entry(it.second);
-				entry.coordinate = it.first;
+				entry.coordinate = it.first.toFPGAOnWafer().toEnum().value();
 				fpga_data.push_back(entry);
 			}
 			config["fpgas"] = fpga_data;
@@ -486,7 +486,7 @@ void database::dump(std::ostream& out) const
 			std::vector<ANANASYAML> ananas_data;
 			for (auto& it : data.ananas) {
 				ANANASYAML entry(it.second);
-				entry.coordinate = it.first;
+				entry.coordinate = it.first.toANANASOnWafer().toEnum().value();
 				ananas_data.push_back(entry);
 			}
 			config["ananas"] = ananas_data;
@@ -498,7 +498,7 @@ void database::dump(std::ostream& out) const
 			std::vector<ADCYAML> adc_data;
 			for (auto& it : data.adcs) {
 				ADCYAML entry(it.second);
-				entry.fpga = it.first.first;
+				entry.fpga = it.first.first.toFPGAOnWafer().toEnum().value();
 				entry.analog = it.first.second;
 				adc_data.push_back(entry);
 			}
