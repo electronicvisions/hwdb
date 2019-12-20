@@ -287,7 +287,7 @@ void database::load(std::string const path)
 			auto fpga_entries = config["fpgas"];
 			if (fpga_entries.IsDefined()) {
 				for (const auto& entry : fpga_entries.as<std::vector<FPGAYAML> >()) {
-					FPGAGlobal fpga(FPGAGlobal(FPGAOnWafer(entry.coordinate), wafer));
+					FPGAGlobal fpga(FPGAOnWafer(entry.coordinate), wafer);
 					add_fpga_entry(fpga, entry);
 				}
 			}
@@ -295,7 +295,7 @@ void database::load(std::string const path)
 			auto ananas_entries = config["ananas"];
 			if (ananas_entries.IsDefined()) {
 				for (const auto& entry : ananas_entries.as<std::vector<ANANASYAML> >()) {
-					ANANASGlobal ananas(ANANASGlobal(ANANASOnWafer(entry.coordinate), wafer));
+					ANANASGlobal ananas(ANANASOnWafer(entry.coordinate), wafer);
 					add_ananas_entry(ananas, entry);
 				}
 			}
