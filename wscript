@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from waflib.extras.gtest import summary
+from waflib import Utils
 
 APPNAME='hwdb'
 
@@ -83,3 +84,10 @@ def build(bld):
             test_timeout    = 45,
             pythonpath      = ["test"],
         )
+
+    bld.install_files(
+        '${PREFIX}/bin',
+        bld.path.ant_glob('tools/*'),
+        relative_trick=False,
+        chmod=Utils.O755,
+    )
