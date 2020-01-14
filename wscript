@@ -31,7 +31,6 @@ def build(bld):
 
     bld(
         target          = 'hwdb4cpp_inc',
-        use             = 'halco_hicann_v2_inc',
         export_includes = '.',
     )
 
