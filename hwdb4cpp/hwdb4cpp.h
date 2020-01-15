@@ -29,7 +29,7 @@ namespace hwdb4cpp {
 /// the following entries:
 ///  - fpga: Coordinate of the FPGA
 ///  - analog: Analog output of the FPGA/HICANN
-///  - adc: Coordiante of the ADC
+///  - adc: Coordinate of the ADC
 ///  - channel: Channel of the ADC
 ///  - trigger: Channel of the trigger
 ///  - dnc_on_fpga: Coordinate of the DNC on FPGA (optional, required only
