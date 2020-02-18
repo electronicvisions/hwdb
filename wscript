@@ -84,9 +84,13 @@ def build(bld):
             pythonpath      = ["test"],
         )
 
-    bld.install_files(
-        '${PREFIX}/bin',
-        bld.path.ant_glob('tools/*'),
-        relative_trick=False,
-        chmod=Utils.O755,
-    )
+        bld(
+            target          = 'pyhwdb_tools',
+            features        = 'use py',
+            use             = 'pyhwdb',
+            source          = bld.path.ant_glob('pyhwdb/tools/*.py'),
+            install_path    = '${PREFIX}/bin',
+            relative_trick  = False,
+            chmod           = Utils.O755
+
+        )
