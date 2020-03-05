@@ -2170,7 +2170,7 @@ reticles:
   - reticle: 43
     to_be_powered: true
   - reticle: 44
-    to_be_powered: true
+    to_be_powered: false
   - reticle: 45
     to_be_powered: true
   - reticle: 46
