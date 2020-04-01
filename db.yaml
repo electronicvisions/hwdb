@@ -789,7 +789,7 @@ reticles:
   - reticle: 43
     to_be_powered: true
   - reticle: 44
-    to_be_powered: false
+    to_be_powered: true
   - reticle: 45
     to_be_powered: true
   - reticle: 46
