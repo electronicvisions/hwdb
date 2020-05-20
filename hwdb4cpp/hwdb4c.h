@@ -121,6 +121,7 @@ struct SYMBOL_VISIBLE hwdb4c_hxcube_entry {
 	size_t ldo_version;
 	char* usb_serial;
 	size_t chip_serial;
+	size_t chip_revision;
 };
 
 

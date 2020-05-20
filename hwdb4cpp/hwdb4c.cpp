@@ -194,6 +194,7 @@ int _convert_hxcube_entry(hwdb4cpp::HXCubeSetupEntry hxcube_entry_cpp, size_t hx
 	hxcube_entry_c->usb_serial = (char*)malloc((hxcube_entry_cpp.usb_serial.length() + 1) * sizeof(char));
 	strncpy(hxcube_entry_c->usb_serial, hxcube_entry_cpp.usb_serial.c_str(), hxcube_entry_cpp.usb_serial.length() + 1);
 	hxcube_entry_c->chip_serial = hxcube_entry_cpp.chip_serial;
+	hxcube_entry_c->chip_revision = hxcube_entry_cpp.chip_revision;
 
 	*ret = hxcube_entry_c;
 	return HWDB4C_SUCCESS;

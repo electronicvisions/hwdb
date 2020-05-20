@@ -78,6 +78,7 @@ namespace hwdb4cpp {
 ///  - ldo_version: variant of the linear regulators on xboard
 ///  - usb_serial: serial number of MSP430 (as string)
 ///  - chip_serial: EEPROM serial on chip carrier (hex)
+///  - chip_revision: HICANN-X revision (int)
 
 
 /* HWDB Entry Types: Structs representing the data in the YAML database */
@@ -165,6 +166,7 @@ struct HXCubeSetupEntry
 	size_t ldo_version;
 	std::string usb_serial;
 	size_t chip_serial;
+	size_t chip_revision;
 
 	HXCubeSetupEntry()
 	{
@@ -172,6 +174,7 @@ struct HXCubeSetupEntry
 		usb_host = "None";
 		ldo_version = 0; // valid versions start from 1
 		chip_serial = 0;
+		chip_revision = 0;
 	}
 };
 /* ******************************************************************** */

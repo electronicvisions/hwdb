@@ -448,6 +448,11 @@ void database::load(std::string const path)
 			if (chip_serial_entry.IsDefined()) {
 				mHXCubeData.at(hxcube_id).chip_serial = chip_serial_entry.as<size_t>();
 			}
+
+			auto chip_revision_entry = config["chip_revision"];
+			if (chip_revision_entry.IsDefined()) {
+				mHXCubeData.at(hxcube_id).chip_revision = chip_revision_entry.as<size_t>();
+			}
 		}
 		// yaml node does not contain wafer or dls setup or hxcube setup
 		else {
@@ -678,6 +683,12 @@ void database::dump(std::ostream& out) const
 		if (data.chip_serial != 0) {
 			YAML::Node config;
 			config["chip_serial"] = data.chip_serial;
+			out << config << '\n';
+		}
+
+		{
+			YAML::Node config;
+			config["chip_revision"] = data.chip_revision;
 			out << config << '\n';
 		}
 	}

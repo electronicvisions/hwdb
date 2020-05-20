@@ -48,8 +48,7 @@ protected:
 	std::string test_path;
 	int fd;
 
-	std::string const test_db_string =
-"---\n\
+	std::string const test_db_string = "---\n\
 wafer: 5\n\
 setuptype: bsswafer\n\
 macu: 192.168.200.165\n\
@@ -119,7 +118,8 @@ fpga_ips: ['192.168.66.1', '192.168.66.4']\n\
 usb_host: 'AMTHost11'\n\
 ldo_version: 2\n\
 usb_serial: 'AFEABC1230456789'\n\
-chip_serial: 0x1234ABCD\
+chip_serial: 0x1234ABCD\n\
+chip_revision: 42\
 ";
 };
 
@@ -294,6 +294,7 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(hxcube->ldo_version, 2);
 	EXPECT_EQ(std::string(hxcube->usb_serial), "AFEABC1230456789");
 	EXPECT_EQ(hxcube->chip_serial, 0x1234ABCD);
+	EXPECT_EQ(hxcube->chip_revision, 42);
 	hwdb4c_free_hxcube_entry(hxcube);
 	hxcube = NULL;
 
