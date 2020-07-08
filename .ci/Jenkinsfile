@@ -1,18 +1,58 @@
 @Library("jenlib") _
 
-// BrainScaleS Wafer
-wafDefaultPipeline(projects: ["hwdb"],
-                   container: [app: "visionary-wafer"],
-                   prePipelineCleanup: true,
-                   testOptions: "--test-execall -j1",
-                   testSlurmResource: [partition: "jenkins"],
-                   notificationChannel: "#visionary-wafer-users")
+Map<String, Object> bss1PipelineArgs = [container          : [app: "wafer"],
+                                        notificationChannel: "#visionary-wafer-users"]
 
-// DLSv2
-wafDefaultPipeline(projects: ["hwdb"],
-                   container: [app: "visionary-dls"],
-                   prePipelineCleanup: true,
-                   testOptions: "--test-execall -j1",
-                   testSlurmResource: [partition: "jenkins"],
-                   notificationChannel: "#dls-software")
+Map<String, Object> bss2PipelineArgs = [container          : [app: "dls"],
+                                        notificationChannel: "#dls-software"]
 
+// BSS-2
+wafDefaultPipeline([projects: ["hwdb"]] << bss2PipelineArgs)
+
+runOnSlave(label: "frontend") {
+	cleanWs()
+}
+
+// BSS-1
+wafDefaultPipeline([projects: ["hwdb"]] << bss1PipelineArgs)
+
+
+// Syntax Check, to be migrated to a waf test (issue #3604)
+stage("Syntax Check") {
+	inSingularity() {
+		runOnSlave(label: "frontend") {
+			jesh("python -c \"import yaml; [None for elem in yaml.load_all(file('hwdb/db.yaml'))]\"")
+		}
+	}
+}
+
+try {
+	Boolean isMergeEvent = env.GERRIT_EVENT_TYPE == "change-merged"
+	Boolean isSuccessful = currentBuild.currentResult == "SUCCESS"
+	Boolean doDeploy = isMergeEvent && isSuccessful
+
+	conditionalStage(name: "Yaml Deployment", skip: !doDeploy) {
+		runOnSlave(label: "frontend") {
+			jesh("cd /wang/data/bss-hwdb && " +
+			     "umask 002 && " +  // allow F9 to write stuff too
+			     "cp ${WORKSPACE}/hwdb/db.yaml .db.yaml.tmp && " +
+			     "mv .db.yaml.tmp db.yaml")
+		}
+	}
+
+	conditionalStage(name: "Module Deployment", skip: !doDeploy) {
+		runOnSlave(label: "frontend") {
+			inSingularity(bss1PipelineArgs["container"]) {
+				deployModule([name  : "hwdb_bss1",
+				              source: "bin/ lib/ repos_log.txt"])
+			}
+		}
+	}
+} catch (Throwable t) {
+	notifyFailure(mattermostChannel: bss1PipelineArgs["notificationChannel"])
+	throw t
+}
+
+if (currentBuild.currentResult != "SUCCESS") {
+	notifyFailure(mattermostChannel: bss1PipelineArgs["notificationChannel"])
+}
