@@ -123,7 +123,8 @@ struct SYMBOL_VISIBLE hwdb4c_hxcube_entry {
 	char* usb_host;
 	size_t ldo_version;
 	char* usb_serial;
-	size_t chip_serial;
+	uint32_t eeprom_chip_serial;
+	size_t handwritten_chip_serial;
 	size_t chip_revision;
 };
 

@@ -120,7 +120,8 @@ fpga_ips: ['192.168.66.1', '192.168.66.4']\n\
 usb_host: 'AMTHost11'\n\
 ldo_version: 2\n\
 usb_serial: 'AFEABC1230456789'\n\
-chip_serial: 0x1234ABCD\n\
+eeprom_chip_serial: 0x1234ABCD\n\
+handwritten_chip_serial: 12\n\
 chip_revision: 42\
 ";
 };
@@ -297,7 +298,8 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(std::string(inet_ntoa(hxcube->fpga_ips[1])), "192.168.66.4");
 	EXPECT_EQ(hxcube->ldo_version, 2);
 	EXPECT_EQ(std::string(hxcube->usb_serial), "AFEABC1230456789");
-	EXPECT_EQ(hxcube->chip_serial, 0x1234ABCD);
+	EXPECT_EQ(hxcube->eeprom_chip_serial, 0x1234ABCD);
+	EXPECT_EQ(hxcube->handwritten_chip_serial, 12);
 	EXPECT_EQ(hxcube->chip_revision, 42);
 	hwdb4c_free_hxcube_entry(hxcube);
 	hxcube = NULL;

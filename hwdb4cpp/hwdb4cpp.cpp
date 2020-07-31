@@ -448,9 +448,16 @@ void database::load(std::string const path)
 				mHXCubeData.at(hxcube_id).usb_serial = usb_serial_entry.as<std::string>();
 			}
 
-			auto chip_serial_entry = config["chip_serial"];
-			if (chip_serial_entry.IsDefined()) {
-				mHXCubeData.at(hxcube_id).chip_serial = chip_serial_entry.as<size_t>();
+			auto eeprom_chip_serial_entry = config["eeprom_chip_serial"];
+			if (eeprom_chip_serial_entry.IsDefined()) {
+				mHXCubeData.at(hxcube_id).eeprom_chip_serial =
+				    eeprom_chip_serial_entry.as<uint32_t>();
+			}
+
+			auto handwritten_chip_serial_entry = config["handwritten_chip_serial"];
+			if (handwritten_chip_serial_entry.IsDefined()) {
+				mHXCubeData.at(hxcube_id).handwritten_chip_serial =
+				    handwritten_chip_serial_entry.as<size_t>();
 			}
 
 			auto chip_revision_entry = config["chip_revision"];
@@ -684,9 +691,15 @@ void database::dump(std::ostream& out) const
 			out << config << '\n';
 		}
 
-		if (data.chip_serial != 0) {
+		if (data.eeprom_chip_serial != 0) {
 			YAML::Node config;
-			config["chip_serial"] = data.chip_serial;
+			config["eeprom_chip_serial"] = data.eeprom_chip_serial;
+			out << config << '\n';
+		}
+
+		if (data.handwritten_chip_serial != 0) {
+			YAML::Node config;
+			config["handwritten_chip_serial"] = data.handwritten_chip_serial;
 			out << config << '\n';
 		}
 

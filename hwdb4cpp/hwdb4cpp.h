@@ -79,7 +79,9 @@ namespace hwdb4cpp {
 ///  - usb_host: host that connects to MSP430 on cube-io
 ///  - ldo_version: variant of the linear regulators on xboard
 ///  - usb_serial: serial number of MSP430 (as string)
-///  - chip_serial: EEPROM serial on chip carrier (hex)
+///  - eeprom_chip_serial: EEPROM serial on chip carrier (hex)
+///  - handwritten_chip_serial: Manually written (in decimal) unique ID on chip carrier (valid
+///  range: [1,...])
 ///  - chip_revision: HICANN-X revision (int)
 
 
@@ -169,7 +171,8 @@ struct HXCubeSetupEntry
 	std::string usb_host;
 	size_t ldo_version;
 	std::string usb_serial;
-	size_t chip_serial;
+	uint32_t eeprom_chip_serial;
+	size_t handwritten_chip_serial;
 	size_t chip_revision;
 
 	HXCubeSetupEntry()
@@ -177,7 +180,8 @@ struct HXCubeSetupEntry
 		hxcube_id = 0;
 		usb_host = "None";
 		ldo_version = 0; // valid versions start from 1
-		chip_serial = 0;
+		eeprom_chip_serial = 0;
+		handwritten_chip_serial = 0; // valid IDs start from 1
 		chip_revision = 0;
 	}
 };

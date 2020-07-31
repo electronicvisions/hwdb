@@ -199,7 +199,8 @@ int _convert_hxcube_entry(hwdb4cpp::HXCubeSetupEntry hxcube_entry_cpp, size_t hx
 	hxcube_entry_c->ldo_version = hxcube_entry_cpp.ldo_version;
 	hxcube_entry_c->usb_serial = (char*)malloc((hxcube_entry_cpp.usb_serial.length() + 1) * sizeof(char));
 	strncpy(hxcube_entry_c->usb_serial, hxcube_entry_cpp.usb_serial.c_str(), hxcube_entry_cpp.usb_serial.length() + 1);
-	hxcube_entry_c->chip_serial = hxcube_entry_cpp.chip_serial;
+	hxcube_entry_c->eeprom_chip_serial = hxcube_entry_cpp.eeprom_chip_serial;
+	hxcube_entry_c->handwritten_chip_serial = hxcube_entry_cpp.handwritten_chip_serial;
 	hxcube_entry_c->chip_revision = hxcube_entry_cpp.chip_revision;
 
 	*ret = hxcube_entry_c;

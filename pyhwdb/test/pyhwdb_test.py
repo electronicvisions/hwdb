@@ -96,7 +96,8 @@ class Test_Pyhwdb(unittest.TestCase):
         hxcube_entry.usb_host = "fantasy"
         hxcube_entry.ldo_version = 8
         hxcube_entry.usb_serial = "ABACD1243"
-        hxcube_entry.chip_serial = 0x987DE
+        hxcube_entry.eeprom_chip_serial = 0x987DE
+        hxcube_entry.handwritten_chip_serial = 12
         hxcube_entry.chip_revision = 42
         self.assertFalse(mydb.has_hxcube_entry(hxcube_id))
         mydb.add_hxcube_entry(hxcube_id, hxcube_entry)
