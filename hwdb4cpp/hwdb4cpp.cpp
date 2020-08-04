@@ -422,6 +422,7 @@ void database::load(std::string const path)
 		else if (config["hxcube_id"].IsDefined()) {
 			auto hxcube_id = config["hxcube_id"].as<size_t>();
 			HXCubeSetupEntry entry;
+			entry.hxcube_id = hxcube_id;
 			add_hxcube_entry(hxcube_id, entry);
 
 			auto fpga_entries = config["fpga_ips"];
