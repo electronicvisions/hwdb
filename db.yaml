@@ -9446,11 +9446,11 @@ ntpwr_slot: 1
 ---
 hxcube_id: 0
 fpga_ips: [192.168.60.1, 192.168.60.4]
-usb_host: 'local'
+usb_host: 'AMTHost13'
 usb_serial: 'AFE25B4712002000'
-ldo_version: 1
-eeprom_chip_serial: 0x0021FF03
-chip_revision: 1
+handwritten_chip_serial: 25
+ldo_version: 2
+chip_revision: 2
 ---
 hxcube_id: 2
 fpga_ips: [192.168.62.1, 192.168.62.4]
