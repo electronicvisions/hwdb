@@ -9454,7 +9454,7 @@ chip_revision: 1
 ---
 hxcube_id: 2
 fpga_ips: [192.168.62.1, 192.168.62.4]
-usb_host: 'AMTHost11'
+usb_host: 'AMTHost13'
 usb_serial: 'AFE25B4713002000'
 eeprom_chip_serial: 0x0047529b
 handwritten_chip_serial: 5
@@ -9463,11 +9463,11 @@ chip_revision: 1
 ---
 hxcube_id: 3
 fpga_ips: [192.168.63.1, 192.168.63.4]
-usb_host: 'AMTHost11'
+usb_host: 'AMTHost13'
 usb_serial: 'AFE25B471D002000'
 handwritten_chip_serial: 22
 ldo_version: 2
-chip_revision: 1
+chip_revision: 2
 ---
 hxcube_id: 4
 fpga_ips: [192.168.64.1, 192.168.64.4]
@@ -9476,38 +9476,41 @@ chip_revision: 1
 ---
 hxcube_id: 5
 fpga_ips: [192.168.65.1, 192.168.65.4]
+usb_host: 'AMTHost13'
 usb_serial: 'AFE25B4714002000'
 handwritten_chip_serial: 12
 chip_revision: 1
 ---
 hxcube_id: 6
 fpga_ips: [192.168.66.1, 192.168.66.4]
+usb_host: 'AMTHost13'
 usb_serial: 'AFE25B4724002000'
 handwritten_chip_serial: 23
-chip_revision: 1
+chip_revision: 2
 ---
 hxcube_id: 7
 fpga_ips: [192.168.67.1, 192.168.67.4]
 usb_serial: 'AFE25B4727002000'
 handwritten_chip_serial: 24
-chip_revision: 1
+chip_revision: 2
 ---
 hxcube_id: 8
 fpga_ips: [192.168.68.1, 192.168.68.4]
-usb_host: 'AMTHost11'
+usb_host: 'AMTHost13'
 usb_serial: 'AFE25B4710002000'
 handwritten_chip_serial: 7
 chip_revision: 1
 ---
 hxcube_id: 9
 fpga_ips: [192.168.69.1, 192.168.69.4]
-usb_host: 'AMTHost11'
+usb_host: 'AMTHost13'
 usb_serial: 'AFE25B472A002000'
 handwritten_chip_serial: 9
 chip_revision: 1
 ---
 hxcube_id: 10
 fpga_ips: [192.168.70.1, 192.168.70.4]
+usb_host: 'AMTHost13'
 usb_serial: 'AFE25B472D002000'
 handwritten_chip_serial: 8
 chip_revision: 1
@@ -9519,27 +9522,28 @@ chip_revision: 1
 ---
 hxcube_id: 12
 fpga_ips: [192.168.72.1, 192.168.72.4]
-usb_host: 'AMTHost11'
+usb_host: 'AMTHost13'
 usb_serial: 'AFE25B4720002000'
 handwritten_chip_serial: 10
 chip_revision: 1
 ---
 hxcube_id: 13
 fpga_ips: [192.168.73.1, 192.168.73.4]
-usb_host: 'AMTHost11'
+usb_host: 'AMTHost13'
 usb_serial: 'AFE25B471E002000'
 handwritten_chip_serial: 21
 chip_revision: 1
 ---
 hxcube_id: 14
 fpga_ips: [192.168.74.1, 192.168.74.4]
-usb_host: 'AMTHost11'
+usb_host: 'AMTHost13'
 usb_serial: 'AFE25B471A002000'
 handwritten_chip_serial: 11
 chip_revision: 1
 ---
 hxcube_id: 15
 fpga_ips: [192.168.75.1, 192.168.75.4]
+usb_host: 'AMTHost13'
 usb_serial: 'AFE25B4722002000'
 handwritten_chip_serial: 14
 chip_revision: 1
