@@ -103,6 +103,7 @@ class Test_Pyhwdb(unittest.TestCase):
 
         hxcube_entry = pyhwdb.HXCubeSetupEntry()
         hxcube_id = self.HXCUBE_ID
+        hxcube_entry.hxcube_id = hxcube_id
         hxcube_entry.fpga_ips[0] = self.FPGA_IP
         hxcube_entry.fpga_ips[1] = self.ADC_IP  # just a different IP
         hxcube_entry.usb_host = "fantasy"
@@ -116,6 +117,10 @@ class Test_Pyhwdb(unittest.TestCase):
         self.assertTrue(mydb.has_hxcube_entry(hxcube_id))
         mydb.remove_hxcube_entry(hxcube_id)
         self.assertFalse(mydb.has_hxcube_entry(hxcube_id))
+        self.assertEqual(hxcube_entry.get_unique_identifier(),
+                         "hxcube{}chip{}_1".format(
+                             hxcube_entry.hxcube_id,
+                             hxcube_entry.handwritten_chip_serial))
 
 
         if IS_PYPLUSPLUS:

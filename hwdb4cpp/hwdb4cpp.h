@@ -187,6 +187,8 @@ struct GENPYBIND(visible) HXCubeSetupEntry
 		handwritten_chip_serial = 0; // valid IDs start from 1
 		chip_revision = 0;
 	}
+
+	std::string get_unique_identifier() const;
 };
 /* ******************************************************************** */
 

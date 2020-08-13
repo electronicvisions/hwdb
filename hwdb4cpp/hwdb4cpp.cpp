@@ -290,6 +290,14 @@ struct convert<HICANNYAML>
 
 namespace hwdb4cpp {
 
+std::string HXCubeSetupEntry::get_unique_identifier() const
+{
+	using namespace std::string_literals;
+	return "hxcube"s + std::to_string(hxcube_id) + "chip"s +
+	       std::to_string(handwritten_chip_serial) + "_"s +
+	       std::to_string(1) /* not yet in hwdb: Issue #3641 */;
+}
+
 void database::clear()
 {
 	mWaferData.clear();
