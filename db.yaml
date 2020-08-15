@@ -9538,8 +9538,8 @@ hxcube_id: 14
 fpga_ips: [192.168.74.1, 192.168.74.4]
 usb_host: 'AMTHost13'
 usb_serial: 'AFE25B471A002000'
-handwritten_chip_serial: 11
-chip_revision: 1
+handwritten_chip_serial: 26
+chip_revision: 2
 ---
 hxcube_id: 15
 fpga_ips: [192.168.75.1, 192.168.75.4]
