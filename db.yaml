@@ -9580,7 +9580,7 @@ fpgas:
     ip: 192.168.72.1
   - fpga: 3
     ip: 192.168.72.4
-    handwritten_chip_serial: 10
+    handwritten_chip_serial: 18
     ldo_version: 2
     chip_revision: 1
 usb_host: 'AMTHost13'
