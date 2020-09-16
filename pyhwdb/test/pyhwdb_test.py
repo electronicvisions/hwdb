@@ -40,7 +40,7 @@ class Test_Pyhwdb(unittest.TestCase):
         self.DLS_SETUP_ID = "07_20"
         self.HXCUBE_ID = 9
 
-    @unittest.skipUnless(os.path.split(os.getcwd())[-1] == "hwdb", "assuming test is executed with cwd == hwdb/ as done by waf")
+    @unittest.skipUnless((os.path.split(os.getcwd())[-1] == "hwdb") and not IS_PYPLUSPLUS, "assuming test is executed with cwd == hwdb/ as done by waf")
     def test_hxcube_entries_have_serial(self):
         path = os.path.join(os.getcwd(), "db.yaml")
         db = pyhwdb.database()
@@ -49,7 +49,7 @@ class Test_Pyhwdb(unittest.TestCase):
         unique_serial_numbers = set()
         all_ids = db.get_hxcube_ids()
         for hxcube_id in all_ids:
-            entry = db.get_hxcube_entry(hxcube_id)
+            entry = db.get_hxcube_setup_entry(hxcube_id)
             self.assertNotEqual(entry.usb_serial, "", "USB serial number is present for setup {}".format(hxcube_id))
             unique_serial_numbers.add(entry.usb_serial)
         self.assertEqual(len(all_ids), len(unique_serial_numbers), "HX cube setups have unique USB serial")
@@ -101,26 +101,32 @@ class Test_Pyhwdb(unittest.TestCase):
         mydb.remove_dls_entry(dls_setup_id)
         self.assertFalse(mydb.has_dls_entry(dls_setup_id))
 
-        hxcube_entry = pyhwdb.HXCubeSetupEntry()
-        hxcube_id = self.HXCUBE_ID
-        hxcube_entry.hxcube_id = hxcube_id
-        hxcube_entry.fpga_ips[0] = self.FPGA_IP
-        hxcube_entry.fpga_ips[1] = self.ADC_IP  # just a different IP
-        hxcube_entry.usb_host = "fantasy"
-        hxcube_entry.ldo_version = 8
-        hxcube_entry.usb_serial = "ABACD1243"
-        hxcube_entry.eeprom_chip_serial = 0x987DE
-        hxcube_entry.handwritten_chip_serial = 12
-        hxcube_entry.chip_revision = 42
-        self.assertFalse(mydb.has_hxcube_entry(hxcube_id))
-        mydb.add_hxcube_entry(hxcube_id, hxcube_entry)
-        self.assertTrue(mydb.has_hxcube_entry(hxcube_id))
-        mydb.remove_hxcube_entry(hxcube_id)
-        self.assertFalse(mydb.has_hxcube_entry(hxcube_id))
-        self.assertEqual(hxcube_entry.get_unique_identifier(),
-                         "hxcube{}chip{}_1".format(
-                             hxcube_entry.hxcube_id,
-                             hxcube_entry.handwritten_chip_serial))
+        if not IS_PYPLUSPLUS:
+            hxcube_entry = pyhwdb.HXCubeSetupEntry()
+            hxcube_id = self.HXCUBE_ID
+            hxcube_entry.hxcube_id = hxcube_id
+            hxcube_entry.usb_host = "fantasy"
+            hxcube_entry.usb_serial = "ABACD1243"
+            fpga_entry = pyhwdb.HXCubeFPGAEntry()
+            fpga_entry.ip = self.FPGA_IP
+            wing_entry = pyhwdb.HXCubeWingEntry()
+            wing_entry.ldo_version = 8
+            wing_entry.eeprom_chip_serial = 0x987DE
+            wing_entry.handwritten_chip_serial = 12
+            wing_entry.chip_revision = 42
+            fpga_entry.wing = wing_entry
+            fpga_entry2 = pyhwdb.HXCubeFPGAEntry()
+            hxcube_entry.fpgas = {0: fpga_entry, 3: fpga_entry2}
+
+            self.assertFalse(mydb.has_hxcube_setup_entry(hxcube_id))
+            mydb.add_hxcube_setup_entry(hxcube_id, hxcube_entry)
+            self.assertTrue(mydb.has_hxcube_setup_entry(hxcube_id))
+            mydb.remove_hxcube_setup_entry(hxcube_id)
+            self.assertFalse(mydb.has_hxcube_setup_entry(hxcube_id))
+            self.assertEqual(hxcube_entry.get_unique_branch_identifier(12),
+                            "hxcube9fpga0chip12_1")
+            with self.assertRaises(RuntimeError):
+                hxcube_entry.get_unique_branch_identifier(108)
 
 
         if IS_PYPLUSPLUS:

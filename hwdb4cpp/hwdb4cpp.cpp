@@ -63,6 +63,14 @@ struct HICANNYAML : public HICANNEntry
 	size_t coordinate;
 };
 
+struct HXFPGAYAML : public HXCubeFPGAEntry
+{
+	HXFPGAYAML() {}
+	HXFPGAYAML(HXCubeFPGAEntry const& base) : HXCubeFPGAEntry(base) {}
+	size_t coordinate;
+};
+
+
 } // anonymous namespace
 
 // Converter for our YAML entries
@@ -207,6 +215,65 @@ struct convert<FPGAYAML>
 };
 
 template <>
+struct convert<HXFPGAYAML>
+{
+	static Node encode(const HXFPGAYAML& data)
+	{
+		Node node;
+		node["fpga"] = data.coordinate;
+		node["ip"] = data.ip.to_string();
+		if (data.wing) {
+			node["ldo_version"] = data.wing.value().ldo_version;
+			node["handwritten_chip_serial"] = data.wing.value().handwritten_chip_serial;
+			node["chip_revision"] = data.wing.value().chip_revision;
+			if (data.wing.value().eeprom_chip_serial) {
+				node["eeprom_chip_serial"] = data.wing.value().eeprom_chip_serial.value();
+			}
+		}
+		return node;
+	}
+
+	static bool decode(const Node& node, HXFPGAYAML& data)
+	{
+		if (!node.IsMap() || node.size() > 6) {
+			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''")
+			return false;
+		}
+		data.coordinate = get_entry<size_t>(node, "fpga");
+		data.ip = IPv4::from_string(get_entry<std::string>(node, "ip"));
+		auto ldo = node["ldo_version"];
+		auto hand_serial = node["handwritten_chip_serial"];
+		auto chip_rev = node["chip_revision"];
+		auto eeprom = node["eeprom_chip_serial"];
+		if (ldo.IsDefined() || hand_serial.IsDefined() || chip_rev.IsDefined()) {
+			if (!ldo.IsDefined() || !hand_serial.IsDefined() || !chip_rev.IsDefined()) {
+				LOG4CXX_ERROR(
+				    logger, "Decoding failed. LDO, hand serial and chip revision all need to be "
+				            "defined. Node: '''\n"
+				                << node << "'''")
+				return false;
+			}
+			HXCubeWingEntry wing;
+			wing.ldo_version = get_entry<size_t>(node, "ldo_version");
+			wing.handwritten_chip_serial = get_entry<size_t>(node, "handwritten_chip_serial");
+			wing.chip_revision = get_entry<size_t>(node, "chip_revision");
+			if (eeprom.IsDefined()) {
+				wing.eeprom_chip_serial = get_entry<size_t>(node, "eeprom_chip_serial");
+			}
+			data.wing = wing;
+		} else {
+			if (eeprom.IsDefined()) {
+				LOG4CXX_ERROR(
+				    logger, "Decoding failed. eeprom cannot be defined alone. Node: '''\n"
+				                << node << "'''")
+				return false;
+			}
+		}
+		return true;
+	}
+};
+
+template <>
 struct convert<ReticleYAML>
 {
 	static Node encode(const ReticleYAML& data)
@@ -290,12 +357,21 @@ struct convert<HICANNYAML>
 
 namespace hwdb4cpp {
 
-std::string HXCubeSetupEntry::get_unique_identifier() const
+std::string HXCubeSetupEntry::get_unique_branch_identifier(size_t chip_serial) const
 {
 	using namespace std::string_literals;
-	return "hxcube"s + std::to_string(hxcube_id) + "chip"s +
-	       std::to_string(handwritten_chip_serial) + "_"s +
-	       std::to_string(1) /* not yet in hwdb: Issue #3641 */;
+	for (auto fpga : fpgas) {
+		if (!fpga.second.wing) {
+			continue;
+		}
+		if ((fpga.second.wing.value().handwritten_chip_serial == chip_serial) |
+		    (fpga.second.wing.value().eeprom_chip_serial == chip_serial)) {
+			return "hxcube"s + std::to_string(hxcube_id) + "fpga"s + std::to_string(fpga.first) +
+			       "chip"s + std::to_string(fpga.second.wing.value().handwritten_chip_serial) +
+			       "_"s + std::to_string(1) /* not yet in hwdb: Issue #3641 */;
+		}
+	}
+	throw std::runtime_error("No chip with serial " + std::to_string(chip_serial) + " found");
 }
 
 void database::clear()
@@ -431,14 +507,13 @@ void database::load(std::string const path)
 			auto hxcube_id = config["hxcube_id"].as<size_t>();
 			HXCubeSetupEntry entry;
 			entry.hxcube_id = hxcube_id;
-			add_hxcube_entry(hxcube_id, entry);
+			add_hxcube_setup_entry(hxcube_id, entry);
 
-			auto fpga_entries = config["fpga_ips"];
+			auto fpga_entries = config["fpgas"];
 			if (fpga_entries.IsDefined()) {
-				try {
-					mHXCubeData.at(hxcube_id).fpga_ips = fpga_entries.as<std::array<IPv4, 2> >();
-				} catch (const YAML::TypedBadConversion<std::array<IPv4, 2> >& e) {
-					throw std::runtime_error(std::string("Two FPGA IP addresses must be defined:") + e.what());
+				for (const auto& entry : fpga_entries.as<std::vector<HXFPGAYAML> >()) {
+					mHXCubeData.at(hxcube_id).fpgas[entry.coordinate] =
+					    dynamic_cast<HXCubeFPGAEntry const&>(entry);
 				}
 			}
 
@@ -447,31 +522,9 @@ void database::load(std::string const path)
 				mHXCubeData.at(hxcube_id).usb_host = usb_host_entry.as<std::string>();
 			}
 
-			auto ldo_version_entry = config["ldo_version"];
-			if (ldo_version_entry.IsDefined()) {
-				mHXCubeData.at(hxcube_id).ldo_version = ldo_version_entry.as<size_t>();
-			}
-
 			auto usb_serial_entry = config["usb_serial"];
 			if (usb_serial_entry.IsDefined()) {
 				mHXCubeData.at(hxcube_id).usb_serial = usb_serial_entry.as<std::string>();
-			}
-
-			auto eeprom_chip_serial_entry = config["eeprom_chip_serial"];
-			if (eeprom_chip_serial_entry.IsDefined()) {
-				mHXCubeData.at(hxcube_id).eeprom_chip_serial =
-				    eeprom_chip_serial_entry.as<uint32_t>();
-			}
-
-			auto handwritten_chip_serial_entry = config["handwritten_chip_serial"];
-			if (handwritten_chip_serial_entry.IsDefined()) {
-				mHXCubeData.at(hxcube_id).handwritten_chip_serial =
-				    handwritten_chip_serial_entry.as<size_t>();
-			}
-
-			auto chip_revision_entry = config["chip_revision"];
-			if (chip_revision_entry.IsDefined()) {
-				mHXCubeData.at(hxcube_id).chip_revision = chip_revision_entry.as<size_t>();
 			}
 		}
 		// yaml node does not contain wafer or dls setup or hxcube setup
@@ -676,9 +729,15 @@ void database::dump(std::ostream& out) const
 			out << config << '\n';
 		}
 
-		if (!data.fpga_ips.empty()) {
+		if (!data.fpgas.empty()) {
 			YAML::Node config;
-			config["fpga_ips"] = data.fpga_ips;
+			std::vector<HXFPGAYAML> fpga_data;
+			for (auto& it : data.fpgas) {
+				HXFPGAYAML entry(it.second);
+				entry.coordinate = it.first;
+				fpga_data.push_back(entry);
+			}
+			config["fpgas"] = fpga_data;
 			out << config << '\n';
 		}
 
@@ -688,33 +747,9 @@ void database::dump(std::ostream& out) const
 			out << config << '\n';
 		}
 
-		if (data.ldo_version != 0) {
-			YAML::Node config;
-			config["ldo_version"] = data.ldo_version;
-			out << config << '\n';
-		}
-
 		if (data.usb_serial != "") {
 			YAML::Node config;
 			config["usb_serial"] = data.usb_serial;
-			out << config << '\n';
-		}
-
-		if (data.eeprom_chip_serial != 0) {
-			YAML::Node config;
-			config["eeprom_chip_serial"] = data.eeprom_chip_serial;
-			out << config << '\n';
-		}
-
-		if (data.handwritten_chip_serial != 0) {
-			YAML::Node config;
-			config["handwritten_chip_serial"] = data.handwritten_chip_serial;
-			out << config << '\n';
-		}
-
-		{
-			YAML::Node config;
-			config["chip_revision"] = data.chip_revision;
 			out << config << '\n';
 		}
 	}
@@ -931,23 +966,28 @@ std::vector<std::string> database::get_dls_setup_ids() const
 	return ret;
 }
 
-void database::add_hxcube_entry(size_t const hxcube_id, HXCubeSetupEntry const entry) {
+void database::add_hxcube_setup_entry(size_t const hxcube_id, HXCubeSetupEntry const entry)
+{
 	mHXCubeData[hxcube_id] = entry;
 }
 
-bool database::remove_hxcube_entry(size_t const hxcube_id) {
+bool database::remove_hxcube_setup_entry(size_t const hxcube_id)
+{
 	return mHXCubeData.erase(hxcube_id);
 }
 
-bool database::has_hxcube_entry(size_t const hxcube_id) const {
+bool database::has_hxcube_setup_entry(size_t const hxcube_id) const
+{
 	return mHXCubeData.count(hxcube_id);
 }
 
-HXCubeSetupEntry& database::get_hxcube_entry(size_t const hxcube_id) {
+HXCubeSetupEntry& database::get_hxcube_setup_entry(size_t const hxcube_id)
+{
 	return mHXCubeData.at(hxcube_id);
 }
 
-HXCubeSetupEntry const& database::get_hxcube_entry(size_t const hxcube_id) const {
+HXCubeSetupEntry const& database::get_hxcube_setup_entry(size_t const hxcube_id) const
+{
 	return mHXCubeData.at(hxcube_id);
 }
 
@@ -965,4 +1005,3 @@ std::string const& database::get_default_path()
 }
 
 } // namespace hwdb4cpp
-

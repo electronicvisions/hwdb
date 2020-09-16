@@ -2,6 +2,9 @@
 
 #include <map>
 #include <string>
+#ifndef PYPLUSPLUS
+#include <optional>
+#endif
 
 #include "halco/common/misc_types.h"
 #include "halco/hicann/v2/coordinates.h"
@@ -75,17 +78,24 @@ namespace hwdb4cpp GENPYBIND_TAG_HWDB {
 ///  - chip_version: Version of the DLS-chip
 ///  - ntpwr_ip: IP of the correspoding Netpower for remote power cycling
 ///  - ntpwr_slot: Slot of the setup in the Netpower
-///
-/// HICANN-X cube setups have a map entry with the keys:
-///  - hxcube_id: wafer id = hxcube_id + 60, defining FPGA IP range
-///  - fpga_ips: FPGA ips
-///  - usb_host: host that connects to MSP430 on cube-io
+//
+/// HX cube wing. Describes the unity of IO board, carrier board and Chip of
+/// one of the sides (a wing) of a Cube setup:
 ///  - ldo_version: variant of the linear regulators on xboard
-///  - usb_serial: serial number of MSP430 (as string)
-///  - eeprom_chip_serial: EEPROM serial on chip carrier (hex)
-///  - handwritten_chip_serial: Manually written (in decimal) unique ID on chip carrier (valid
-///  range: [1,...])
+///  - handwritten_chip_serial: Manually written (in decimal) unique ID on chip
+///    carrier (valid range: [1,...])
 ///  - chip_revision: HICANN-X revision (int)
+///  - (optional)eeprom_chip_serial: EEPROM serial on chip carrier (hex)
+//
+/// HX cube FPGA sequence entry:
+///  - ip: FPGA Ethernet IP
+///  - (optional)wing: HXCubeWingEntry corresponding to the FPGA
+///
+/// HX cube setups have a map entry with the keys:
+///  - hxcube_id: wafer id = hxcube_id + 60, defining FPGA IP range
+///  - fpgas: map of HXCubeFPGAEntries
+///  - usb_host: name of host that connects to MSP430 on cube-io
+///  - usb_serial: serial code of MSP430 (as string)
 
 
 /* HWDB Entry Types: Structs representing the data in the YAML database */
@@ -167,29 +177,44 @@ struct GENPYBIND(visible) DLSSetupEntry
 	}
 };
 
+#ifndef PYPLUSPLUS
+struct GENPYBIND(visible) HXCubeWingEntry
+{
+	size_t ldo_version;
+	size_t handwritten_chip_serial;
+	size_t chip_revision;
+	std::optional<uint32_t> eeprom_chip_serial;
+
+	HXCubeWingEntry()
+	{
+		ldo_version = 0;             // valid versions start from 1
+		handwritten_chip_serial = 0; // valid IDs start from 1
+		chip_revision = 0;
+	}
+};
+
+struct GENPYBIND(visible) HXCubeFPGAEntry
+{
+	halco::common::IPv4 ip;
+	std::optional<HXCubeWingEntry> wing;
+};
+
 struct GENPYBIND(visible) HXCubeSetupEntry
 {
 	size_t hxcube_id;
-	std::array<halco::common::IPv4, 2> fpga_ips;
+	std::map<size_t, HXCubeFPGAEntry> fpgas;
 	std::string usb_host;
-	size_t ldo_version;
 	std::string usb_serial;
-	uint32_t eeprom_chip_serial;
-	size_t handwritten_chip_serial;
-	size_t chip_revision;
 
 	HXCubeSetupEntry()
 	{
 		hxcube_id = 0;
 		usb_host = "None";
-		ldo_version = 0; // valid versions start from 1
-		eeprom_chip_serial = 0;
-		handwritten_chip_serial = 0; // valid IDs start from 1
-		chip_revision = 0;
 	}
 
-	std::string get_unique_identifier() const;
+	std::string get_unique_branch_identifier(size_t chip_serial) const;
 };
+#endif
 /* ******************************************************************** */
 
 
@@ -300,17 +325,17 @@ public:
 	DLSSetupEntry const& get_dls_entry(std::string const dls_setup) const;
 	std::vector<std::string> get_dls_setup_ids() const;
 
+#ifndef PYPLUSPLUS
 	/// Insert (and replace) a new HICANN-X cube setup entry into the database
-	void add_hxcube_entry(size_t const hxcube_id, HXCubeSetupEntry const entry);
-
+	void add_hxcube_setup_entry(size_t const hxcube_id, HXCubeSetupEntry const entry);
 	/// Remove HICANN-X cube setup entry from the database
-	bool remove_hxcube_entry(size_t const hxcube_id);
+	bool remove_hxcube_setup_entry(size_t const hxcube_id);
 	/// Check if entry exists
-	bool has_hxcube_entry(size_t const hxcube_id) const;
+	bool has_hxcube_setup_entry(size_t const hxcube_id) const;
 	/// Get a HICANN-X cube setup entry
-	HXCubeSetupEntry& get_hxcube_entry(size_t const hxcube_id);
+	HXCubeSetupEntry& get_hxcube_setup_entry(size_t const hxcube_id);
 	/// Get a HICANN-X cube setup entry
-	HXCubeSetupEntry const& get_hxcube_entry(size_t const hxcube_id) const;
+	HXCubeSetupEntry const& get_hxcube_setup_entry(size_t const hxcube_id) const;
 	/// Get all HICANN-X cube setup entry ids
 	std::vector<size_t> get_hxcube_ids() const;
 
@@ -327,6 +352,7 @@ private:
 	std::map<size_t, HXCubeSetupEntry> mHXCubeData;
 
 	static std::string const default_path;
+#endif
 };
 
 } // namespace hwdb4cpp
