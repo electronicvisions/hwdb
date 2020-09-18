@@ -10,6 +10,37 @@ Map<String, Object> bss2PipelineArgs = [container          : [app: "dls"],
 // BSS-2
 wafDefaultPipeline([projects: ["hwdb"]] << bss2PipelineArgs)
 
+try {
+	Boolean isMergeEvent = env.GERRIT_EVENT_TYPE == "change-merged"
+	Boolean isSuccessful = currentBuild.currentResult == "SUCCESS"
+	Boolean doDeploy = isMergeEvent && isSuccessful
+
+	conditionalStage(name: "Yaml Deployment", skip: !doDeploy) {
+		runOnSlave(label: "frontend") {
+			jesh("cd /wang/data/bss-hwdb && " +
+			     "umask 002 && " +  // allow F9 to write stuff too
+			     "cp ${WORKSPACE}/hwdb/db.yaml .db.yaml.tmp && " +
+			     "mv .db.yaml.tmp db.yaml")
+		}
+	}
+
+	conditionalStage(name: "Module Deployment", skip: !doDeploy) {
+		runOnSlave(label: "frontend") {
+			inSingularity(bss2PipelineArgs["container"]) {
+				deployModule([name  : "hwdb_bss2",
+				              source: "bin/ lib/ repos_log.txt"])
+			}
+		}
+	}
+} catch (Throwable t) {
+	notifyFailure(mattermostChannel: bss2PipelineArgs["notificationChannel"])
+	throw t
+}
+
+if (currentBuild.currentResult != "SUCCESS") {
+	notifyFailure(mattermostChannel: bss2PipelineArgs["notificationChannel"])
+}
+
 runOnSlave(label: "frontend") {
 	cleanWs()
 }
