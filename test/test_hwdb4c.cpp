@@ -128,6 +128,8 @@ fpgas:\n\
     handwritten_chip_serial: 69\n\
     ldo_version: 1\n\
     chip_revision: 1\n\
+  - fpga: 7\n\
+    ip: 192.168.66.8\n\
 usb_host: 'AMTHost11'\n\
 usb_serial: 'AFEABC1230456789'\n\
 ";
@@ -303,7 +305,7 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(hxcube->hxcube_id, testhxcube_id);
 	EXPECT_EQ(std::string(hxcube->usb_serial), "AFEABC1230456789");
 	EXPECT_EQ(std::string(hxcube->usb_host), "AMTHost11");
-	EXPECT_EQ(hxcube->num_fpgas, 2);
+	EXPECT_EQ(hxcube->num_fpgas, 3);
 	EXPECT_EQ(std::string(inet_ntoa(hxcube->fpgas[0]->ip)), "192.168.66.1");
 	EXPECT_EQ(hxcube->fpgas[0]->fpga_id, 0);
 	EXPECT_EQ(hxcube->fpgas[0]->wing->ldo_version, 2);
@@ -316,6 +318,10 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(hxcube->fpgas[1]->wing->handwritten_chip_serial, 69);
 	EXPECT_EQ(hxcube->fpgas[1]->wing->chip_revision, 1);
 	EXPECT_EQ(hxcube->fpgas[1]->wing->eeprom_chip_serial, 0); // default value
+	EXPECT_EQ(std::string(inet_ntoa(hxcube->fpgas[2]->ip)), "192.168.66.8");
+	EXPECT_EQ(hxcube->fpgas[2]->fpga_id, 7);
+	EXPECT_TRUE(hxcube->fpgas[2]->wing == NULL); // optional value
+
 	hwdb4c_free_hxcube_setup_entry(hxcube);
 	hxcube = NULL;
 
