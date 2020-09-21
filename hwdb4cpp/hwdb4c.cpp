@@ -229,6 +229,13 @@ int _convert_hxcube_setup_entry(
 		} else {
 			fpga_entry_c->wing = NULL;
 		}
+		if (fpga_it.second.fuse_dna) {
+			fpga_entry_c->fuse_dna = fpga_it.second.fuse_dna.value();
+			fpga_entry_c->dna_port = fpga_it.second.get_dna_port();
+		} else {
+			fpga_entry_c->fuse_dna = 0;
+			fpga_entry_c->dna_port = 0;
+		}
 		hxcube_entry_c->fpgas[fpga_counter] = fpga_entry_c;
 		fpga_counter++;
 	}
@@ -237,6 +244,15 @@ int _convert_hxcube_setup_entry(
 	strncpy(hxcube_entry_c->usb_host, hxcube_entry_cpp.usb_host.c_str(), hxcube_entry_cpp.usb_host.length() + 1);
 	hxcube_entry_c->usb_serial = (char*)malloc((hxcube_entry_cpp.usb_serial.length() + 1) * sizeof(char));
 	strncpy(hxcube_entry_c->usb_serial, hxcube_entry_cpp.usb_serial.c_str(), hxcube_entry_cpp.usb_serial.length() + 1);
+	if (hxcube_entry_cpp.xilinx_hw_server) {
+		hxcube_entry_c->xilinx_hw_server =
+			(char*) malloc((hxcube_entry_cpp.xilinx_hw_server.value().length() + 1) * sizeof(char));
+		strncpy(
+			hxcube_entry_c->xilinx_hw_server, hxcube_entry_cpp.xilinx_hw_server.value().c_str(),
+			hxcube_entry_cpp.xilinx_hw_server.value().length() + 1);
+	} else {
+		hxcube_entry_c->xilinx_hw_server = NULL;
+	}
 
 	*ret = hxcube_entry_c;
 	return HWDB4C_SUCCESS;
@@ -646,6 +662,9 @@ void hwdb4c_free_hxcube_setup_entry(struct hwdb4c_hxcube_setup_entry* entry)
 		hwdb4c_free_hxcube_fpga_entry(entry->fpgas[i]);
 	}
 	free(entry->fpgas);
+	if (entry->xilinx_hw_server) {
+		free(entry->xilinx_hw_server);
+	}
 	free(entry);
 }
 

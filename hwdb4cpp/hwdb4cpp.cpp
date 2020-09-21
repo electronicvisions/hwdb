@@ -1,5 +1,6 @@
 #include "hwdb4cpp.h"
 
+#include <bitset>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -223,6 +224,9 @@ struct convert<HXFPGAYAML>
 		Node node;
 		node["fpga"] = data.coordinate;
 		node["ip"] = data.ip.to_string();
+		if (data.fuse_dna) {
+			node["fuse_dna"] = data.fuse_dna.value();
+		}
 		if (data.wing) {
 			node["ldo_version"] = data.wing.value().ldo_version;
 			node["handwritten_chip_serial"] = data.wing.value().handwritten_chip_serial;
@@ -236,12 +240,16 @@ struct convert<HXFPGAYAML>
 
 	static bool decode(const Node& node, HXFPGAYAML& data)
 	{
-		if (!node.IsMap() || node.size() > 6) {
-			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
+		if (!node.IsMap() || node.size() > 7) {
+			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''")
 			return false;
 		}
 		data.coordinate = get_entry<size_t>(node, "fpga");
 		data.ip = IPv4::from_string(get_entry<std::string>(node, "ip"));
+		auto fuse_dna = node["fuse_dna"];
+		if (fuse_dna.IsDefined()) {
+			data.fuse_dna = fuse_dna.as<uint64_t>();
+		}
 		auto ldo = node["ldo_version"];
 		auto hand_serial = node["handwritten_chip_serial"];
 		auto chip_rev = node["chip_revision"];
@@ -263,10 +271,10 @@ struct convert<HXFPGAYAML>
 			}
 			data.wing = wing;
 		} else {
-			if (eeprom.IsDefined()) {
+			if (eeprom.IsDefined() || fuse_dna.IsDefined()) {
 				LOG4CXX_ERROR(
-				    logger, "Decoding failed. eeprom cannot be defined alone. Node: '''\n"
-				                << node << "'''");
+				    logger, "Decoding failed. Only optional entries found. Node: '''\n"
+				                << node << "'''")
 				return false;
 			}
 		}
@@ -358,6 +366,19 @@ struct convert<HICANNYAML>
 
 namespace hwdb4cpp {
 
+uint64_t HXCubeFPGAEntry::get_dna_port() const
+{
+	auto dna = std::bitset<64>(fuse_dna.value());
+
+	// see Xilinx UG470 (v1.13.1) Table 5-16
+	std::bitset<57> dna_port;
+	for (size_t i = 0; i < 57; ++i) {
+		dna_port[i] = dna[63 - i];
+	}
+
+	return dna_port.to_ullong();
+}
+
 std::string HXCubeSetupEntry::get_unique_branch_identifier(size_t chip_serial) const
 {
 	using namespace std::string_literals;
@@ -365,7 +386,7 @@ std::string HXCubeSetupEntry::get_unique_branch_identifier(size_t chip_serial) c
 		if (!fpga.second.wing) {
 			continue;
 		}
-		if ((fpga.second.wing.value().handwritten_chip_serial == chip_serial) |
+		if ((fpga.second.wing.value().handwritten_chip_serial == chip_serial) ||
 		    (fpga.second.wing.value().eeprom_chip_serial == chip_serial)) {
 			return "hxcube"s + std::to_string(hxcube_id) + "fpga"s + std::to_string(fpga.first) +
 			       "chip"s + std::to_string(fpga.second.wing.value().handwritten_chip_serial) +
@@ -527,6 +548,13 @@ void database::load(std::string const path)
 			if (usb_serial_entry.IsDefined()) {
 				mHXCubeData.at(hxcube_id).usb_serial = usb_serial_entry.as<std::string>();
 			}
+
+			auto xilinx_hw_server_entry = config["xilinx_hw_server"];
+			if (xilinx_hw_server_entry.IsDefined()) {
+				mHXCubeData.at(hxcube_id).xilinx_hw_server =
+				    xilinx_hw_server_entry.as<std::string>();
+			}
+
 		}
 		// yaml node does not contain wafer or dls setup or hxcube setup
 		else {
@@ -751,6 +779,12 @@ void database::dump(std::ostream& out) const
 		if (data.usb_serial != "") {
 			YAML::Node config;
 			config["usb_serial"] = data.usb_serial;
+			out << config << '\n';
+		}
+
+		if (data.xilinx_hw_server) {
+			YAML::Node config;
+			config["xilinx_hw_server"] = data.xilinx_hw_server.value();
 			out << config << '\n';
 		}
 	}

@@ -127,6 +127,9 @@ struct SYMBOL_VISIBLE hwdb4c_hxcube_fpga_entry
 	size_t fpga_id;
 	struct in_addr ip;
 	struct hwdb4c_hxcube_wing_entry* wing;
+	uint64_t fuse_dna;
+
+	uint64_t dna_port; // cpp get_dna_port member function
 };
 
 struct SYMBOL_VISIBLE hwdb4c_hxcube_setup_entry
@@ -139,6 +142,7 @@ struct SYMBOL_VISIBLE hwdb4c_hxcube_setup_entry
 	size_t num_fpgas;
 	char* usb_host;
 	char* usb_serial;
+	char* xilinx_hw_server;
 };
 
 

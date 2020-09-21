@@ -90,12 +90,19 @@ namespace hwdb4cpp GENPYBIND_TAG_HWDB {
 /// HX cube FPGA sequence entry:
 ///  - ip: FPGA Ethernet IP
 ///  - (optional)wing: HXCubeWingEntry corresponding to the FPGA
+///  - (optional)fuse_dna: FPGA FUSE_DNA as provided by Xilinx toolchains, is
+///                        required to identify the device in JTAG chain
+/// HX cube FPGA member functions:
+///  - get_dna_port: calculates the FPGA-internal DNA_PORT sequence (which can be
+///                  read out from the fabric logic) from the FUSE_DNA
 ///
 /// HX cube setups have a map entry with the keys:
 ///  - hxcube_id: wafer id = hxcube_id + 60, defining FPGA IP range
 ///  - fpgas: map of HXCubeFPGAEntries
 ///  - usb_host: name of host that connects to MSP430 on cube-io
 ///  - usb_serial: serial code of MSP430 (as string)
+///  - (optional)xilinx_hw_server: hostname/IP and port of xilinx hardware server
+///                                (e.g. "xilinx-smartlynq-0:3121")
 
 
 /* HWDB Entry Types: Structs representing the data in the YAML database */
@@ -197,6 +204,9 @@ struct GENPYBIND(visible) HXCubeFPGAEntry
 {
 	halco::common::IPv4 ip;
 	std::optional<HXCubeWingEntry> wing;
+	std::optional<uint64_t> fuse_dna;
+
+	uint64_t get_dna_port() const;
 };
 
 struct GENPYBIND(visible) HXCubeSetupEntry
@@ -205,6 +215,7 @@ struct GENPYBIND(visible) HXCubeSetupEntry
 	std::map<size_t, HXCubeFPGAEntry> fpgas;
 	std::string usb_host;
 	std::string usb_serial;
+	std::optional<std::string> xilinx_hw_server;
 
 	HXCubeSetupEntry()
 	{
