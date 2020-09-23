@@ -9448,6 +9448,9 @@ hxcube_id: 0
 fpgas:
   - fpga: 0
     ip: 192.168.60.1
+    handwritten_chip_serial: 27
+    ldo_version: 2
+    chip_revision: 2
   - fpga: 3
     ip: 192.168.60.4
     handwritten_chip_serial: 25
