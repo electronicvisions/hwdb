@@ -15,6 +15,7 @@ def options(opt):
 
 def configure(cfg):
     cfg.load('compiler_cxx')
+    cfg.load('gtest')
     cfg.load('python')
     cfg.check_python_version()
     cfg.check_python_headers()
@@ -24,11 +25,6 @@ def configure(cfg):
                   args=['yaml-cpp >= 0.5.3', '--cflags', '--libs'],
                   uselib_store='YAMLCPP')
 
-    cfg.check_cxx(uselib_store='GTEST4HWDB',
-                   mandatory=True,
-                   header_name='gtest/gtest.h',
-                   lib='gtest'
-    )
     if cfg.env.with_pybind:
         cfg.check(
             compiler='cxx',
@@ -65,11 +61,12 @@ def build(bld):
 
     bld.program(
         target = 'hwdb_tests',
-        source = [
-            'test/test_hwdb4c.cpp',
-        ],
+        source = bld.path.ant_glob('test/test_*.cpp'),
         features = 'cxx gtest',
-        use = [ 'GTEST4HWDB', 'hwdb4c' ],
+        test_main = 'test/test-main.cpp',
+        use = [ 'GTEST', 'hwdb4c' ],
+        install_path = '${PREFIX}/bin',
+        linkflags = ['-lboost_program_options-mt'],
     )
 
     if bld.env.build_python_bindings:
