@@ -4556,7 +4556,7 @@ ananas:
     baseport_data: 0xafe0
     baseport_reset: 0x2570
 hicanns:
-  version: 2
+  version: 4
 ---
 wafer: 28
 setuptype: bsswafer
