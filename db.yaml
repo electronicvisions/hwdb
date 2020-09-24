@@ -4348,8 +4348,8 @@ hicanns:
 ---
 wafer: 27
 setuptype: bsswafer
-macu: 192.168.200.147
-macuversion: 1
+macu: 192.168.200.76
+macuversion: 3
 fpgas:
   - fpga: 0
     ip: 192.168.27.1
