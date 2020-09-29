@@ -2187,6 +2187,207 @@ reticles:
     to_be_powered: true
 hicanns:
   version: 4
+---
+wafer: 23
+setuptype: bsswafer
+macu: 192.168.200.170
+macuversion: 1
+fpgas:
+  - fpga: 0
+    ip: 192.168.23.1
+  - fpga: 1
+    ip: 192.168.23.2
+  - fpga: 2
+    ip: 192.168.23.3
+  - fpga: 3
+    ip: 192.168.23.4
+  - fpga: 4
+    ip: 192.168.23.5
+  - fpga: 5
+    ip: 192.168.23.6
+    highspeed: false
+  - fpga: 6
+    ip: 192.168.23.7
+  - fpga: 7
+    ip: 192.168.23.8
+  - fpga: 8
+    ip: 192.168.23.9
+  - fpga: 9
+    ip: 192.168.23.10
+  - fpga: 10
+    ip: 192.168.23.11
+  - fpga: 11
+    ip: 192.168.23.12
+  - fpga: 12
+    ip: 192.168.23.33
+  - fpga: 13
+    ip: 192.168.23.34
+  - fpga: 14
+    ip: 192.168.23.35
+  - fpga: 15
+    ip: 192.168.23.36
+  - fpga: 16
+    ip: 192.168.23.37
+  - fpga: 17
+    ip: 192.168.23.38
+  - fpga: 18
+    ip: 192.168.23.39
+  - fpga: 19
+    ip: 192.168.23.40
+  - fpga: 20
+    ip: 192.168.23.41
+  - fpga: 21
+    ip: 192.168.23.42
+  - fpga: 22
+    ip: 192.168.23.43
+  - fpga: 23
+    ip: 192.168.23.44
+  - fpga: 24
+    ip: 192.168.23.65
+  - fpga: 25
+    ip: 192.168.23.66
+  - fpga: 26
+    ip: 192.168.23.67
+  - fpga: 27
+    ip: 192.168.23.68
+  - fpga: 28
+    ip: 192.168.23.69
+  - fpga: 29
+    ip: 192.168.23.70
+  - fpga: 30
+    ip: 192.168.23.71
+  - fpga: 31
+    ip: 192.168.23.72
+  - fpga: 32
+    ip: 192.168.23.73
+  - fpga: 33
+    ip: 192.168.23.74
+  - fpga: 34
+    ip: 192.168.23.75
+  - fpga: 35
+    ip: 192.168.23.76
+  - fpga: 36
+    ip: 192.168.23.97
+  - fpga: 37
+    ip: 192.168.23.98
+  - fpga: 38
+    ip: 192.168.23.99
+  - fpga: 39
+    ip: 192.168.23.100
+  - fpga: 40
+    ip: 192.168.23.101
+  - fpga: 41
+    ip: 192.168.23.102
+  - fpga: 42
+    ip: 192.168.23.103
+  - fpga: 43
+    ip: 192.168.23.104
+    highspeed: false
+  - fpga: 44
+    ip: 192.168.23.105
+  - fpga: 45
+    ip: 192.168.23.106
+  - fpga: 46
+    ip: 192.168.23.107
+  - fpga: 47
+    ip: 192.168.23.108
+reticles:
+  - reticle: 0
+    to_be_powered: true
+  - reticle: 1
+    to_be_powered: true
+  - reticle: 2
+    to_be_powered: true
+  - reticle: 3
+    to_be_powered: true
+  - reticle: 4
+    to_be_powered: true
+  - reticle: 5
+    to_be_powered: true
+  - reticle: 6
+    to_be_powered: true
+  - reticle: 7
+    to_be_powered: true
+  - reticle: 8
+    to_be_powered: true
+  - reticle: 9
+    to_be_powered: true
+  - reticle: 10
+    to_be_powered: true
+  - reticle: 11
+    to_be_powered: true
+  - reticle: 12
+    to_be_powered: true
+  - reticle: 13
+    to_be_powered: true
+  - reticle: 14
+    to_be_powered: true
+  - reticle: 15
+    to_be_powered: true
+  - reticle: 16
+    to_be_powered: true
+  - reticle: 17
+    to_be_powered: true
+  - reticle: 18
+    to_be_powered: true
+  - reticle: 19
+    to_be_powered: true
+  - reticle: 20
+    to_be_powered: true
+  - reticle: 21
+    to_be_powered: true
+  - reticle: 22
+    to_be_powered: true
+  - reticle: 23
+    to_be_powered: true
+  - reticle: 24
+    to_be_powered: true
+  - reticle: 25
+    to_be_powered: true
+  - reticle: 26
+    to_be_powered: true
+  - reticle: 27
+    to_be_powered: true
+  - reticle: 28
+    to_be_powered: true
+  - reticle: 29
+    to_be_powered: true
+  - reticle: 30
+    to_be_powered: true
+  - reticle: 31
+    to_be_powered: true
+  - reticle: 32
+    to_be_powered: true
+  - reticle: 33
+    to_be_powered: true
+  - reticle: 34
+    to_be_powered: true
+  - reticle: 35
+    to_be_powered: true
+  - reticle: 36
+    to_be_powered: true
+  - reticle: 37
+    to_be_powered: true
+  - reticle: 38
+    to_be_powered: true
+  - reticle: 39
+    to_be_powered: true
+  - reticle: 40
+    to_be_powered: true
+  - reticle: 41
+    to_be_powered: true
+  - reticle: 42
+    to_be_powered: true
+  - reticle: 43
+    to_be_powered: true
+  - reticle: 44
+    to_be_powered: true
+  - reticle: 45
+    to_be_powered: true
+  - reticle: 46
+    to_be_powered: true
+  - reticle: 47
+    to_be_powered: true
 adcs:
   - fpga: 24
     analog: 0
@@ -2860,207 +3061,6 @@ adcs:
     remote_port: 44488
     channel: 7
     trigger: 0
----
-wafer: 23
-setuptype: bsswafer
-macu: 192.168.200.170
-macuversion: 1
-fpgas:
-  - fpga: 0
-    ip: 192.168.23.1
-  - fpga: 1
-    ip: 192.168.23.2
-  - fpga: 2
-    ip: 192.168.23.3
-  - fpga: 3
-    ip: 192.168.23.4
-  - fpga: 4
-    ip: 192.168.23.5
-  - fpga: 5
-    ip: 192.168.23.6
-    highspeed: false
-  - fpga: 6
-    ip: 192.168.23.7
-  - fpga: 7
-    ip: 192.168.23.8
-  - fpga: 8
-    ip: 192.168.23.9
-  - fpga: 9
-    ip: 192.168.23.10
-  - fpga: 10
-    ip: 192.168.23.11
-  - fpga: 11
-    ip: 192.168.23.12
-  - fpga: 12
-    ip: 192.168.23.33
-  - fpga: 13
-    ip: 192.168.23.34
-  - fpga: 14
-    ip: 192.168.23.35
-  - fpga: 15
-    ip: 192.168.23.36
-  - fpga: 16
-    ip: 192.168.23.37
-  - fpga: 17
-    ip: 192.168.23.38
-  - fpga: 18
-    ip: 192.168.23.39
-  - fpga: 19
-    ip: 192.168.23.40
-  - fpga: 20
-    ip: 192.168.23.41
-  - fpga: 21
-    ip: 192.168.23.42
-  - fpga: 22
-    ip: 192.168.23.43
-  - fpga: 23
-    ip: 192.168.23.44
-  - fpga: 24
-    ip: 192.168.23.65
-  - fpga: 25
-    ip: 192.168.23.66
-  - fpga: 26
-    ip: 192.168.23.67
-  - fpga: 27
-    ip: 192.168.23.68
-  - fpga: 28
-    ip: 192.168.23.69
-  - fpga: 29
-    ip: 192.168.23.70
-  - fpga: 30
-    ip: 192.168.23.71
-  - fpga: 31
-    ip: 192.168.23.72
-  - fpga: 32
-    ip: 192.168.23.73
-  - fpga: 33
-    ip: 192.168.23.74
-  - fpga: 34
-    ip: 192.168.23.75
-  - fpga: 35
-    ip: 192.168.23.76
-  - fpga: 36
-    ip: 192.168.23.97
-  - fpga: 37
-    ip: 192.168.23.98
-  - fpga: 38
-    ip: 192.168.23.99
-  - fpga: 39
-    ip: 192.168.23.100
-  - fpga: 40
-    ip: 192.168.23.101
-  - fpga: 41
-    ip: 192.168.23.102
-  - fpga: 42
-    ip: 192.168.23.103
-  - fpga: 43
-    ip: 192.168.23.104
-    highspeed: false
-  - fpga: 44
-    ip: 192.168.23.105
-  - fpga: 45
-    ip: 192.168.23.106
-  - fpga: 46
-    ip: 192.168.23.107
-  - fpga: 47
-    ip: 192.168.23.108
-reticles:
-  - reticle: 0
-    to_be_powered: true
-  - reticle: 1
-    to_be_powered: true
-  - reticle: 2
-    to_be_powered: true
-  - reticle: 3
-    to_be_powered: true
-  - reticle: 4
-    to_be_powered: true
-  - reticle: 5
-    to_be_powered: true
-  - reticle: 6
-    to_be_powered: true
-  - reticle: 7
-    to_be_powered: true
-  - reticle: 8
-    to_be_powered: true
-  - reticle: 9
-    to_be_powered: true
-  - reticle: 10
-    to_be_powered: true
-  - reticle: 11
-    to_be_powered: true
-  - reticle: 12
-    to_be_powered: true
-  - reticle: 13
-    to_be_powered: true
-  - reticle: 14
-    to_be_powered: true
-  - reticle: 15
-    to_be_powered: true
-  - reticle: 16
-    to_be_powered: true
-  - reticle: 17
-    to_be_powered: true
-  - reticle: 18
-    to_be_powered: true
-  - reticle: 19
-    to_be_powered: true
-  - reticle: 20
-    to_be_powered: true
-  - reticle: 21
-    to_be_powered: true
-  - reticle: 22
-    to_be_powered: true
-  - reticle: 23
-    to_be_powered: true
-  - reticle: 24
-    to_be_powered: true
-  - reticle: 25
-    to_be_powered: true
-  - reticle: 26
-    to_be_powered: true
-  - reticle: 27
-    to_be_powered: true
-  - reticle: 28
-    to_be_powered: true
-  - reticle: 29
-    to_be_powered: true
-  - reticle: 30
-    to_be_powered: true
-  - reticle: 31
-    to_be_powered: true
-  - reticle: 32
-    to_be_powered: true
-  - reticle: 33
-    to_be_powered: true
-  - reticle: 34
-    to_be_powered: true
-  - reticle: 35
-    to_be_powered: true
-  - reticle: 36
-    to_be_powered: true
-  - reticle: 37
-    to_be_powered: true
-  - reticle: 38
-    to_be_powered: true
-  - reticle: 39
-    to_be_powered: true
-  - reticle: 40
-    to_be_powered: true
-  - reticle: 41
-    to_be_powered: true
-  - reticle: 42
-    to_be_powered: true
-  - reticle: 43
-    to_be_powered: true
-  - reticle: 44
-    to_be_powered: true
-  - reticle: 45
-    to_be_powered: true
-  - reticle: 46
-    to_be_powered: true
-  - reticle: 47
-    to_be_powered: true
 hicanns:
   version: 2
 ---
@@ -4961,231 +4961,6 @@ reticles:
     to_be_powered: true
   - reticle: 47
     to_be_powered: true
-adcs:
-  - fpga: 46
-    analog: 0
-    adc: B291734
-    remote_ip: 192.168.200.41
-    remote_port: 44489
-    channel: 6
-    trigger: 1
-  - fpga: 46
-    analog: 1
-    adc: B291697
-    remote_ip: 192.168.200.41
-    remote_port: 44491
-    channel: 6
-    trigger: 1
-  - fpga: 27
-    analog: 0
-    adc: B291734
-    remote_ip: 192.168.200.41
-    remote_port: 44489
-    channel: 5
-    trigger: 1
-  - fpga: 27
-    analog: 1
-    adc: B291697
-    remote_ip: 192.168.200.41
-    remote_port: 44491
-    channel: 5
-    trigger: 1
-  - fpga: 29
-    analog: 0
-    adc: B291734
-    remote_ip: 192.168.200.41
-    remote_port: 44489
-    channel: 3
-    trigger: 1
-  - fpga: 29
-    analog: 1
-    adc: B291697
-    remote_ip: 192.168.200.41
-    remote_port: 44491
-    channel: 3
-    trigger: 1
-  - fpga: 30
-    analog: 0
-    adc: B291734
-    remote_ip: 192.168.200.41
-    remote_port: 44489
-    channel: 1
-    trigger: 1
-  - fpga: 30
-    analog: 1
-    adc: B291697
-    remote_ip: 192.168.200.41
-    remote_port: 44491
-    channel: 1
-    trigger: 1
-  - fpga: 41
-    analog: 0
-    adc: B291734
-    remote_ip: 192.168.200.41
-    remote_port: 44489
-    channel: 0
-    trigger: 0
-  - fpga: 41
-    analog: 1
-    adc: B291697
-    remote_ip: 192.168.200.41
-    remote_port: 44491
-    channel: 0
-    trigger: 0
-  - fpga: 40
-    analog: 0
-    adc: B291734
-    remote_ip: 192.168.200.41
-    remote_port: 44489
-    channel: 2
-    trigger: 0
-  - fpga: 40
-    analog: 1
-    adc: B291697
-    remote_ip: 192.168.200.41
-    remote_port: 44491
-    channel: 2
-    trigger: 0
-  - fpga: 38
-    analog: 0
-    adc: B291734
-    remote_ip: 192.168.200.41
-    remote_port: 44489
-    channel: 4
-    trigger: 0
-  - fpga: 38
-    analog: 1
-    adc: B291697
-    remote_ip: 192.168.200.41
-    remote_port: 44491
-    channel: 4
-    trigger: 0
-  - fpga: 44
-    analog: 0
-    adc: B291734
-    remote_ip: 192.168.200.41
-    remote_port: 44489
-    channel: 7
-    trigger: 0
-  - fpga: 44
-    analog: 1
-    adc: B291697
-    remote_ip: 192.168.200.41
-    remote_port: 44491
-    channel: 7
-    trigger: 0
-  - fpga: 31
-    analog: 0
-    adc: B291690
-    remote_ip: 192.168.200.41
-    remote_port: 44488
-    channel: 6
-    trigger: 1
-  - fpga: 31
-    analog: 1
-    adc: B291727
-    remote_ip: 192.168.200.41
-    remote_port: 44490
-    channel: 6
-    trigger: 1
-  - fpga: 32
-    analog: 0
-    adc: B291690
-    remote_ip: 192.168.200.41
-    remote_port: 44488
-    channel: 5
-    trigger: 1
-  - fpga: 32
-    analog: 1
-    adc: B291727
-    remote_ip: 192.168.200.41
-    remote_port: 44490
-    channel: 5
-    trigger: 1
-  - fpga: 39
-    analog: 0
-    adc: B291690
-    remote_ip: 192.168.200.41
-    remote_port: 44488
-    channel: 3
-    trigger: 1
-  - fpga: 39
-    analog: 1
-    adc: B291727
-    remote_ip: 192.168.200.41
-    remote_port: 44490
-    channel: 3
-    trigger: 1
-  - fpga: 37
-    analog: 0
-    adc: B291690
-    remote_ip: 192.168.200.41
-    remote_port: 44488
-    channel: 1
-    trigger: 1
-  - fpga: 37
-    analog: 1
-    adc: B291727
-    remote_ip: 192.168.200.41
-    remote_port: 44490
-    channel: 1
-    trigger: 1
-  - fpga: 36
-    analog: 0
-    adc: B291690
-    remote_ip: 192.168.200.41
-    remote_port: 44488
-    channel: 0
-    trigger: 0
-  - fpga: 36
-    analog: 1
-    adc: B291727
-    remote_ip: 192.168.200.41
-    remote_port: 44490
-    channel: 0
-    trigger: 0
-  - fpga: 33
-    analog: 0
-    adc: B291690
-    remote_ip: 192.168.200.41
-    remote_port: 44488
-    channel: 2
-    trigger: 0
-  - fpga: 33
-    analog: 1
-    adc: B291727
-    remote_ip: 192.168.200.41
-    remote_port: 44490
-    channel: 2
-    trigger: 0
-  - fpga: 34
-    analog: 0
-    adc: B291690
-    remote_ip: 192.168.200.41
-    remote_port: 44488
-    channel: 4
-    trigger: 0
-  - fpga: 34
-    analog: 1
-    adc: B291727
-    remote_ip: 192.168.200.41
-    remote_port: 44490
-    channel: 4
-    trigger: 0
-  - fpga: 35
-    analog: 0
-    adc: B291690
-    remote_ip: 192.168.200.41
-    remote_port: 44488
-    channel: 7
-    trigger: 0
-  - fpga: 35
-    analog: 1
-    adc: B291727
-    remote_ip: 192.168.200.41
-    remote_port: 44490
-    channel: 7
-    trigger: 0
 hicanns:
   version: 2
 ---
