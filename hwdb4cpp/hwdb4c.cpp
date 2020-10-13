@@ -291,6 +291,19 @@ void hwdb4c_free_hwdb(struct hwdb4c_database_t* handle) {
 	delete(handle);
 }
 
+char* hwdb4c_get_yaml_entries(char const* hwdb_path, char const* node, char const* query)
+{
+	hwdb4cpp::database database;
+	std::string const path =
+		(hwdb_path == nullptr) ? database.get_default_path() : std::string(hwdb_path);
+	std::string const tmp =
+		hwdb4cpp::database::get_yaml_entries(path, std::string(node), std::string(query));
+
+	char* ret = (char*) malloc(tmp.size() + 1);
+	strncpy(ret, tmp.c_str(), tmp.size() + 1);
+	return ret;
+}
+
 int hwdb4c_has_wafer_entry(struct hwdb4c_database_t* handle, size_t wafer_id, bool* ret) {
 	try {
 		*ret = handle->database.has_wafer_entry(Wafer(wafer_id));

@@ -1,5 +1,6 @@
 #include "hwdb4cpp.h"
 
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -1002,6 +1003,26 @@ std::vector<size_t> database::get_hxcube_ids() const {
 std::string const& database::get_default_path()
 {
 	return default_path;
+}
+
+std::string database::get_yaml_entries(
+    std::string const& path, std::string const& node, std::string const& query)
+{
+	std::stringstream ss;
+	for (YAML::Node const config : YAML::LoadAllFromFile(path)) {
+		std::string id;
+		if (config[node].IsDefined()) {
+			id = YAML::get_entry<std::string>(config, node);
+		} else {
+			continue;
+		}
+
+		if (id == query) {
+			// if query matches, append to output
+			ss << config;
+		}
+	}
+	return ss.str();
 }
 
 } // namespace hwdb4cpp

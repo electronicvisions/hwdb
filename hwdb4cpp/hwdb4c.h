@@ -153,6 +153,10 @@ void hwdb4c_clear_hwdb(struct hwdb4c_database_t* handle) SYMBOL_VISIBLE;
 // free HWDB handle
 void hwdb4c_free_hwdb(struct hwdb4c_database_t* ret) SYMBOL_VISIBLE;
 
+// return matching yaml entries for query
+char* hwdb4c_get_yaml_entries(char const* hwdb_path, char const* node, char const* query)
+	SYMBOL_VISIBLE;
+
 // check if entry in in hwdb, return HWDB4C_SUCCESS on success, on error returns HWDB4C_FAILURE
 int hwdb4c_has_fpga_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id, bool* ret) SYMBOL_VISIBLE;
 int hwdb4c_has_reticle_entry(struct hwdb4c_database_t* handle, size_t reticleglobal_id, bool* ret) SYMBOL_VISIBLE;

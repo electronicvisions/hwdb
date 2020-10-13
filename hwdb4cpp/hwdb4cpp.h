@@ -235,6 +235,16 @@ public:
 	/// get default_path member
 	static std::string const& get_default_path();
 
+
+	/** Query database for and return matching entry in the on-disk (YAML) format.
+	 * @param path path to yaml database file
+	 * @param node node which is queried, e.g. "wafer", "hxcube_id"
+	 * @param query query string, litteraly string of corresponding id, e.g. 6
+	 * @return std::string of the matching YAML entries
+	 */
+	static std::string get_yaml_entries(
+	    std::string const& path, std::string const& node, std::string const& query);
+
 	// FIXME: add const getters everywhere?
 
 	/// Insert (and replace) a new wafer entry into the database

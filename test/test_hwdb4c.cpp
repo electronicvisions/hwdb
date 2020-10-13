@@ -409,6 +409,59 @@ TEST_F(HWDB4C_Test, get_entry_after_store_and_load)
 	hwdb4c_free_hwdb(hwdb);
 }
 
+TEST_F(HWDB4C_Test, get_yaml_entries)
+{
+	hwdb4c_database_t* hwdb = nullptr;
+	ASSERT_EQ(hwdb4c_alloc_hwdb(&hwdb), HWDB4C_SUCCESS);
+	ASSERT_TRUE(hwdb != nullptr);
+
+	std::string yaml_string;
+	char* ret = hwdb4c_get_yaml_entries(test_path.c_str(), "dls_setup", "07_20");
+	yaml_string = std::string(ret);
+	std::string test_string = "dls_setup: 07_20\n"
+	                          "fpga_name: 07\n"
+	                          "board_name: Gaston\n"
+	                          "board_version: 2\n"
+	                          "chip_id: 20\n"
+	                          "chip_version: 2\n"
+	                          "ntpwr_ip: 192.168.200.54\n"
+	                          "ntpwr_slot: 1";
+	ASSERT_EQ(yaml_string, test_string);
+	free(ret);
+
+	ret = hwdb4c_get_yaml_entries(test_path.c_str(), "hxcube_id", "6");
+	yaml_string = std::string(ret);
+	test_string = "hxcube_id: 6\n"
+	              "fpgas:\n"
+	              "  - fpga: 0\n"
+	              "    ip: 192.168.66.1\n"
+	              "    handwritten_chip_serial: 12\n"
+	              "    ldo_version: 2\n"
+	              "    chip_revision: 42\n"
+	              "    eeprom_chip_serial: 0x1234ABCD\n"
+	              "  - fpga: 3\n"
+	              "    ip: 192.168.66.4\n"
+	              "    handwritten_chip_serial: 69\n"
+	              "    ldo_version: 1\n"
+	              "    chip_revision: 1\n"
+	              "  - fpga: 7\n"
+	              "    ip: 192.168.66.8\n"
+	              "usb_host: AMTHost11\n"
+	              "usb_serial: AFEABC1230456789";
+
+	ASSERT_EQ(yaml_string, test_string);
+	free(ret);
+	ret = hwdb4c_get_yaml_entries(test_path.c_str(), "hxcube_id", "");
+	yaml_string = std::string(ret);
+	ASSERT_EQ(yaml_string, "");
+	free(ret);
+	ret = hwdb4c_get_yaml_entries(test_path.c_str(), "hxcube_id", "5623");
+	yaml_string = std::string(ret);
+	ASSERT_EQ(yaml_string, "");
+	free(ret);
+	hwdb4c_free_hwdb(hwdb);
+}
+
 
 TEST_F(HWDB4C_Test, coord)
 {
