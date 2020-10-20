@@ -9325,9 +9325,9 @@ fpgas:
     ip: 192.168.69.1
   - fpga: 3
     ip: 192.168.69.4
-    handwritten_chip_serial: 9
+    handwritten_chip_serial: 30
     ldo_version: 2
-    chip_revision: 1
+    chip_revision: 2
 usb_host: 'AMTHost13'
 usb_serial: 'AFE25B472A002000'
 ---
