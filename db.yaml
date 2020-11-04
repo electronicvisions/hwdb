@@ -9223,9 +9223,9 @@ hxcube_id: 0
 fpgas:
   - fpga: 0
     ip: 192.168.60.1
-    handwritten_chip_serial: 27
+    handwritten_chip_serial: 7
     ldo_version: 2
-    chip_revision: 2
+    chip_revision: 1
   - fpga: 3
     ip: 192.168.60.4
     handwritten_chip_serial: 25
@@ -9313,9 +9313,9 @@ fpgas:
     ip: 192.168.68.1
   - fpga: 3
     ip: 192.168.68.4
-    handwritten_chip_serial: 7
+    handwritten_chip_serial: 27
     ldo_version: 2
-    chip_revision: 1
+    chip_revision: 2
 usb_host: 'AMTHost13'
 usb_serial: 'AFE25B4710002000'
 ---
