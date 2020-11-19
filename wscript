@@ -7,19 +7,28 @@ APPNAME='hwdb'
 def depends(ctx):
     ctx('halco')
     ctx('logger')
-    ctx('pywrap')
+
+    if getattr(ctx.options, 'with_hwdb_python_bindings', True):
+        ctx('pywrap')
 
 def options(opt):
     opt.load('compiler_cxx')
     opt.load('gtest')
 
+    hopts = opt.add_option_group('hwdb options')
+    hopts.add_withoption('hwdb-python-bindings', default=True,
+                         help='Toggle the generation and build of hwdb python bindings')
+
 def configure(cfg):
     cfg.load('compiler_cxx')
     cfg.load('gtest')
-    cfg.load('python')
-    cfg.check_python_version()
-    cfg.check_python_headers()
-    cfg.load('genpybind')
+
+    if getattr(cfg.options, 'with_hwdb_python_bindings', True):
+        cfg.load('python')
+        cfg.check_python_version()
+        cfg.check_python_headers()
+        cfg.load('genpybind')
+    cfg.env.with_hwdb_python_bindings = cfg.options.with_hwdb_python_bindings
 
     cfg.check_cfg(package='yaml-cpp',
                   args=['yaml-cpp >= 0.5.3', '--cflags', '--libs'],
@@ -69,7 +78,7 @@ def build(bld):
         linkflags = ['-lboost_program_options-mt'],
     )
 
-    if bld.env.build_python_bindings:
+    if bld.env.build_python_bindings and bld.env.with_hwdb_python_bindings:
         assert not bld.env.with_pybind
         bld(
             target         = 'pyhwdb',
@@ -83,7 +92,7 @@ def build(bld):
             linkflags      = '-Wl,-z,defs',
         )
 
-    if bld.env.with_pybind:
+    if bld.env.with_pybind and bld.env.with_hwdb_python_bindings:
         assert not bld.env.build_python_bindings
         bld(
             target         = 'pyhwdb',
@@ -95,7 +104,7 @@ def build(bld):
             linkflags      = '-Wl,-z,defs',
         )
 
-    if bld.env.build_python_bindings or bld.env.with_pybind:
+    if (bld.env.build_python_bindings or bld.env.with_pybind) and bld.env.with_hwdb_python_bindings:
         bld(
             name            = "pyhwdb_tests",
             tests           = 'pyhwdb/test/pyhwdb_test.py',
@@ -107,7 +116,7 @@ def build(bld):
             pythonpath      = ["test"],
         )
 
-    if bld.env.build_python_bindings:
+    if bld.env.build_python_bindings and bld.env.with_hwdb_python_bindings:
         bld(
             target          = 'pyhwdb_bss1_tools',
             features        = 'use py',
