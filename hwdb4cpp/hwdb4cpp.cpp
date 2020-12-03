@@ -173,7 +173,7 @@ struct convert<ADCYAML>
 	static bool decode(const Node& node, ADCYAML& data)
 	{
 		if (!node.IsMap() || node.size() > 8) {
-			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''")
+			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
 		data.coord = get_entry<std::string>(node, "adc");
@@ -204,7 +204,7 @@ struct convert<FPGAYAML>
 	static bool decode(const Node& node, FPGAYAML& data)
 	{
 		if (!node.IsMap() || node.size() > 3) {
-			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''")
+			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
 		data.coordinate = get_entry<size_t>(node, "fpga");
@@ -236,7 +236,7 @@ struct convert<HXFPGAYAML>
 	static bool decode(const Node& node, HXFPGAYAML& data)
 	{
 		if (!node.IsMap() || node.size() > 6) {
-			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''")
+			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
 		data.coordinate = get_entry<size_t>(node, "fpga");
@@ -250,7 +250,7 @@ struct convert<HXFPGAYAML>
 				LOG4CXX_ERROR(
 				    logger, "Decoding failed. LDO, hand serial and chip revision all need to be "
 				            "defined. Node: '''\n"
-				                << node << "'''")
+				                << node << "'''");
 				return false;
 			}
 			HXCubeWingEntry wing;
@@ -265,7 +265,7 @@ struct convert<HXFPGAYAML>
 			if (eeprom.IsDefined()) {
 				LOG4CXX_ERROR(
 				    logger, "Decoding failed. eeprom cannot be defined alone. Node: '''\n"
-				                << node << "'''")
+				                << node << "'''");
 				return false;
 			}
 		}
@@ -289,7 +289,7 @@ struct convert<ReticleYAML>
 	static bool decode(const Node& node, ReticleYAML& data)
 	{
 		if (!node.IsMap() || node.size() > 2) {
-			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''")
+			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
 		data.coordinate = get_entry<size_t>(node, "reticle");
@@ -314,7 +314,7 @@ struct convert<AnanasYAML>
 	static bool decode(const Node& node, AnanasYAML& data)
 	{
 		if (!node.IsMap() || node.size() > 4) {
-			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''")
+			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
 		data.coordinate = get_entry<size_t>(node, "ananas");
@@ -342,7 +342,7 @@ struct convert<HICANNYAML>
 	static bool decode(const Node& node, HICANNYAML& data)
 	{
 		if (!node.IsMap() || node.size() > 3) {
-			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''")
+			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
 		data.coordinate = get_entry<size_t>(node, "hicann", 0);
