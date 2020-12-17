@@ -234,6 +234,8 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	ASSERT_TRUE(wafer_list != NULL);
 	ASSERT_EQ(num_wafer, 1);
 	ASSERT_EQ(wafer_list[0], 5);
+	free(wafer_list);
+	wafer_list = NULL;
 
 	char** dls_setup_list = NULL;
 	size_t num_dls_setups = 0;
@@ -242,6 +244,11 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	ASSERT_EQ(num_dls_setups, 2);
 	ASSERT_EQ(strcmp(dls_setup_list[0], testdls_id0), 0);
 	ASSERT_EQ(strcmp(dls_setup_list[1], testdls_id1), 0);
+	for (size_t i = 0; i < num_dls_setups; i++) {
+		free(dls_setup_list[i]);
+	}
+	free(dls_setup_list);
+	dls_setup_list = NULL;
 
 	hwdb4c_fpga_entry* fpga = NULL;
 	ASSERT_EQ(hwdb4c_get_fpga_entry(hwdb, fpgas_per_wafer * testwafer_id + 3, &fpga), HWDB4C_SUCCESS);
@@ -362,6 +369,8 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(wafer->num_adc_entries, 3);
 	EXPECT_EQ(std::string(inet_ntoa(wafer->macu_ip)), "192.168.200.165");
 	EXPECT_EQ(wafer->macu_version, 1);
+	hwdb4c_free_wafer_entry(wafer);
+	wafer = NULL;
 
 	bool ret = false;
 	ASSERT_EQ(

@@ -590,6 +590,7 @@ void hwdb4c_free_hicann_entry(struct hwdb4c_hicann_entry* hicann) {
 }
 
 void hwdb4c_free_adc_entry(struct hwdb4c_adc_entry* adc) {
+	free(adc->coord);
 	free(adc);
 }
 
@@ -631,6 +632,7 @@ void hwdb4c_free_hxcube_setup_entry(struct hwdb4c_hxcube_setup_entry* entry)
 	for (size_t i = 0; i < entry->num_fpgas; i++) {
 		hwdb4c_free_hxcube_fpga_entry(entry->fpgas[i]);
 	}
+	free(entry->fpgas);
 	free(entry);
 }
 
@@ -639,6 +641,7 @@ void hwdb4c_free_hxcube_fpga_entry(struct hwdb4c_hxcube_fpga_entry* entry)
 	if (entry->wing) {
 		free(entry->wing);
 	}
+	free(entry);
 }
 
 void hwdb4c_free_hicann_entries(struct hwdb4c_hicann_entry** hicanns, size_t num_hicanns) {
