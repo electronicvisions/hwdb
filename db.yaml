@@ -9238,7 +9238,7 @@ hxcube_id: 2
 fpgas:
   - fpga: 0
     ip: 192.168.62.1
-    handwritten_chip_serial: 28
+    handwritten_chip_serial: 35
     ldo_version: 2
     chip_revision: 2
   - fpga: 3
@@ -9313,7 +9313,7 @@ fpgas:
     ip: 192.168.68.1
   - fpga: 3
     ip: 192.168.68.4
-    handwritten_chip_serial: 27
+    handwritten_chip_serial: 28
     ldo_version: 2
     chip_revision: 2
 usb_host: 'AMTHost13'
