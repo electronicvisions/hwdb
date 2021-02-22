@@ -31,8 +31,13 @@ def generate_license_strings(db):
                     )
                 )
             )
+        # ananas licenses are only used for firewall rules, restriction to
+        # individual slices is done via trigger group licenses. We therefore
+        # add as many ananas licenses as there are slices of an ananas board
         for ananas in wafer.ananas.keys():
-            slurm_licenses.append(C.slurm_license(ananas))
+            slurm_licenses.append(
+                C.slurm_license(ananas) +
+                ":" + str(C.AnanasSliceOnAnanas.size))
         for adc in wafer.adcs:
             slurm_licenses.append(str(adc.value.coord))
 
