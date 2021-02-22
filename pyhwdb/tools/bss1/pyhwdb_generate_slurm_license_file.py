@@ -70,9 +70,10 @@ def create_license_files(db, license_file_name, tres_file_name):
 
 if __name__ == "__main__":
 
+    default_path = pyhwdb.database.get_default_path()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--hwdb", type=str, required=True, help="path to hwdb yaml file"
+        "--hwdb", type=str, default=default_path, help="path to hwdb yaml file"
     )
     parser.add_argument(
         "--license_file",
