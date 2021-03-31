@@ -4537,11 +4537,11 @@ reticles:
   - reticle: 42
     to_be_powered: true
   - reticle: 43
-    to_be_powered: true
+    to_be_powered: false
   - reticle: 44
-    to_be_powered: true
+    to_be_powered: false
   - reticle: 45
-    to_be_powered: true
+    to_be_powered: false
   - reticle: 46
     to_be_powered: true
   - reticle: 47
