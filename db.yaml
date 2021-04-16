@@ -47,12 +47,12 @@ adcs:
   - fpga: 0
     analog: 0
     adc: B201331
-    channel: 0
+    channel: 1
     trigger: 0
   - fpga: 0
     analog: 1
     adc: B201331
-    channel: 1
+    channel: 0
     trigger: 0
   - fpga: 3
     analog: 0
