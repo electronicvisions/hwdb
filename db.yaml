@@ -7895,33 +7895,39 @@ fpgas:
   - fpga: 0
     ip: 192.168.60.1
     handwritten_chip_serial: 49
+    fuse_dna: 0x3A0E92C4028D122F
     ldo_version: 2
     chip_revision: 2
     eeprom_chip_serial: 0x47ade9
   - fpga: 3
     ip: 192.168.60.4
     handwritten_chip_serial: 55
+    fuse_dna: 0x3A0E92C402882A33
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x4716df
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4712002000'
+xilinx_hw_server: 'xilinx-smartlynq-0:3121'
 ---
 hxcube_id: 2
 fpgas:
   - fpga: 0
     ip: 192.168.62.1
+    fuse_dna: 0x2A0E92C402852C17
     handwritten_chip_serial: 35
     ldo_version: 2
     chip_revision: 2
   - fpga: 3
     ip: 192.168.62.4
     handwritten_chip_serial: 60
+    fuse_dna: 0x3A0E92C4028B324B
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x470240
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4713002000'
+xilinx_hw_server: 'xilinx-smartlynq-jenkins:3121'
 ---
 hxcube_id: 3
 fpgas:
