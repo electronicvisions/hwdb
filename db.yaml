@@ -8826,6 +8826,10 @@ setuptype: cubesetup
 fpgas:
   - fpga: 0
     ip: 192.168.61.1
+  - fpga: 1
+    ip: 192.168.61.2
+  - fpga: 2
+    ip: 192.168.61.3
   - fpga: 3
     ip: 192.168.61.4
 ---
