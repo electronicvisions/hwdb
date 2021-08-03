@@ -24,10 +24,11 @@ class Test_LicenseFileCreation(unittest.TestCase):
         db.add_fpga_entry(fpga_coord, fpga)
 
         licenses, tres = generate_license_strings(db)
-        self.assertEqual(licenses, "Licenses=W10F0,W10T8")
-        self.assertEqual(
-            tres, "AccountingStorageTRES=License/W10F0,License/W10T8"
-        )
+        # licenses is generated from set -> order not guaranteed
+        self.assertTrue(
+            licenses == "Licenses=W10F0,W10T8" or licenses == "Licenses=W10T8,W10F0")
+        self.assertTrue(tres == "AccountingStorageTRES=License/W10F0,License/W10T8" or tres ==
+                        "AccountingStorageTRES=License/W10T8,License/W10F0")
 
         try:
             tmpdirname = tempfile.mkdtemp()
@@ -38,13 +39,16 @@ class Test_LicenseFileCreation(unittest.TestCase):
 
             with open(lic_tmp_file, "r") as file:
                 content = file.read()
-                self.assertNotEqual(content.find("Licenses=W10F0,W10T8"), -1)
+                self.assertTrue(any(lic in content for lic in [
+                                "Licenses=W10F0,W10T8", "Licenses=W10T8,W10F0"]))
 
             with open(tres_tmp_file, "r") as file:
                 content = file.read()
-                self.assertNotEqual(content.find(
-                    "AccountingStorageTRES=License/W10F0,License/W10T8"
-                ), -1)
+                self.assertTrue(
+                    any(
+                        tres in content for tres in [
+                            "AccountingStorageTRES=License/W10F0,License/W10T8",
+                            "AccountingStorageTRES=License/W10T8,License/W10F0"]))
         finally:
             shutil.rmtree(tmpdirname)
 
