@@ -7970,8 +7970,8 @@ fpgas:
     handwritten_chip_serial: 24
     ldo_version: 2
     chip_revision: 2
+usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4727002000'
-handwritten_chip_serial: 24
 ---
 hxcube_id: 8
 fpgas:
