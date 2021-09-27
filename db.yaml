@@ -7965,6 +7965,10 @@ hxcube_id: 7
 fpgas:
   - fpga: 0
     ip: 192.168.67.1
+    handwritten_chip_serial: 47
+    ldo_version: 2
+    chip_revision: 2
+    eeprom_chip_serial: 0x474094
   - fpga: 3
     ip: 192.168.67.4
     handwritten_chip_serial: 24
