@@ -1009,7 +1009,7 @@ std::string database::get_yaml_entries(
     std::string const& path, std::string const& node, std::string const& query)
 {
 	std::stringstream ss;
-	for (YAML::Node const config : YAML::LoadAllFromFile(path)) {
+	for (YAML::Node const& config : YAML::LoadAllFromFile(path)) {
 		std::string id;
 		if (config[node].IsDefined()) {
 			id = YAML::get_entry<std::string>(config, node);
