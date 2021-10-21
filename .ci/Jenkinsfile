@@ -53,7 +53,7 @@ wafDefaultPipeline([projects: ["hwdb"]] << bss1PipelineArgs)
 stage("Syntax Check") {
 	inSingularity(bss1PipelineArgs["container"]) {
 		runOnSlave(label: "frontend") {
-			jesh("python -c \"import yaml; [None for elem in yaml.load_all(file('hwdb/db.yaml'))]\"")
+			jesh("python -c \"import yaml; [None for elem in yaml.load_all(open('hwdb/db.yaml'))]\"")
 		}
 	}
 }
