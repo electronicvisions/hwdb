@@ -7993,6 +7993,10 @@ hxcube_id: 9
 fpgas:
   - fpga: 0
     ip: 192.168.69.1
+    handwritten_chip_serial: 48
+    ldo_version: 2
+    chip_revision: 2
+    eeprom_chip_serial: 0x477055
   - fpga: 3
     ip: 192.168.69.4
     handwritten_chip_serial: 30
