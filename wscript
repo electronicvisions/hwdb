@@ -34,15 +34,6 @@ def configure(cfg):
                   args=['yaml-cpp >= 0.5.3', '--cflags', '--libs'],
                   uselib_store='YAMLCPP')
 
-    if cfg.env.with_pybind:
-        cfg.check(
-            compiler='cxx',
-            features='cxx pyext',
-            uselib_store='PYBIND11HWDB',
-            mandatory=True,
-            header_name='pybind11/pybind11.h',
-        )
-
 def build(bld):
     bld.add_post_fun(summary)
 
