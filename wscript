@@ -37,7 +37,7 @@ def configure(cfg):
     if cfg.env.with_pybind:
         cfg.check(
             compiler='cxx',
-            features='cxx pyembed',
+            features='cxx pyext',
             uselib_store='PYBIND11HWDB',
             mandatory=True,
             header_name='pybind11/pybind11.h',
@@ -82,26 +82,24 @@ def build(bld):
         assert not bld.env.with_pybind
         bld(
             target         = 'pyhwdb',
-            features       = 'cxx cxxshlib pypp pyembed pyext',
+            features       = 'cxx cxxshlib pypp pyext',
             script         = 'pyhwdb/generate.py',
             gen_defines    = 'PYPLUSPLUS __STRICT_ANSI__',
             defines        = 'PYBINDINGS',
             headers        = 'pyhwdb/pyhwdb.h',
             use            = ['hwdb4cpp', 'pyhalco_hicann_v2', 'pywrap'],
             install_path   = '${PREFIX}/lib',
-            linkflags      = '-Wl,-z,defs',
         )
 
     if bld.env.with_pybind and bld.env.with_hwdb_python_bindings:
         assert not bld.env.build_python_bindings
         bld(
             target         = 'pyhwdb',
-            features       = 'genpybind cxx cxxshlib pyembed pyext',
+            features       = 'genpybind cxx cxxshlib pyext',
             source         = 'pyhwdb/pyhwdb.h',
             genpybind_tags = 'hwdb',
             use            = ['hwdb4cpp', 'pyhalco_common'],
             install_path   = '${PREFIX}/lib',
-            linkflags      = '-Wl,-z,defs',
         )
 
     if (bld.env.build_python_bindings or bld.env.with_pybind) and bld.env.with_hwdb_python_bindings:
@@ -111,7 +109,6 @@ def build(bld):
             features        = 'use pytest',
             use             = 'pyhwdb',
             install_path    = '${PREFIX}/bin',
-            linkflags      = '-Wl,-z,defs',
             test_timeout    = 45,
             pythonpath      = ["test"],
         )
