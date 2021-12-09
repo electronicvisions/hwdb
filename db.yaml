@@ -6326,7 +6326,7 @@ reticles:
   - reticle: 16
     to_be_powered: true
   - reticle: 17
-    to_be_powered: true
+    to_be_powered: false # cf. Issue 3975
   - reticle: 18
     to_be_powered: true
   - reticle: 19
