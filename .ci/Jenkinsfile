@@ -1,10 +1,10 @@
 @Library("jenlib") _
 
 Map<String, Object> bss1PipelineArgs = [container          : [app: "wafer"],
+                                        configureInstallOptions: "--without-pybind",
                                         notificationChannel: "#visionary-wafer-users"]
 
 Map<String, Object> bss2PipelineArgs = [container          : [app: "dls"],
-                                        configureInstallOptions: "--with-pybind",
                                         notificationChannel: "#dls-software"]
 
 // BSS-2
