@@ -241,7 +241,7 @@ struct convert<HXFPGAYAML>
 	static bool decode(const Node& node, HXFPGAYAML& data)
 	{
 		if (!node.IsMap() || node.size() > 7) {
-			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''")
+			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
 		data.coordinate = get_entry<size_t>(node, "fpga");
@@ -274,7 +274,7 @@ struct convert<HXFPGAYAML>
 			if (eeprom.IsDefined() || fuse_dna.IsDefined()) {
 				LOG4CXX_ERROR(
 				    logger, "Decoding failed. Only optional entries found. Node: '''\n"
-				                << node << "'''")
+				                << node << "'''");
 				return false;
 			}
 		}
