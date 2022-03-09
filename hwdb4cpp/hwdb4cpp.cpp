@@ -408,8 +408,7 @@ void database::load(std::string const path)
 	if (!(mWaferData.empty() && mDLSData.empty() && mHXCubeData.empty()))
 		throw std::runtime_error("database has to be empty before loading new file");
 
-	for (YAML::Node config : YAML::LoadAllFromFile(path)) {
-
+	for (YAML::Node& config : YAML::LoadAllFromFile(path)) {
 		// yaml node is from a wafer
 		if (config["wafer"].IsDefined()) {
 
