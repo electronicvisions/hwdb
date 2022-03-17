@@ -8,7 +8,9 @@ Map<String, Object> bss2PipelineArgs = [container          : [app: "dls"],
                                         notificationChannel: "#dls-software"]
 
 // BSS-2
-wafDefaultPipeline([projects: ["hwdb"]] << bss2PipelineArgs)
+withCcache() {
+	wafDefaultPipeline([projects: ["hwdb"]] << bss2PipelineArgs)
+}
 
 try {
 	Boolean isMergeEvent = env.GERRIT_EVENT_TYPE == "change-merged"
@@ -46,8 +48,9 @@ runOnSlave(label: "frontend") {
 }
 
 // BSS-1
-wafDefaultPipeline([projects: ["hwdb"]] << bss1PipelineArgs)
-
+withCcache() {
+	wafDefaultPipeline([projects: ["hwdb"]] << bss1PipelineArgs)
+}
 
 // Syntax Check, to be migrated to a waf test (issue #3604)
 stage("Syntax Check") {
