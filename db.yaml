@@ -1725,7 +1725,7 @@ hicanns:
 ---
 wafer: 24
 setuptype: bsswafer
-macu: 192.168.200.159
+macu: 192.168.200.148
 macuversion: 1
 fpgas:
   - fpga: 0
