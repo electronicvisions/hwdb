@@ -7886,9 +7886,10 @@ hxcube_id: 0
 fpgas:
   - fpga: 0
     ip: 192.168.60.1
-    handwritten_chip_serial: 7
+    handwritten_chip_serial: 55
     ldo_version: 2
-    chip_revision: 1
+    chip_revision: 3
+    eeprom_chip_serial: 0x4716df
   - fpga: 3
     ip: 192.168.60.4
     handwritten_chip_serial: 25
@@ -7940,9 +7941,10 @@ fpgas:
     ip: 192.168.65.1
   - fpga: 3
     ip: 192.168.65.4
-    handwritten_chip_serial: 12
+    handwritten_chip_serial: 56
     ldo_version: 2
-    chip_revision: 1
+    chip_revision: 3
+    eeprom_chip_serial: 0x476fdb
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4714002000'
 ---
@@ -8068,8 +8070,9 @@ fpgas:
     ip: 192.168.75.1
   - fpga: 3
     ip: 192.168.75.4
-    handwritten_chip_serial: 14
+    handwritten_chip_serial: 57
     ldo_version: 2
-    chip_revision: 1
+    chip_revision: 3
+    eeprom_chip_serial: 0x46f66b
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4722002000'
