@@ -7908,10 +7908,10 @@ fpgas:
     chip_revision: 2
   - fpga: 3
     ip: 192.168.62.4
-    handwritten_chip_serial: 59
+    handwritten_chip_serial: 60
     ldo_version: 2
     chip_revision: 3
-    eeprom_chip_serial: 0x473356
+    eeprom_chip_serial: 0x470240
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4713002000'
 ---
