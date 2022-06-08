@@ -7954,14 +7954,16 @@ hxcube_id: 6
 fpgas:
   - fpga: 0
     ip: 192.168.66.1
-    handwritten_chip_serial: 40
+    handwritten_chip_serial: 65
+    eeprom_chip_serial: 0x4753dd
     ldo_version: 2
-    chip_revision: 2
+    chip_revision: 3
   - fpga: 3
     ip: 192.168.66.4
-    handwritten_chip_serial: 23
+    handwritten_chip_serial: 66
+    eeprom_chip_serial: 0x47090b
     ldo_version: 2
-    chip_revision: 2
+    chip_revision: 3
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4724002000'
 ---
@@ -7969,15 +7971,16 @@ hxcube_id: 7
 fpgas:
   - fpga: 0
     ip: 192.168.67.1
-    handwritten_chip_serial: 47
+    handwritten_chip_serial: 57
     ldo_version: 2
-    chip_revision: 2
-    eeprom_chip_serial: 0x474094
+    chip_revision: 3
+    eeprom_chip_serial: 0x46f66b
   - fpga: 3
     ip: 192.168.67.4
-    handwritten_chip_serial: 24
+    handwritten_chip_serial: 61
     ldo_version: 2
-    chip_revision: 2
+    chip_revision: 3
+    eeprom_chip_serial: 0x47aeb8
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4727002000'
 ---
@@ -7987,9 +7990,10 @@ fpgas:
     ip: 192.168.68.1
   - fpga: 3
     ip: 192.168.68.4
-    handwritten_chip_serial: 28
+    handwritten_chip_serial: 58
+    eeprom_chip_serial: 0x4733c1
     ldo_version: 2
-    chip_revision: 2
+    chip_revision: 3
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4710002000'
 ---
@@ -7997,15 +8001,16 @@ hxcube_id: 9
 fpgas:
   - fpga: 0
     ip: 192.168.69.1
-    handwritten_chip_serial: 48
+    handwritten_chip_serial: 59
     ldo_version: 2
-    chip_revision: 2
-    eeprom_chip_serial: 0x477055
+    chip_revision: 3
+    eeprom_chip_serial: 0x473356
   - fpga: 3
     ip: 192.168.69.4
-    handwritten_chip_serial: 30
+    handwritten_chip_serial: 62
     ldo_version: 2
-    chip_revision: 2
+    chip_revision: 3
+    eeprom_chip_serial: 0x4716f0
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B472A002000'
 ---
@@ -8048,9 +8053,10 @@ fpgas:
     ip: 192.168.73.1
   - fpga: 3
     ip: 192.168.73.4
-    handwritten_chip_serial: 31
+    handwritten_chip_serial: 63
     ldo_version: 2
-    chip_revision: 2
+    chip_revision: 3
+    eeprom_chip_serial: 0x4732ce
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B471E002000'
 ---
