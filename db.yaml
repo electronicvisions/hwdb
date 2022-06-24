@@ -8053,10 +8053,9 @@ fpgas:
     ip: 192.168.73.1
   - fpga: 3
     ip: 192.168.73.4
-    handwritten_chip_serial: 63
+    handwritten_chip_serial: 31
     ldo_version: 2
-    chip_revision: 3
-    eeprom_chip_serial: 0x4732ce
+    chip_revision: 2
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B471E002000'
 ---
@@ -8066,9 +8065,10 @@ fpgas:
     ip: 192.168.74.1
   - fpga: 3
     ip: 192.168.74.4
-    handwritten_chip_serial: 26
+    handwritten_chip_serial: 63
     ldo_version: 2
-    chip_revision: 2
+    chip_revision: 3
+    eeprom_chip_serial: 0x4732ce
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B471A002000'
 ---
