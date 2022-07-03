@@ -7919,6 +7919,25 @@ usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4712002000'
 xilinx_hw_server: 'xilinx-smartlynq-0:3121'
 ---
+hxcube_id: 1
+fpgas:
+  - fpga: 0
+    ip: 192.168.61.1
+    extoll_node_id: 1
+    handwritten_chip_serial: 67
+    ldo_version: 2
+    chip_revision: 3
+    eeprom_chip_serial: 0x47097b
+  - fpga: 3
+    ip: 192.168.61.4
+    extoll_node_id: 4
+    handwritten_chip_serial: 68
+    ldo_version: 2
+    chip_revision: 3
+    eeprom_chip_serial: 0x47a8e3
+usb_host: 'HBPHost19'
+usb_serial: '52B59A4620002000'
+---
 hxcube_id: 2
 fpgas:
   - fpga: 0

@@ -236,6 +236,11 @@ int _convert_hxcube_setup_entry(
 			fpga_entry_c->fuse_dna = 0;
 			fpga_entry_c->dna_port = 0;
 		}
+		if (fpga_it.second.extoll_node_id) {
+			fpga_entry_c->extoll_node_id = fpga_it.second.extoll_node_id.value();
+		} else {
+			fpga_entry_c->extoll_node_id = 0;
+		}
 		hxcube_entry_c->fpgas[fpga_counter] = fpga_entry_c;
 		fpga_counter++;
 	}

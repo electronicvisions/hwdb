@@ -119,6 +119,7 @@ hxcube_id: 6\n\
 fpgas:\n\
   - fpga: 0\n\
     ip: 192.168.66.1\n\
+    extoll_node_id: 2\n\
     handwritten_chip_serial: 12\n\
     ldo_version: 2\n\
     chip_revision: 42\n\
@@ -320,6 +321,7 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(std::string(inet_ntoa(hxcube->fpgas[0]->ip)), "192.168.66.1");
 	EXPECT_EQ(hxcube->fpgas[0]->fpga_id, 0);
 	EXPECT_EQ(hxcube->fpgas[0]->fuse_dna, 0x3A0E92C402882A33);
+	EXPECT_EQ(hxcube->fpgas[0]->extoll_node_id, 2);
 	EXPECT_EQ(hxcube->fpgas[0]->dna_port, 0x5411402349705C);
 	EXPECT_EQ(hxcube->fpgas[0]->wing->ldo_version, 2);
 	EXPECT_EQ(hxcube->fpgas[0]->wing->handwritten_chip_serial, 12);
@@ -329,6 +331,7 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(std::string(inet_ntoa(hxcube->fpgas[1]->ip)), "192.168.66.4");
 	EXPECT_EQ(hxcube->fpgas[1]->fpga_id, 3);
 	EXPECT_TRUE(hxcube->fpgas[1]->fuse_dna == 0); // optional value
+	EXPECT_TRUE(hxcube->fpgas[1]->extoll_node_id == 0); // optional value
 	EXPECT_EQ(hxcube->fpgas[1]->wing->ldo_version, 1);
 	EXPECT_EQ(hxcube->fpgas[1]->wing->handwritten_chip_serial, 69);
 	EXPECT_EQ(hxcube->fpgas[1]->wing->chip_revision, 1);
@@ -337,6 +340,7 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(std::string(inet_ntoa(hxcube->fpgas[2]->ip)), "192.168.66.8");
 	EXPECT_EQ(hxcube->fpgas[2]->fpga_id, 7);
 	EXPECT_TRUE(hxcube->fpgas[2]->fuse_dna == 0); // optional value
+	EXPECT_TRUE(hxcube->fpgas[1]->extoll_node_id == 0); // optional value
 	EXPECT_TRUE(hxcube->fpgas[2]->wing == NULL); // optional value
 
 	hwdb4c_free_hxcube_setup_entry(hxcube);
@@ -445,6 +449,7 @@ TEST_F(HWDB4C_Test, get_yaml_entries)
 	              "fpgas:\n"
 	              "  - fpga: 0\n"
 	              "    ip: 192.168.66.1\n"
+	              "    extoll_node_id: 2\n"
 	              "    handwritten_chip_serial: 12\n"
 	              "    ldo_version: 2\n"
 	              "    chip_revision: 42\n"

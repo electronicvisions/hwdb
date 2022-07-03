@@ -228,6 +228,9 @@ struct convert<HXFPGAYAML>
 		if (data.fuse_dna) {
 			node["fuse_dna"] = data.fuse_dna.value();
 		}
+		if (data.extoll_node_id) {
+			node["extoll_node_id"] = data.extoll_node_id.value();
+		}
 		if (data.wing) {
 			node["ldo_version"] = data.wing.value().ldo_version;
 			node["handwritten_chip_serial"] = data.wing.value().handwritten_chip_serial;
@@ -241,7 +244,7 @@ struct convert<HXFPGAYAML>
 
 	static bool decode(const Node& node, HXFPGAYAML& data)
 	{
-		if (!node.IsMap() || node.size() > 7) {
+		if (!node.IsMap() || node.size() > 8) {
 			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
@@ -250,6 +253,10 @@ struct convert<HXFPGAYAML>
 		auto fuse_dna = node["fuse_dna"];
 		if (fuse_dna.IsDefined()) {
 			data.fuse_dna = fuse_dna.as<uint64_t>();
+		}
+		auto extoll_node_id = node["extoll_node_id"];
+		if (extoll_node_id.IsDefined()) {
+			data.extoll_node_id = extoll_node_id.as<uint16_t>();
 		}
 		auto ldo = node["ldo_version"];
 		auto hand_serial = node["handwritten_chip_serial"];
@@ -272,7 +279,7 @@ struct convert<HXFPGAYAML>
 			}
 			data.wing = wing;
 		} else {
-			if (eeprom.IsDefined() || fuse_dna.IsDefined()) {
+			if (eeprom.IsDefined() || fuse_dna.IsDefined() || extoll_node_id.IsDefined()) {
 				LOG4CXX_ERROR(
 				    logger, "Decoding failed. Only optional entries found. Node: '''\n"
 				                << node << "'''");

@@ -128,6 +128,7 @@ struct SYMBOL_VISIBLE hwdb4c_hxcube_fpga_entry
 	struct in_addr ip;
 	struct hwdb4c_hxcube_wing_entry* wing;
 	uint64_t fuse_dna;
+	uint16_t extoll_node_id;
 
 	uint64_t dna_port; // cpp get_dna_port member function
 };
