@@ -7619,12 +7619,12 @@ fpgas:
   - fpga: 3
     ip: 192.168.75.4
 ---
-wafer: 76
+wafer: 80
 setuptype: cubesetup
 # aggregator test
 fpgas:
   - fpga: 0
-    ip: 192.168.76.192
+    ip: 192.168.80.1
 ---
 wafer: 100
 setuptype: bsswafer
