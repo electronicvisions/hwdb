@@ -40,6 +40,10 @@ def generate_license_strings(db):
                 ":" + str(C.AnanasSliceOnAnanas.size))
         for adc in wafer.adcs:
             slurm_licenses.append(str(adc.value.coord))
+        # append aggregator licenses for HX multi chip setups which start
+        # at Wafer Id 80
+        if wafer_coord.value() >= 80:
+            slurm_licenses.append("W{}M0".format(wafer_coord.value()))
 
     # remove non unique trigger and ADC entries while retaining order
     slurm_licenses = dict.fromkeys(slurm_licenses)
