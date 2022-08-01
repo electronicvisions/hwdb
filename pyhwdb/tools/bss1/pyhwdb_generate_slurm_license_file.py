@@ -41,8 +41,8 @@ def generate_license_strings(db):
         for adc in wafer.adcs:
             slurm_licenses.append(str(adc.value.coord))
 
-    # remove non unique trigger and ADC entries
-    slurm_licenses = set(slurm_licenses)
+    # remove non unique trigger and ADC entries while retaining order
+    slurm_licenses = dict.fromkeys(slurm_licenses)
 
     slurm_licenses_tres = \
         ["License/{0}".format(element) for element in slurm_licenses]
