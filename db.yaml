@@ -7269,8 +7269,8 @@ hicanns:
 ---
 wafer: 39
 setuptype: bsswafer
-macu: 192.168.200.163
-macuversion: 1
+macu: 192.168.200.89
+macuversion: 3
 fpgas:
   - fpga: 0
     ip: 192.168.39.1
@@ -7467,8 +7467,17 @@ reticles:
     to_be_powered: true
   - reticle: 47
     to_be_powered: true
+ananas:
+  - ananas: 0
+    ip: 192.168.39.190
+    baseport_data: 0xafe0
+    baseport_reset: 0x2570
+  - ananas: 1
+    ip: 192.168.39.191
+    baseport_data: 0xafe0
+    baseport_reset: 0x2570
 hicanns:
-  version: 2
+  version: 4
 # FIXME ugly temporary workaround to handle HX cube setups until slurm supports the hxsetup types
 ---
 wafer: 60
