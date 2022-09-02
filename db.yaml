@@ -7270,7 +7270,7 @@ hicanns:
 wafer: 39
 setuptype: bsswafer
 macu: 192.168.200.89
-macuversion: 3
+macuversion: 4
 fpgas:
   - fpga: 0
     ip: 192.168.39.1
@@ -7460,7 +7460,7 @@ reticles:
   - reticle: 43
     to_be_powered: true
   - reticle: 44
-    to_be_powered: true
+    to_be_powered: false
   - reticle: 45
     to_be_powered: true
   - reticle: 46
