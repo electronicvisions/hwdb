@@ -1,7 +1,6 @@
 ---
 wafer: 4
 setuptype: cubesetup
-macu: 192.168.200.1
 fpgas:
   - fpga: 0
     ip: 192.168.4.1
@@ -7483,6 +7482,7 @@ hicanns:
 wafer: 60
 setuptype: cubesetup
 # HICANN-X
+macu: 192.168.200.1
 fpgas:
   - fpga: 0
     ip: 192.168.60.1
