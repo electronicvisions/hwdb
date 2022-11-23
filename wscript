@@ -7,6 +7,7 @@ APPNAME='hwdb'
 def depends(ctx):
     ctx('halco')
     ctx('logger')
+    ctx('hate')
 
     if getattr(ctx.options, 'with_hwdb_python_bindings', True):
         ctx('pywrap')
@@ -46,7 +47,7 @@ def build(bld):
         target          = 'hwdb4cpp',
         features        = 'cxx',
         source          = 'hwdb4cpp/hwdb4cpp.cpp',
-        use             = 'halco_hicann_v2 hwdb4cpp_inc logger_obj YAMLCPP',
+        use             = 'halco_hicann_v2 hwdb4cpp_inc logger_obj YAMLCPP hate_inc',
         install_path    = '${PREFIX}/lib',
     )
 

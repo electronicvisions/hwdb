@@ -12,6 +12,7 @@
 #include <yaml-cpp/yaml.h>
 
 #include "halco/common/iter_all.h"
+#include "hate/type_index.h"
 
 static log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 std::string const hwdb4cpp::database::default_path = "/wang/data/bss-hwdb/db.yaml";
@@ -94,7 +95,7 @@ T get_entry(const Node& node, const std::string name) try {
 	}
 } catch (const YAML::Exception& err) {
 	LOG4CXX_ERROR(
-	    logger, "Error converting node YAML'" << node << "' to type '" << ZTL::typestring<T>()
+	    logger, "Error converting node YAML'" << node << "' to type '" << hate::full_name<T>()
 	                                          << "': " << err.what());
 	throw;
 }
