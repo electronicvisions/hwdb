@@ -7910,11 +7910,11 @@ fpgas:
     eeprom_chip_serial: 0x47ade9
   - fpga: 3
     ip: 192.168.60.4
-    handwritten_chip_serial: 55
+    handwritten_chip_serial: 56
     fuse_dna: 0x3A0E92C402882A33
     ldo_version: 2
     chip_revision: 3
-    eeprom_chip_serial: 0x4716df
+    eeprom_chip_serial: 0x476fdb
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4712002000'
 xilinx_hw_server: 'xilinx-smartlynq-0:3121'
@@ -7985,10 +7985,10 @@ fpgas:
     ip: 192.168.65.1
   - fpga: 3
     ip: 192.168.65.4
-    handwritten_chip_serial: 56
+    handwritten_chip_serial: 64
     ldo_version: 2
     chip_revision: 3
-    eeprom_chip_serial: 0x476fdb
+    eeprom_chip_serial: 0x473f28
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4714002000'
 ---
