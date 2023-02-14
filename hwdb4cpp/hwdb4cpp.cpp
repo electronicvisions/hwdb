@@ -14,7 +14,6 @@
 #include "halco/common/iter_all.h"
 #include "hate/type_index.h"
 
-static log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 std::string const hwdb4cpp::database::default_path = "/wang/data/bss-hwdb/db.yaml";
 
 using namespace halco::common;
@@ -94,6 +93,7 @@ T get_entry(const Node& node, const std::string name) try {
 		return key.as<T>();
 	}
 } catch (const YAML::Exception& err) {
+	log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 	LOG4CXX_ERROR(
 	    logger, "Error converting node YAML'" << node << "' to type '" << hate::full_name<T>()
 	                                          << "': " << err.what());
@@ -176,6 +176,7 @@ struct convert<ADCYAML>
 	static bool decode(const Node& node, ADCYAML& data)
 	{
 		if (!node.IsMap() || node.size() > 8) {
+			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
@@ -207,6 +208,7 @@ struct convert<FPGAYAML>
 	static bool decode(const Node& node, FPGAYAML& data)
 	{
 		if (!node.IsMap() || node.size() > 3) {
+			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
@@ -245,6 +247,7 @@ struct convert<HXFPGAYAML>
 	static bool decode(const Node& node, HXFPGAYAML& data)
 	{
 		if (!node.IsMap() || node.size() > 8) {
+			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
@@ -264,6 +267,7 @@ struct convert<HXFPGAYAML>
 		auto eeprom = node["eeprom_chip_serial"];
 		if (ldo.IsDefined() || hand_serial.IsDefined() || chip_rev.IsDefined()) {
 			if (!ldo.IsDefined() || !hand_serial.IsDefined() || !chip_rev.IsDefined()) {
+				log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 				LOG4CXX_ERROR(
 				    logger, "Decoding failed. LDO, hand serial and chip revision all need to be "
 				            "defined. Node: '''\n"
@@ -280,6 +284,7 @@ struct convert<HXFPGAYAML>
 			data.wing = wing;
 		} else {
 			if (eeprom.IsDefined() || fuse_dna.IsDefined() || extoll_node_id.IsDefined()) {
+				log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 				LOG4CXX_ERROR(
 				    logger, "Decoding failed. Only optional entries found. Node: '''\n"
 				                << node << "'''");
@@ -306,6 +311,7 @@ struct convert<ReticleYAML>
 	static bool decode(const Node& node, ReticleYAML& data)
 	{
 		if (!node.IsMap() || node.size() > 2) {
+			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
@@ -331,6 +337,7 @@ struct convert<AnanasYAML>
 	static bool decode(const Node& node, AnanasYAML& data)
 	{
 		if (!node.IsMap() || node.size() > 4) {
+			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
@@ -359,6 +366,7 @@ struct convert<HICANNYAML>
 	static bool decode(const Node& node, HICANNYAML& data)
 	{
 		if (!node.IsMap() || node.size() > 3) {
+			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
@@ -565,6 +573,7 @@ void database::load(std::string const path)
 		}
 		// yaml node does not contain wafer or dls setup or hxcube setup
 		else {
+			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 			LOG4CXX_WARN(logger, "Found node entry neither from Wafer, DLS setup nor HX setup, ignore");
 		}
 	}
