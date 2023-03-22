@@ -250,9 +250,13 @@ struct convert<HXFPGAYAML>
 
 	static bool decode(const Node& node, HXFPGAYAML& data)
 	{
-		if (!node.IsMap() || node.size() > 9) {
+		if (!node.IsMap()) {
 			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
+			return false;
+		} else if (node.size() > 9) {
+			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
+			LOG4CXX_ERROR(logger, "Too many entries! Decoding failed of: '''\n" << node << "'''");
 			return false;
 		}
 		data.coordinate = get_entry<size_t>(node, "fpga");
