@@ -1,6 +1,7 @@
 #include "hwdb4cpp.h"
 
 #include <bitset>
+#include <regex>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -414,6 +415,18 @@ std::string HXCubeSetupEntry::get_unique_branch_identifier(size_t chip_serial) c
 		}
 	}
 	throw std::runtime_error("No chip with serial " + std::to_string(chip_serial) + " found");
+}
+
+std::tuple<size_t, size_t, size_t, size_t> HXCubeSetupEntry::get_ids_from_unique_branch_identifier(
+    std::string identifier)
+{
+	std::regex regex("hxcube(\\d+)fpga(\\d+)chip(\\d+)_(\\d+)");
+	std::smatch match;
+	if (std::regex_match(identifier, match, regex)) {
+		assert(match.size() == 5);
+		return {std::stoi(match[1]), std::stoi(match[2]), std::stoi(match[3]), std::stoi(match[4])};
+	}
+	throw std::runtime_error("Found no match for hxcube ID in identifier.");
 }
 
 void database::clear()

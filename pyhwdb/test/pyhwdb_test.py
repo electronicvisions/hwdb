@@ -127,6 +127,9 @@ class Test_Pyhwdb(unittest.TestCase):
             self.assertFalse(mydb.has_hxcube_setup_entry(hxcube_id))
             self.assertEqual(hxcube_entry.get_unique_branch_identifier(12),
                             "hxcube9fpga0chip12_1")
+            self.assertEqual(
+                (9, 0, 12, 1), hxcube_entry.get_ids_from_unique_branch_identifier(
+                    "hxcube9fpga0chip12_1"))
             with self.assertRaises(RuntimeError):
                 hxcube_entry.get_unique_branch_identifier(108)
 

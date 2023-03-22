@@ -228,6 +228,14 @@ struct GENPYBIND(visible) HXCubeSetupEntry
 	}
 
 	std::string get_unique_branch_identifier(size_t chip_serial) const;
+
+	/**
+	 * Get tuple of (hxcube_id, fpga_id, chip_serial, setup_version) from unique branch identifier.
+	 * @param identifier Identifier string
+	 * @return Tuple of IDs
+	 */
+	static std::tuple<size_t, size_t, size_t, size_t> get_ids_from_unique_branch_identifier(
+	    std::string identifier);
 };
 #endif
 /* ******************************************************************** */
