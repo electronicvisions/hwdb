@@ -7944,9 +7944,10 @@ fpgas:
     ip: 192.168.62.1
     ci_test_node: true
     fuse_dna: 0x2A0E92C402852C17
-    handwritten_chip_serial: 35
+    handwritten_chip_serial: 55
     ldo_version: 2
-    chip_revision: 2
+    chip_revision: 3
+    eeprom_chip_serial: 0x4716df
   - fpga: 3
     ip: 192.168.62.4
     ci_test_node: true
