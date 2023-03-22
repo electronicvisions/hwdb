@@ -93,6 +93,7 @@ namespace hwdb4cpp GENPYBIND_TAG_HWDB {
 ///  - (optional)fuse_dna: FPGA FUSE_DNA as provided by Xilinx toolchains, is
 ///                        required to identify the device in JTAG chain
 ///  - (optional)extoll_node_id: Node ID of the FPGA in the Extoll network
+///  - (optional, default false)ci_test_node: Allow CI tests to be run on this FPGA
 /// HX cube FPGA member functions:
 ///  - get_dna_port: calculates the FPGA-internal DNA_PORT sequence (which can be
 ///                  read out from the fabric logic) from the FUSE_DNA
@@ -207,6 +208,7 @@ struct GENPYBIND(visible) HXCubeFPGAEntry
 	std::optional<HXCubeWingEntry> wing;
 	std::optional<uint64_t> fuse_dna;
 	std::optional<uint16_t> extoll_node_id;
+	bool ci_test_node;
 
 	uint64_t get_dna_port() const;
 };

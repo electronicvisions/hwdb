@@ -241,6 +241,7 @@ int _convert_hxcube_setup_entry(
 		} else {
 			fpga_entry_c->extoll_node_id = 0;
 		}
+		fpga_entry_c->ci_test_node = fpga_it.second.ci_test_node;
 		hxcube_entry_c->fpgas[fpga_counter] = fpga_entry_c;
 		fpga_counter++;
 	}

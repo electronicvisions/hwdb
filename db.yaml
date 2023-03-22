@@ -7942,12 +7942,14 @@ hxcube_id: 2
 fpgas:
   - fpga: 0
     ip: 192.168.62.1
+    ci_test_node: true
     fuse_dna: 0x2A0E92C402852C17
     handwritten_chip_serial: 35
     ldo_version: 2
     chip_revision: 2
   - fpga: 3
     ip: 192.168.62.4
+    ci_test_node: true
     handwritten_chip_serial: 60
     fuse_dna: 0x3A0E92C4028B324B
     ldo_version: 2

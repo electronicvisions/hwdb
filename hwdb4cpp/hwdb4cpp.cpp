@@ -233,6 +233,9 @@ struct convert<HXFPGAYAML>
 		if (data.extoll_node_id) {
 			node["extoll_node_id"] = data.extoll_node_id.value();
 		}
+		if (data.ci_test_node == true) {
+			node["ci_test_node"] = data.ci_test_node;
+		}
 		if (data.wing) {
 			node["ldo_version"] = data.wing.value().ldo_version;
 			node["handwritten_chip_serial"] = data.wing.value().handwritten_chip_serial;
@@ -246,7 +249,7 @@ struct convert<HXFPGAYAML>
 
 	static bool decode(const Node& node, HXFPGAYAML& data)
 	{
-		if (!node.IsMap() || node.size() > 8) {
+		if (!node.IsMap() || node.size() > 9) {
 			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
@@ -261,6 +264,7 @@ struct convert<HXFPGAYAML>
 		if (extoll_node_id.IsDefined()) {
 			data.extoll_node_id = extoll_node_id.as<uint16_t>();
 		}
+		data.ci_test_node = get_entry<bool>(node, "ci_test_node", false);
 		auto ldo = node["ldo_version"];
 		auto hand_serial = node["handwritten_chip_serial"];
 		auto chip_rev = node["chip_revision"];

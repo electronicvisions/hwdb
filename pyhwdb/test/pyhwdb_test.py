@@ -109,6 +109,7 @@ class Test_Pyhwdb(unittest.TestCase):
             hxcube_entry.usb_serial = "ABACD1243"
             fpga_entry = pyhwdb.HXCubeFPGAEntry()
             fpga_entry.ip = self.FPGA_IP
+            fpga_entry.ci_test_node = True
             wing_entry = pyhwdb.HXCubeWingEntry()
             wing_entry.ldo_version = 8
             wing_entry.eeprom_chip_serial = 0x987DE
@@ -116,6 +117,7 @@ class Test_Pyhwdb(unittest.TestCase):
             wing_entry.chip_revision = 42
             fpga_entry.wing = wing_entry
             fpga_entry2 = pyhwdb.HXCubeFPGAEntry()
+            fpga_entry.ip = self.FPGA_IP
             hxcube_entry.fpgas = {0: fpga_entry, 3: fpga_entry2}
 
             self.assertFalse(mydb.has_hxcube_setup_entry(hxcube_id))
