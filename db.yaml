@@ -7966,6 +7966,7 @@ fpgas:
     ip: 192.168.63.1
   - fpga: 3
     ip: 192.168.63.4
+    fuse_dna: 0x3A0E92C4028B282F
     handwritten_chip_serial: 70
     eeprom_chip_serial: 0x47a73c
     ldo_version: 2
@@ -7988,6 +7989,7 @@ fpgas:
     ip: 192.168.65.1
   - fpga: 3
     ip: 192.168.65.4
+    fuse_dna: 0x380C7A8E5198200A
     handwritten_chip_serial: 64
     ldo_version: 2
     chip_revision: 3
@@ -7999,12 +8001,14 @@ hxcube_id: 6
 fpgas:
   - fpga: 0
     ip: 192.168.66.1
+    fuse_dna: 0x3A0E92C40092101B
     handwritten_chip_serial: 65
     eeprom_chip_serial: 0x4753dd
     ldo_version: 2
     chip_revision: 3
   - fpga: 3
     ip: 192.168.66.4
+    fuse_dna: 0x280C7A8E5198142E
     handwritten_chip_serial: 66
     eeprom_chip_serial: 0x47090b
     ldo_version: 2
@@ -8016,12 +8020,14 @@ hxcube_id: 7
 fpgas:
   - fpga: 0
     ip: 192.168.67.1
+    fuse_dna: 0x380E92C402860227
     handwritten_chip_serial: 57
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x46f66b
   - fpga: 3
     ip: 192.168.67.4
+    fuse_dna: 0x3A0E92C4028A1C07
     handwritten_chip_serial: 61
     ldo_version: 2
     chip_revision: 3
@@ -8035,6 +8041,7 @@ fpgas:
     ip: 192.168.68.1
   - fpga: 3
     ip: 192.168.68.4
+    fuse_dna: 0x3A0E92C4028D0A3B
     handwritten_chip_serial: 73
     eeprom_chip_serial: 0x642bd8
     ldo_version: 2
@@ -8046,12 +8053,14 @@ hxcube_id: 9
 fpgas:
   - fpga: 0
     ip: 192.168.69.1
+    fuse_dna: 0x2A0E92C4028D124B
     handwritten_chip_serial: 59
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x473356
   - fpga: 3
     ip: 192.168.69.4
+    fuse_dna: 0x3A0E92C402882027
     handwritten_chip_serial: 62
     ldo_version: 2
     chip_revision: 3
@@ -8065,6 +8074,7 @@ fpgas:
     ip: 192.168.70.1
   - fpga: 3
     ip: 192.168.70.4
+    fuse_dna: 0x3A0E92C4028A0C27
     handwritten_chip_serial: 71
     eeprom_chip_serial: 0x477bab
     ldo_version: 2
@@ -8087,6 +8097,7 @@ fpgas:
     ip: 192.168.72.1
   - fpga: 3
     ip: 192.168.72.4
+    fuse_dna: 0x3A0E92C402862A07
     handwritten_chip_serial: 72
     eeprom_chip_serial: 0x477bcc
     ldo_version: 2
@@ -8100,6 +8111,7 @@ fpgas:
     ip: 192.168.73.1
   - fpga: 3
     ip: 192.168.73.4
+    fuse_dna: 0x2A0E92CE94870A53
     handwritten_chip_serial: 31
     ldo_version: 2
     chip_revision: 2
