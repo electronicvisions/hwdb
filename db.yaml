@@ -8035,8 +8035,8 @@ fpgas:
     ip: 192.168.68.1
   - fpga: 3
     ip: 192.168.68.4
-    handwritten_chip_serial: 58
-    eeprom_chip_serial: 0x4733c1
+    handwritten_chip_serial: 73
+    eeprom_chip_serial: 0x642bd8
     ldo_version: 2
     chip_revision: 3
 usb_host: 'HBPHost19'
