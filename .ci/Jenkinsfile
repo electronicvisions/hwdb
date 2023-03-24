@@ -1,10 +1,12 @@
-@Library("jenlib") _
+@Library("jenlib@ebrains-4.0") _
 
-Map<String, Object> bss1PipelineArgs = [container          : [app: "wafer"],
-                                        configureInstallOptions: "--without-pybind",
-                                        notificationChannel: "#visionary-wafer-users"]
+// Don't build BSS1
+//Map<String, Object> bss1PipelineArgs = [container          : [app: "wafer"],
+//                                        configureInstallOptions: "--without-pybind",
+//                                        notificationChannel: "#visionary-wafer-users"]
 
 Map<String, Object> bss2PipelineArgs = [container          : [app: "dls"],
+                                        setupOptions       : "--release-branch=ebrains-4.0",
                                         notificationChannel: "#dls-software"]
 
 // BSS-2
@@ -15,7 +17,10 @@ withCcache() {
 try {
 	Boolean isMergeEvent = env.GERRIT_EVENT_TYPE == "change-merged"
 	Boolean isSuccessful = currentBuild.currentResult == "SUCCESS"
-	Boolean doDeploy = isMergeEvent && isSuccessful
+
+	// We do not deploy hwdb in ebrains-4.0
+	//Boolean doDeploy = isMergeEvent && isSuccessful
+	Boolean doDeploy = false
 
 	conditionalStage(name: "Yaml Deployment", skip: !doDeploy) {
 		runOnSlave(label: "frontend") {
@@ -47,47 +52,47 @@ runOnSlave(label: "frontend") {
 	cleanWs()
 }
 
-// BSS-1
-withCcache() {
-	wafDefaultPipeline([projects: ["hwdb"]] << bss1PipelineArgs)
-}
-
-// Syntax Check, to be migrated to a waf test (issue #3604)
-stage("Syntax Check") {
-	inSingularity(bss1PipelineArgs["container"]) {
-		runOnSlave(label: "frontend") {
-			jesh("python -c \"import yaml; [None for elem in yaml.load_all(open('hwdb/db.yaml'), Loader=yaml.FullLoader)]\"")
-		}
-	}
-}
-
-try {
-	Boolean isMergeEvent = env.GERRIT_EVENT_TYPE == "change-merged"
-	Boolean isSuccessful = currentBuild.currentResult == "SUCCESS"
-	Boolean doDeploy = isMergeEvent && isSuccessful
-
-	conditionalStage(name: "Yaml Deployment", skip: !doDeploy) {
-		runOnSlave(label: "frontend") {
-			jesh("cd /wang/data/bss-hwdb && " +
-			     "umask 002 && " +  // allow F9 to write stuff too
-			     "cp ${WORKSPACE}/hwdb/db.yaml .db.yaml.tmp && " +
-			     "mv .db.yaml.tmp db.yaml")
-		}
-	}
-
-	conditionalStage(name: "Module Deployment", skip: !doDeploy) {
-		runOnSlave(label: "frontend") {
-			inSingularity(bss1PipelineArgs["container"]) {
-				deployModule([name  : "hwdb_bss1",
-				              source: "bin/ lib/ repos_log.txt"])
-			}
-		}
-	}
-} catch (Throwable t) {
-	notifyFailure(mattermostChannel: bss1PipelineArgs["notificationChannel"])
-	throw t
-}
-
-if (currentBuild.currentResult != "SUCCESS") {
-	notifyFailure(mattermostChannel: bss1PipelineArgs["notificationChannel"])
-}
+//// BSS-1
+//withCcache() {
+//	wafDefaultPipeline([projects: ["hwdb"]] << bss1PipelineArgs)
+//}
+//
+//// Syntax Check, to be migrated to a waf test (issue #3604)
+//stage("Syntax Check") {
+//	inSingularity(bss1PipelineArgs["container"]) {
+//		runOnSlave(label: "frontend") {
+//			jesh("python -c \"import yaml; [None for elem in yaml.load_all(open('hwdb/db.yaml'), Loader=yaml.FullLoader)]\"")
+//		}
+//	}
+//}
+//
+//try {
+//	Boolean isMergeEvent = env.GERRIT_EVENT_TYPE == "change-merged"
+//	Boolean isSuccessful = currentBuild.currentResult == "SUCCESS"
+//	Boolean doDeploy = isMergeEvent && isSuccessful
+//
+//	conditionalStage(name: "Yaml Deployment", skip: !doDeploy) {
+//		runOnSlave(label: "frontend") {
+//			jesh("cd /wang/data/bss-hwdb && " +
+//			     "umask 002 && " +  // allow F9 to write stuff too
+//			     "cp ${WORKSPACE}/hwdb/db.yaml .db.yaml.tmp && " +
+//			     "mv .db.yaml.tmp db.yaml")
+//		}
+//	}
+//
+//	conditionalStage(name: "Module Deployment", skip: !doDeploy) {
+//		runOnSlave(label: "frontend") {
+//			inSingularity(bss1PipelineArgs["container"]) {
+//				deployModule([name  : "hwdb_bss1",
+//				              source: "bin/ lib/ repos_log.txt"])
+//			}
+//		}
+//	}
+//} catch (Throwable t) {
+//	notifyFailure(mattermostChannel: bss1PipelineArgs["notificationChannel"])
+//	throw t
+//}
+//
+//if (currentBuild.currentResult != "SUCCESS") {
+//	notifyFailure(mattermostChannel: bss1PipelineArgs["notificationChannel"])
+//}
