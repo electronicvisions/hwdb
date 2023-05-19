@@ -35,6 +35,16 @@ def configure(cfg):
                   args=['yaml-cpp >= 0.5.3', '--cflags', '--libs'],
                   uselib_store='YAMLCPP')
 
+    cfg.env.CXXFLAGS_HWDB = [
+        '-fvisibility=hidden',
+        '-fvisibility-inlines-hidden',
+    ]
+    cfg.env.LINKFLAGS_HWDB = [
+        '-fvisibility=hidden',
+        '-fvisibility-inlines-hidden',
+    ]
+
+
 def build(bld):
     bld.add_post_fun(summary)
 
@@ -48,6 +58,7 @@ def build(bld):
         features        = 'cxx',
         source          = 'hwdb4cpp/hwdb4cpp.cpp',
         use             = 'halco_hicann_v2 hwdb4cpp_inc logger_obj YAMLCPP hate_inc',
+        uselib          = 'HWDB',
         install_path    = '${PREFIX}/lib',
     )
 
@@ -57,7 +68,7 @@ def build(bld):
         source          = 'hwdb4cpp/hwdb4c.cpp',
         use             = 'hwdb4cpp',
         install_path    = '${PREFIX}/lib',
-        cxxflags        = '-fvisibility=hidden',
+        uselib          = 'HWDB',
     )
 
     bld.program(

@@ -1,20 +1,15 @@
 /* This is plain C :) */
 #pragma once
-#include <stdlib.h>
-#include <arpa/inet.h>
-#include <unistd.h>
+#include "hate/visibility.h"
 #include <inttypes.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <arpa/inet.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-/* clearly define what should be visible in the shared object...
- * visibility is set to hidden in the wscript
- */
-#define SYMBOL_VISIBLE __attribute__ ((visibility ("default")))
-#define SYMBOL_HIDDEN __attribute__ ((visibility ("hidden")))
 
 #define HWDB4C_SUCCESS 0
 #define HWDB4C_FAILURE -1
