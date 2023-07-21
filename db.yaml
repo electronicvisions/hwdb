@@ -2152,7 +2152,7 @@ adcs:
     trigger: 0
   - fpga: 16
     analog: 0
-    adc: B291691
+    adc: B291707
     remote_ip: 192.168.200.44
     remote_port: 44491
     channel: 6
@@ -2166,7 +2166,7 @@ adcs:
     trigger: 1
   - fpga: 17
     analog: 0
-    adc: B291691
+    adc: B291707
     remote_ip: 192.168.200.44
     remote_port: 44491
     channel: 5
@@ -2180,7 +2180,7 @@ adcs:
     trigger: 1
   - fpga: 18
     analog: 0
-    adc: B291691
+    adc: B291707
     remote_ip: 192.168.200.44
     remote_port: 44491
     channel: 3
@@ -2194,7 +2194,7 @@ adcs:
     trigger: 1
   - fpga: 19
     analog: 0
-    adc: B291691
+    adc: B291707
     remote_ip: 192.168.200.44
     remote_port: 44491
     channel: 1
@@ -2208,7 +2208,7 @@ adcs:
     trigger: 1
   - fpga: 20
     analog: 0
-    adc: B291691
+    adc: B291707
     remote_ip: 192.168.200.44
     remote_port: 44491
     channel: 0
@@ -2222,7 +2222,7 @@ adcs:
     trigger: 0
   - fpga: 21
     analog: 0
-    adc: B291691
+    adc: B291707
     remote_ip: 192.168.200.44
     remote_port: 44491
     channel: 2
@@ -2236,7 +2236,7 @@ adcs:
     trigger: 0
   - fpga: 22
     analog: 0
-    adc: B291691
+    adc: B291707
     remote_ip: 192.168.200.44
     remote_port: 44491
     channel: 4
@@ -2250,7 +2250,7 @@ adcs:
     trigger: 0
   - fpga: 23
     analog: 0
-    adc: B291691
+    adc: B291707
     remote_ip: 192.168.200.44
     remote_port: 44491
     channel: 7
@@ -6616,7 +6616,7 @@ adcs:
     trigger: 0
   - fpga: 16
     analog: 0
-    adc: B291707
+    adc: B291691
     remote_ip: 192.168.200.43
     remote_port: 44491
     channel: 6
@@ -6630,7 +6630,7 @@ adcs:
     trigger: 1
   - fpga: 17
     analog: 0
-    adc: B291707
+    adc: B291691
     remote_ip: 192.168.200.43
     remote_port: 44491
     channel: 5
@@ -6644,7 +6644,7 @@ adcs:
     trigger: 1
   - fpga: 18
     analog: 0
-    adc: B291707
+    adc: B291691
     remote_ip: 192.168.200.43
     remote_port: 44491
     channel: 3
@@ -6658,7 +6658,7 @@ adcs:
     trigger: 1
   - fpga: 19
     analog: 0
-    adc: B291707
+    adc: B291691
     remote_ip: 192.168.200.43
     remote_port: 44491
     channel: 1
@@ -6672,7 +6672,7 @@ adcs:
     trigger: 1
   - fpga: 20
     analog: 0
-    adc: B291707
+    adc: B291691
     remote_ip: 192.168.200.43
     remote_port: 44491
     channel: 0
@@ -6686,7 +6686,7 @@ adcs:
     trigger: 0
   - fpga: 21
     analog: 0
-    adc: B291707
+    adc: B291691
     remote_ip: 192.168.200.43
     remote_port: 44491
     channel: 2
@@ -6700,7 +6700,7 @@ adcs:
     trigger: 0
   - fpga: 22
     analog: 0
-    adc: B291707
+    adc: B291691
     remote_ip: 192.168.200.43
     remote_port: 44491
     channel: 4
@@ -6714,7 +6714,7 @@ adcs:
     trigger: 0
   - fpga: 23
     analog: 0
-    adc: B291707
+    adc: B291691
     remote_ip: 192.168.200.43
     remote_port: 44491
     channel: 7
