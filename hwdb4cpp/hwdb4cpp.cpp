@@ -42,35 +42,35 @@ struct FPGAYAML : public FPGAEntry
 {
 	FPGAYAML() {}
 	FPGAYAML(FPGAEntry const& base) : FPGAEntry(base) {}
-	size_t coordinate;
+	size_t coordinate = 0;
 };
 
 struct ReticleYAML : public ReticleEntry
 {
 	ReticleYAML() {}
 	ReticleYAML(ReticleEntry const& base) : ReticleEntry(base) {}
-	size_t coordinate;
+	size_t coordinate = 0;
 };
 
 struct AnanasYAML : public AnanasEntry
 {
 	AnanasYAML() {}
 	AnanasYAML(AnanasEntry const& base) : AnanasEntry(base) {}
-	size_t coordinate;
+	size_t coordinate = 0;
 };
 
 struct HICANNYAML : public HICANNEntry
 {
 	HICANNYAML() {}
 	HICANNYAML(HICANNEntry const& base) : HICANNEntry(base) {}
-	size_t coordinate;
+	size_t coordinate = 0;
 };
 
 struct HXFPGAYAML : public HXCubeFPGAEntry
 {
 	HXFPGAYAML() {}
 	HXFPGAYAML(HXCubeFPGAEntry const& base) : HXCubeFPGAEntry(base) {}
-	size_t coordinate;
+	size_t coordinate = 0;
 };
 
 
