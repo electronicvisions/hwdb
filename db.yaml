@@ -7950,7 +7950,7 @@ fpgas:
     eeprom_chip_serial: 0x4716df
   - fpga: 3
     ip: 192.168.62.4
-    ci_test_node: true
+    ci_test_node: false
     handwritten_chip_serial: 60
     fuse_dna: 0x3A0E92C4028B324B
     ldo_version: 2
