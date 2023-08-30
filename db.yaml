@@ -7923,14 +7923,14 @@ hxcube_id: 1
 fpgas:
   - fpga: 0
     ip: 192.168.61.1
-    extoll_node_id: 1
+    extoll_node_id: 2
     handwritten_chip_serial: 67
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x47097b
   - fpga: 3
     ip: 192.168.61.4
-    extoll_node_id: 4
+    extoll_node_id: 5
     handwritten_chip_serial: 68
     ldo_version: 2
     chip_revision: 3
