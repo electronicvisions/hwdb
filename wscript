@@ -91,7 +91,6 @@ def build(bld):
             defines        = 'PYBINDINGS',
             headers        = 'pyhwdb/pyhwdb.h',
             use            = ['hwdb4cpp', 'pyhalco_hicann_v2', 'pywrap'],
-            install_path   = '${PREFIX}/lib',
         )
 
     if bld.env.with_pybind and bld.env.with_hwdb_python_bindings:
@@ -102,7 +101,6 @@ def build(bld):
             source         = 'pyhwdb/pyhwdb.h',
             genpybind_tags = 'hwdb',
             use            = ['hwdb4cpp', 'pyhalco_common'],
-            install_path   = '${PREFIX}/lib',
         )
 
     if (bld.env.build_python_bindings or bld.env.with_pybind) and bld.env.with_hwdb_python_bindings:
