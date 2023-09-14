@@ -7950,12 +7950,12 @@ fpgas:
     eeprom_chip_serial: 0x4716df
   - fpga: 3
     ip: 192.168.62.4
-    ci_test_node: false
-    handwritten_chip_serial: 60
+    ci_test_node: true
+    handwritten_chip_serial: 80
     fuse_dna: 0x3A0E92C4028B324B
     ldo_version: 2
     chip_revision: 3
-    eeprom_chip_serial: 0x470240
+    eeprom_chip_serial: 0x64744b
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4713002000'
 xilinx_hw_server: 'xilinx-smartlynq-jenkins:3121'
