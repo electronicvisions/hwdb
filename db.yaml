@@ -8098,8 +8098,8 @@ fpgas:
   - fpga: 3
     ip: 192.168.72.4
     fuse_dna: 0x3A0E92C402862A07
-    handwritten_chip_serial: 72
-    eeprom_chip_serial: 0x477bcc
+    handwritten_chip_serial: 84
+    eeprom_chip_serial: 0x63fdca
     ldo_version: 2
     chip_revision: 3
 usb_host: 'HBPHost19'
