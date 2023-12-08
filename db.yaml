@@ -7635,9 +7635,33 @@ fpgas:
 wafer: 80
 setuptype: cubesetup
 # aggregator test
+# jBOA multi-chip setups
+# TODO: create custom setuptype
 fpgas:
   - fpga: 0
     ip: 192.168.80.1
+  - fpga: 1
+    ip: 192.168.80.2
+  - fpga: 2
+    ip: 192.168.80.3
+  - fpga: 3
+    ip: 192.168.80.4
+  - fpga: 4
+    ip: 192.168.80.5
+  - fpga: 5
+    ip: 192.168.80.6
+  - fpga: 6
+    ip: 192.168.80.7
+  - fpga: 7
+    ip: 192.168.80.8
+  - fpga: 8
+    ip: 192.168.80.9
+  - fpga: 9
+    ip: 192.168.80.10
+  - fpga: 10
+    ip: 192.168.80.11
+  - fpga: 11
+    ip: 192.168.80.12
 ---
 wafer: 100
 setuptype: bsswafer
