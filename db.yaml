@@ -7625,6 +7625,10 @@ setuptype: cubesetup
 fpgas:
   - fpga: 0
     ip: 192.168.75.1
+  - fpga: 1
+    ip: 192.168.75.2
+  - fpga: 2
+    ip: 192.168.75.3
   - fpga: 3
     ip: 192.168.75.4
 ---
@@ -8140,6 +8144,10 @@ hxcube_id: 15
 fpgas:
   - fpga: 0
     ip: 192.168.75.1
+  - fpga: 1
+    ip: 192.168.75.2
+  - fpga: 2
+    ip: 192.168.75.3
   - fpga: 3
     ip: 192.168.75.4
     handwritten_chip_serial: 57
