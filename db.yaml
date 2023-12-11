@@ -8100,6 +8100,11 @@ hxcube_id: 10
 fpgas:
   - fpga: 0
     ip: 192.168.70.1
+    fuse_dna: 0x2A0E92CE9481403B
+    handwritten_chip_serial: 82
+    eeprom_chip_serial: 0x645984
+    ldo_version: 2
+    chip_revision: 3
   - fpga: 3
     ip: 192.168.70.4
     fuse_dna: 0x3A0E92C4028A0C27
