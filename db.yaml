@@ -7663,6 +7663,15 @@ fpgas:
   - fpga: 11
     ip: 192.168.80.12
 ---
+wafer: 99
+setuptype: cubesetup
+# aggregator test
+# MezzaMix test setups
+# TODO: create custom setuptype
+fpgas:
+  - fpga: 0
+    ip: 192.168.99.1
+---
 wafer: 100
 setuptype: bsswafer
 macu: 192.168.101.254
