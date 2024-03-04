@@ -86,7 +86,7 @@ def build(bld):
         test_main = 'test/test-main.cpp',
         use = [ 'GTEST', 'hwdb4c' ],
         install_path = '${PREFIX}/bin',
-        linkflags = ['-lboost_program_options-mt'],
+        linkflags = ['-lboost_program_options'],
     )
 
     if bld.env.build_python_bindings and bld.env.with_hwdb_python_bindings:
