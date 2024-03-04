@@ -48,9 +48,17 @@ def configure(cfg):
 def build(bld):
     bld.add_post_fun(summary)
 
+    bld.install_files(
+        dest='${PREFIX}/include',
+        files=bld.path.ant_glob('hwdb4cpp/*.h'),
+        name='hwdb_header',
+        relative_trick=True
+    )
+
     bld(
         target          = 'hwdb4cpp_inc',
         export_includes = '.',
+        use             = 'hwdb_header'
     )
 
     bld.shlib(
