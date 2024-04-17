@@ -7940,18 +7940,13 @@ hxcube_id: 0
 fpgas:
   - fpga: 0
     ip: 192.168.60.1
-    handwritten_chip_serial: 56
-    fuse_dna: 0x3A0E92C4028D122F
-    ldo_version: 2
-    chip_revision: 3
-    eeprom_chip_serial: 0x476fdb
   - fpga: 3
     ip: 192.168.60.4
-    handwritten_chip_serial: 54
+    handwritten_chip_serial: 88
     fuse_dna: 0x3A0E92C402882A33
     ldo_version: 2
     chip_revision: 2
-    eeprom_chip_serial: 0x47216a
+    eeprom_chip_serial: 0x63c783
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4712002000'
 xilinx_hw_server: 'xilinx-smartlynq-0:3121'
