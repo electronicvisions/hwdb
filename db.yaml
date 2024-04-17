@@ -8183,6 +8183,10 @@ hxcube_id: 15
 fpgas:
   - fpga: 0
     ip: 192.168.75.1
+    handwritten_chip_serial: 78
+    ldo_version: 2
+    chip_revision: 3
+    eeprom_chip_serial: 0x6480bc
   - fpga: 1
     ip: 192.168.75.2
   - fpga: 2
