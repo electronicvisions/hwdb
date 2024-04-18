@@ -7955,18 +7955,16 @@ hxcube_id: 1
 fpgas:
   - fpga: 0
     ip: 192.168.61.1
-    extoll_node_id: 2
-    handwritten_chip_serial: 67
+    handwritten_chip_serial: 76
     ldo_version: 2
     chip_revision: 3
-    eeprom_chip_serial: 0x47097b
+    eeprom_chip_serial: 0x63c769
   - fpga: 3
     ip: 192.168.61.4
-    extoll_node_id: 5
-    handwritten_chip_serial: 68
+    handwritten_chip_serial: 83
     ldo_version: 2
     chip_revision: 3
-    eeprom_chip_serial: 0x47a8e3
+    eeprom_chip_serial: 0x643bc7
 usb_host: 'HBPHost19'
 usb_serial: '52B59A4620002000'
 ---
@@ -8188,9 +8186,9 @@ fpgas:
     ip: 192.168.75.3
   - fpga: 3
     ip: 192.168.75.4
-    handwritten_chip_serial: 57
+    handwritten_chip_serial: 75
     ldo_version: 2
     chip_revision: 3
-    eeprom_chip_serial: 0x46f66b
+    eeprom_chip_serial: 0x64595e
 usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4722002000'
