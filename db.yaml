@@ -7956,12 +7956,14 @@ fpgas:
   - fpga: 0
     ip: 192.168.61.1
     handwritten_chip_serial: 76
+    fuse_dna: 0x2A0E92C4028D0A47
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x63c769
   - fpga: 3
     ip: 192.168.61.4
     handwritten_chip_serial: 83
+    fuse_dna: 0x380C7A8E5198120E
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x643bc7
