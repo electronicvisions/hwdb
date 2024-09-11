@@ -1,10 +1,11 @@
-#include <gtest/gtest.h>
-#include <string>
-#include <iostream>
-#include <fstream>
+#include "halco/hicann/v2/coordinates.h"
+#include <array>
 #include <cstdio>
 #include <cstdlib>
-#include "halco/hicann/v2/coordinates.h"
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <gtest/gtest.h>
 
 #include "hwdb4cpp/hwdb4cpp.h"
 
@@ -125,6 +126,12 @@ fpgas:\n\
     ldo_version: 2\n\
     chip_revision: 42\n\
     eeprom_chip_serial: 0x1234ABCD\n\
+    synram_timing_pcconf:\n\
+      - [1, 2]\n\
+      - [1, 2]\n\
+    synram_timing_wconf:\n\
+      - [3, 4]\n\
+      - [3, 4]\n\
     fuse_dna: 0x3A0E92C402882A33\n\
   - fpga: 3\n\
     ip: 192.168.66.4\n\
@@ -329,6 +336,14 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(hxcube->fpgas[0]->wing->handwritten_chip_serial, 12);
 	EXPECT_EQ(hxcube->fpgas[0]->wing->chip_revision, 42);
 	EXPECT_EQ(hxcube->fpgas[0]->wing->eeprom_chip_serial, 0x1234ABCD);
+	EXPECT_EQ(hxcube->fpgas[0]->wing->synram_timing_pcconf[0][0], 1);
+	EXPECT_EQ(hxcube->fpgas[0]->wing->synram_timing_pcconf[0][1], 2);
+	EXPECT_EQ(hxcube->fpgas[0]->wing->synram_timing_pcconf[1][0], 1);
+	EXPECT_EQ(hxcube->fpgas[0]->wing->synram_timing_pcconf[1][1], 2);
+	EXPECT_EQ(hxcube->fpgas[0]->wing->synram_timing_wconf[0][0], 3);
+	EXPECT_EQ(hxcube->fpgas[0]->wing->synram_timing_wconf[0][1], 4);
+	EXPECT_EQ(hxcube->fpgas[0]->wing->synram_timing_wconf[1][0], 3);
+	EXPECT_EQ(hxcube->fpgas[0]->wing->synram_timing_wconf[1][1], 4);
 
 	EXPECT_EQ(std::string(inet_ntoa(hxcube->fpgas[1]->ip)), "192.168.66.4");
 	EXPECT_EQ(hxcube->fpgas[1]->ci_test_node, false);
@@ -338,7 +353,15 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(hxcube->fpgas[1]->wing->ldo_version, 1);
 	EXPECT_EQ(hxcube->fpgas[1]->wing->handwritten_chip_serial, 69);
 	EXPECT_EQ(hxcube->fpgas[1]->wing->chip_revision, 1);
-	EXPECT_EQ(hxcube->fpgas[1]->wing->eeprom_chip_serial, 0); // default value
+	EXPECT_EQ(hxcube->fpgas[1]->wing->eeprom_chip_serial, 0);         // default value
+	EXPECT_EQ(hxcube->fpgas[1]->wing->synram_timing_pcconf[0][0], 0); // optional value
+	EXPECT_EQ(hxcube->fpgas[1]->wing->synram_timing_pcconf[0][1], 0); // optional value
+	EXPECT_EQ(hxcube->fpgas[1]->wing->synram_timing_pcconf[1][0], 0); // optional value
+	EXPECT_EQ(hxcube->fpgas[1]->wing->synram_timing_pcconf[1][1], 0); // optional value
+	EXPECT_EQ(hxcube->fpgas[1]->wing->synram_timing_wconf[0][0], 0);  // optional value
+	EXPECT_EQ(hxcube->fpgas[1]->wing->synram_timing_wconf[0][1], 0);  // optional value
+	EXPECT_EQ(hxcube->fpgas[1]->wing->synram_timing_wconf[1][0], 0);  // optional value
+	EXPECT_EQ(hxcube->fpgas[1]->wing->synram_timing_wconf[1][1], 0);  // optional value
 
 	EXPECT_EQ(std::string(inet_ntoa(hxcube->fpgas[2]->ip)), "192.168.66.8");
 	EXPECT_EQ(hxcube->fpgas[2]->ci_test_node, false);
@@ -459,6 +482,12 @@ TEST_F(HWDB4C_Test, get_yaml_entries)
 	              "    ldo_version: 2\n"
 	              "    chip_revision: 42\n"
 	              "    eeprom_chip_serial: 0x1234ABCD\n"
+	              "    synram_timing_pcconf:\n"
+	              "      - [1, 2]\n"
+	              "      - [1, 2]\n"
+	              "    synram_timing_wconf:\n"
+	              "      - [3, 4]\n"
+	              "      - [3, 4]\n"
 	              "    fuse_dna: 0x3A0E92C402882A33\n"
 	              "  - fpga: 3\n"
 	              "    ip: 192.168.66.4\n"

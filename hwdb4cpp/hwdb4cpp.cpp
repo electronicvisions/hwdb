@@ -1,5 +1,6 @@
 #include "hwdb4cpp.h"
 
+#include <array>
 #include <bitset>
 #include <regex>
 #include <sstream>
@@ -244,6 +245,12 @@ struct convert<HXFPGAYAML>
 			if (data.wing.value().eeprom_chip_serial) {
 				node["eeprom_chip_serial"] = data.wing.value().eeprom_chip_serial.value();
 			}
+			if (data.wing.value().synram_timing_pcconf) {
+				node["synram_timing_pcconf"] = data.wing.value().synram_timing_pcconf.value();
+			}
+			if (data.wing.value().synram_timing_wconf) {
+				node["synram_timing_wconf"] = data.wing.value().synram_timing_wconf.value();
+			}
 		}
 		return node;
 	}
@@ -254,7 +261,7 @@ struct convert<HXFPGAYAML>
 			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
 			return false;
-		} else if (node.size() > 9) {
+		} else if (node.size() > 11) {
 			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 			LOG4CXX_ERROR(logger, "Too many entries! Decoding failed of: '''\n" << node << "'''");
 			return false;
@@ -274,6 +281,8 @@ struct convert<HXFPGAYAML>
 		auto hand_serial = node["handwritten_chip_serial"];
 		auto chip_rev = node["chip_revision"];
 		auto eeprom = node["eeprom_chip_serial"];
+		auto synram_timing_pcconf = node["synram_timing_pcconf"];
+		auto synram_timing_wconf = node["synram_timing_wconf"];
 		if (ldo.IsDefined() || hand_serial.IsDefined() || chip_rev.IsDefined()) {
 			if (!ldo.IsDefined() || !hand_serial.IsDefined() || !chip_rev.IsDefined()) {
 				log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
@@ -290,9 +299,18 @@ struct convert<HXFPGAYAML>
 			if (eeprom.IsDefined()) {
 				wing.eeprom_chip_serial = get_entry<size_t>(node, "eeprom_chip_serial");
 			}
+			if (synram_timing_pcconf.IsDefined()) {
+				wing.synram_timing_pcconf =
+				    get_entry<std::array<std::array<uint16_t, 2>, 2>>(node, "synram_timing_pcconf");
+			}
+			if (synram_timing_wconf.IsDefined()) {
+				wing.synram_timing_wconf =
+				    get_entry<std::array<std::array<uint16_t, 2>, 2>>(node, "synram_timing_wconf");
+			}
 			data.wing = wing;
 		} else {
-			if (eeprom.IsDefined() || fuse_dna.IsDefined() || extoll_node_id.IsDefined()) {
+			if (eeprom.IsDefined() || fuse_dna.IsDefined() || extoll_node_id.IsDefined() ||
+			    synram_timing_pcconf.IsDefined() || synram_timing_wconf.IsDefined()) {
 				log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 				LOG4CXX_ERROR(
 				    logger, "Decoding failed. Only optional entries found. Node: '''\n"

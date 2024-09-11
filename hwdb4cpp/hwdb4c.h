@@ -115,6 +115,8 @@ struct SYMBOL_VISIBLE hwdb4c_hxcube_wing_entry
 	size_t handwritten_chip_serial;
 	size_t chip_revision;
 	uint32_t eeprom_chip_serial;
+	uint16_t synram_timing_pcconf[2][2];
+	uint16_t synram_timing_wconf[2][2];
 };
 
 struct SYMBOL_VISIBLE hwdb4c_hxcube_fpga_entry

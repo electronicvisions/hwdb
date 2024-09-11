@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #ifndef PYPLUSPLUS
+#include <array>
 #include <optional>
 #endif
 
@@ -86,6 +87,10 @@ namespace hwdb4cpp GENPYBIND_TAG_HWDB {
 ///    carrier (valid range: [1,...])
 ///  - chip_revision: HICANN-X revision (int)
 ///  - (optional)eeprom_chip_serial: EEPROM serial on chip carrier (hex)
+///  - (optional)synram_timing_pcconf: Array holding the pcconf timing configurations for both
+///  hemispheres
+///  - (optional)synram_timing_wconf: Array holding the wconf timing configurations for both
+///  hemispheres
 //
 /// HX cube FPGA sequence entry:
 ///  - ip: FPGA Ethernet IP
@@ -193,6 +198,8 @@ struct GENPYBIND(visible) HXCubeWingEntry
 	size_t handwritten_chip_serial;
 	size_t chip_revision;
 	std::optional<uint32_t> eeprom_chip_serial;
+	std::optional<std::array<std::array<uint16_t, 2>, 2>> synram_timing_pcconf;
+	std::optional<std::array<std::array<uint16_t, 2>, 2>> synram_timing_wconf;
 
 	HXCubeWingEntry()
 	{

@@ -225,6 +225,34 @@ int _convert_hxcube_setup_entry(
 			} else {
 				wing_entry_c->eeprom_chip_serial = 0;
 			}
+			if (fpga_it.second.wing.value().synram_timing_pcconf) {
+				for (size_t i = 0; i < std::size(wing_entry_c->synram_timing_pcconf); ++i) {
+					std::copy(
+						fpga_it.second.wing.value().synram_timing_pcconf.value()[i].begin(),
+						fpga_it.second.wing.value().synram_timing_pcconf.value()[i].end(),
+						wing_entry_c->synram_timing_pcconf[i]);
+				}
+			} else {
+				for (size_t i = 0; i < std::size(wing_entry_c->synram_timing_pcconf); ++i) {
+					std::fill(
+						std::begin(wing_entry_c->synram_timing_pcconf[i]),
+						std::end(wing_entry_c->synram_timing_pcconf[i]), 0);
+				}
+			}
+			if (fpga_it.second.wing.value().synram_timing_wconf) {
+				for (size_t i = 0; i < std::size(wing_entry_c->synram_timing_wconf); ++i) {
+					std::copy(
+						fpga_it.second.wing.value().synram_timing_wconf.value()[i].begin(),
+						fpga_it.second.wing.value().synram_timing_wconf.value()[i].end(),
+						wing_entry_c->synram_timing_wconf[i]);
+				}
+			} else {
+				for (size_t i = 0; i < std::size(wing_entry_c->synram_timing_wconf); ++i) {
+					std::fill(
+						std::begin(wing_entry_c->synram_timing_wconf[i]),
+						std::end(wing_entry_c->synram_timing_wconf[i]), 0);
+				}
+			}
 			fpga_entry_c->wing = wing_entry_c;
 		} else {
 			fpga_entry_c->wing = NULL;
