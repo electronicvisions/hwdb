@@ -7939,8 +7939,10 @@ ntpwr_slot: 1
 hxcube_id: 0
 fpgas:
   - fpga: 0
+    # FPGA developer wing
     ip: 192.168.60.1
   - fpga: 3
+    # FPGA developer wing
     ip: 192.168.60.4
     handwritten_chip_serial: 88
     fuse_dna: 0x3A0E92C402882A33
@@ -7952,6 +7954,7 @@ usb_serial: 'AFE25B4712002000'
 xilinx_hw_server: 'xilinx-smartlynq-0:3121'
 ---
 hxcube_id: 1
+# 2024-07-05: 12V power supply connector broken. LS will fix.
 fpgas:
   - fpga: 0
     ip: 192.168.61.1
@@ -7971,6 +7974,7 @@ usb_host: 'HBPHost19'
 usb_serial: '52B59A4620002000'
 ---
 hxcube_id: 2
+# Jenkins setup
 fpgas:
   - fpga: 0
     ip: 192.168.62.1
@@ -8012,6 +8016,7 @@ usb_host: 'HBPHost19'
 usb_serial: 'AFE25B471D002000'
 ---
 hxcube_id: 4
+# broken setup, stored in lab
 fpgas:
   - fpga: 0
     ip: 192.168.64.1
@@ -8025,6 +8030,7 @@ fpgas:
   - fpga: 0
     ip: 192.168.65.1
   - fpga: 3
+    # lab wing (also used for other ASICs, e.g. MESHY)
     ip: 192.168.65.4
     fuse_dna: 0x380C7A8E5198200A
     handwritten_chip_serial: 64
@@ -8125,6 +8131,7 @@ usb_host: 'HBPHost19'
 usb_serial: 'AFE25B472D002000'
 ---
 hxcube_id: 11
+# broken setup, stored in lab
 fpgas:
   - fpga: 0
     ip: 192.168.71.1
@@ -8134,6 +8141,7 @@ usb_serial: 'AFE25B4716002000'
 usb_host: 'HBPHost19'
 ---
 hxcube_id: 12
+# FP (Fortgeschrittenenpraktikum) setup
 fpgas:
   - fpga: 0
     ip: 192.168.72.1
@@ -8185,6 +8193,7 @@ usb_host: 'HBPHost19'
 usb_serial: 'AFE25B471A002000'
 ---
 hxcube_id: 15
+# robotic test platform, not accessible in wafernet
 fpgas:
   - fpga: 0
     ip: 192.168.75.1
@@ -8192,10 +8201,6 @@ fpgas:
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x6480bc
-  - fpga: 1
-    ip: 192.168.75.2
-  - fpga: 2
-    ip: 192.168.75.3
   - fpga: 3
     ip: 192.168.75.4
     handwritten_chip_serial: 75
