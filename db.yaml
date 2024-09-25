@@ -7949,7 +7949,6 @@ fpgas:
     ldo_version: 2
     chip_revision: 2
     eeprom_chip_serial: 0x63c783
-usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4712002000'
 xilinx_hw_server: 'xilinx-smartlynq-0:3121'
 ---
@@ -7970,7 +7969,6 @@ fpgas:
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x643bc7
-usb_host: 'HBPHost19'
 usb_serial: '52B59A4620002000'
 ---
 hxcube_id: 2
@@ -7992,7 +7990,6 @@ fpgas:
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x64744b
-usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4713002000'
 xilinx_hw_server: 'xilinx-smartlynq-jenkins:3121'
 ---
@@ -8012,7 +8009,6 @@ fpgas:
     eeprom_chip_serial: 0x47a73c
     ldo_version: 2
     chip_revision: 3
-usb_host: 'HBPHost19'
 usb_serial: 'AFE25B471D002000'
 ---
 hxcube_id: 4
@@ -8023,7 +8019,6 @@ fpgas:
   - fpga: 3
     ip: 192.168.64.4
 usb_serial: 'AFE25B4717002000'
-usb_host: 'HBPHost19'
 ---
 hxcube_id: 5
 fpgas:
@@ -8037,7 +8032,6 @@ fpgas:
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x473f28
-usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4714002000'
 ---
 hxcube_id: 6
@@ -8056,7 +8050,6 @@ fpgas:
     eeprom_chip_serial: 0x47090b
     ldo_version: 2
     chip_revision: 3
-usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4724002000'
 ---
 hxcube_id: 7
@@ -8075,7 +8068,6 @@ fpgas:
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x47aeb8
-usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4727002000'
 ---
 hxcube_id: 8
@@ -8089,7 +8081,6 @@ fpgas:
     eeprom_chip_serial: 0x642bd8
     ldo_version: 2
     chip_revision: 3
-usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4710002000'
 ---
 hxcube_id: 9
@@ -8108,7 +8099,6 @@ fpgas:
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x4716f0
-usb_host: 'HBPHost19'
 usb_serial: 'AFE25B472A002000'
 ---
 hxcube_id: 10
@@ -8127,7 +8117,6 @@ fpgas:
     eeprom_chip_serial: 0x477bab
     ldo_version: 2
     chip_revision: 3
-usb_host: 'HBPHost19'
 usb_serial: 'AFE25B472D002000'
 ---
 hxcube_id: 11
@@ -8138,7 +8127,6 @@ fpgas:
   - fpga: 3
     ip: 192.168.71.4
 usb_serial: 'AFE25B4716002000'
-usb_host: 'HBPHost19'
 ---
 hxcube_id: 12
 # FP (Fortgeschrittenenpraktikum) setup
@@ -8157,7 +8145,6 @@ fpgas:
     eeprom_chip_serial: 0x63fdca
     ldo_version: 2
     chip_revision: 3
-usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4720002000'
 ---
 hxcube_id: 13
@@ -8175,7 +8162,6 @@ fpgas:
     handwritten_chip_serial: 31
     ldo_version: 2
     chip_revision: 2
-usb_host: 'HBPHost19'
 usb_serial: 'AFE25B471E002000'
 ---
 hxcube_id: 14
@@ -8189,7 +8175,6 @@ fpgas:
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x4732ce
-usb_host: 'HBPHost19'
 usb_serial: 'AFE25B471A002000'
 ---
 hxcube_id: 15
@@ -8207,5 +8192,4 @@ fpgas:
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x64595e
-usb_host: 'HBPHost19'
 usb_serial: 'AFE25B4722002000'
