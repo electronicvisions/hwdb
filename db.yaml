@@ -8159,9 +8159,10 @@ fpgas:
   - fpga: 3
     ip: 192.168.73.4
     fuse_dna: 0x3A0E92C402863033
-    handwritten_chip_serial: 31
+    handwritten_chip_serial: 91
+    eeprom_chip_serial: 0x645507
     ldo_version: 2
-    chip_revision: 2
+    chip_revision: 3
 usb_serial: 'AFE25B471E002000'
 ---
 hxcube_id: 14
