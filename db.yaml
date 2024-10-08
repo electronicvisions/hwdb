@@ -8192,10 +8192,22 @@ fpgas:
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x6480bc
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
   - fpga: 3
     ip: 192.168.75.4
     handwritten_chip_serial: 75
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x64595e
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
 usb_serial: 'AFE25B4722002000'
