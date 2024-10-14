@@ -8056,14 +8056,14 @@ hxcube_id: 7
 fpgas:
   - fpga: 0
     ip: 192.168.67.1
-    fuse_dna: 0x380E92C402860227
+    fuse_dna: 0x3A0E92C4028C201F
     handwritten_chip_serial: 57
     ldo_version: 2
     chip_revision: 3
     eeprom_chip_serial: 0x46f66b
   - fpga: 3
     ip: 192.168.67.4
-    fuse_dna: 0x3A0E92C4028A1C07
+    fuse_dna: 0x3A0E92C4028C2013
     handwritten_chip_serial: 61
     ldo_version: 2
     chip_revision: 3
