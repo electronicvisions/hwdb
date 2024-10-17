@@ -7993,14 +7993,14 @@ hxcube_id: 3
 fpgas:
   - fpga: 0
     ip: 192.168.63.1
-    fuse_dna: 0x3A0E92C402882A27
+    fuse_dna: 0x2A0E92C4028C0827
     handwritten_chip_serial: 89
     eeprom_chip_serial: 0x63d498
     ldo_version: 2
     chip_revision: 3
   - fpga: 3
     ip: 192.168.63.4
-    fuse_dna: 0x3A0E92C4028B282F
+    fuse_dna: 0x2A0E92C4028D2453
     handwritten_chip_serial: 70
     eeprom_chip_serial: 0x47a73c
     ldo_version: 2
