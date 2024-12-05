@@ -8070,6 +8070,7 @@ hxcube_id: 8
 fpgas:
   - fpga: 0
     ip: 192.168.68.1
+    fuse_dna: 0x2A0E92C402852E2F
     handwritten_chip_serial: 93
     eeprom_chip_serial: 0x640a54
     ldo_version: 2
