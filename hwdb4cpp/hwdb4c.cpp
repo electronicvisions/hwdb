@@ -183,6 +183,71 @@ int _convert_dls_entry(hwdb4cpp::DLSSetupEntry dls_setup_entry_cpp, char* dls_se
 	return HWDB4C_SUCCESS;
 }
 
+void _convert_hxcube_fpga_entry(
+	hwdb4cpp::HXCubeFPGAEntry fpga_entry_cpp,
+	size_t fpga_id,
+	struct hwdb4c_hxcube_fpga_entry* fpga_entry_c)
+{
+	fpga_entry_c->fpga_id = fpga_id;
+	inet_aton(fpga_entry_cpp.ip.to_string().c_str(), &(fpga_entry_c->ip));
+	if (fpga_entry_cpp.wing) {
+		struct hwdb4c_hxcube_wing_entry* wing_entry_c =
+			(hwdb4c_hxcube_wing_entry*) malloc(sizeof(struct hwdb4c_hxcube_wing_entry));
+		wing_entry_c->handwritten_chip_serial = fpga_entry_cpp.wing.value().handwritten_chip_serial;
+		wing_entry_c->chip_revision = fpga_entry_cpp.wing.value().chip_revision;
+		if (fpga_entry_cpp.wing.value().eeprom_chip_serial) {
+			wing_entry_c->eeprom_chip_serial =
+				fpga_entry_cpp.wing.value().eeprom_chip_serial.value();
+		} else {
+			wing_entry_c->eeprom_chip_serial = 0;
+		}
+		if (fpga_entry_cpp.wing.value().synram_timing_pcconf) {
+			for (size_t i = 0; i < std::size(wing_entry_c->synram_timing_pcconf); ++i) {
+				std::copy(
+					fpga_entry_cpp.wing.value().synram_timing_pcconf.value()[i].begin(),
+					fpga_entry_cpp.wing.value().synram_timing_pcconf.value()[i].end(),
+					wing_entry_c->synram_timing_pcconf[i]);
+			}
+		} else {
+			for (size_t i = 0; i < std::size(wing_entry_c->synram_timing_pcconf); ++i) {
+				std::fill(
+					std::begin(wing_entry_c->synram_timing_pcconf[i]),
+					std::end(wing_entry_c->synram_timing_pcconf[i]), 0);
+			}
+		}
+		if (fpga_entry_cpp.wing.value().synram_timing_wconf) {
+			for (size_t i = 0; i < std::size(wing_entry_c->synram_timing_wconf); ++i) {
+				std::copy(
+					fpga_entry_cpp.wing.value().synram_timing_wconf.value()[i].begin(),
+					fpga_entry_cpp.wing.value().synram_timing_wconf.value()[i].end(),
+					wing_entry_c->synram_timing_wconf[i]);
+			}
+		} else {
+			for (size_t i = 0; i < std::size(wing_entry_c->synram_timing_wconf); ++i) {
+				std::fill(
+					std::begin(wing_entry_c->synram_timing_wconf[i]),
+					std::end(wing_entry_c->synram_timing_wconf[i]), 0);
+			}
+		}
+		fpga_entry_c->wing = wing_entry_c;
+	} else {
+		fpga_entry_c->wing = NULL;
+	}
+	if (fpga_entry_cpp.fuse_dna) {
+		fpga_entry_c->fuse_dna = fpga_entry_cpp.fuse_dna.value();
+		fpga_entry_c->dna_port = fpga_entry_cpp.get_dna_port();
+	} else {
+		fpga_entry_c->fuse_dna = 0;
+		fpga_entry_c->dna_port = 0;
+	}
+	if (fpga_entry_cpp.extoll_node_id) {
+		fpga_entry_c->extoll_node_id = fpga_entry_cpp.extoll_node_id.value();
+	} else {
+		fpga_entry_c->extoll_node_id = 0;
+	}
+	fpga_entry_c->ci_test_node = fpga_entry_cpp.ci_test_node;
+}
+
 // converts hwdb4cpp::HXCubeSetupEntry to hwdb4c_hxcube_setup_entry (required for SLURM)
 int _convert_hxcube_setup_entry(
 	hwdb4cpp::HXCubeSetupEntry hxcube_entry_cpp,
@@ -209,67 +274,8 @@ int _convert_hxcube_setup_entry(
 		if (!fpga_entry_c) {
 			return HWDB4C_FAILURE;
 		}
-		hxcube_entry_c->fpgas[fpga_counter] = fpga_entry_c;
-		fpga_entry_c->fpga_id = fpga_it.first;
-		inet_aton(fpga_it.second.ip.to_string().c_str(), &(fpga_entry_c->ip));
-		if (fpga_it.second.wing) {
-			struct hwdb4c_hxcube_wing_entry* wing_entry_c =
-				(hwdb4c_hxcube_wing_entry*) malloc(sizeof(struct hwdb4c_hxcube_wing_entry));
-			wing_entry_c->ldo_version = fpga_it.second.wing.value().ldo_version;
-			wing_entry_c->handwritten_chip_serial =
-				fpga_it.second.wing.value().handwritten_chip_serial;
-			wing_entry_c->chip_revision = fpga_it.second.wing.value().chip_revision;
-			if (fpga_it.second.wing.value().eeprom_chip_serial) {
-				wing_entry_c->eeprom_chip_serial =
-					fpga_it.second.wing.value().eeprom_chip_serial.value();
-			} else {
-				wing_entry_c->eeprom_chip_serial = 0;
-			}
-			if (fpga_it.second.wing.value().synram_timing_pcconf) {
-				for (size_t i = 0; i < std::size(wing_entry_c->synram_timing_pcconf); ++i) {
-					std::copy(
-						fpga_it.second.wing.value().synram_timing_pcconf.value()[i].begin(),
-						fpga_it.second.wing.value().synram_timing_pcconf.value()[i].end(),
-						wing_entry_c->synram_timing_pcconf[i]);
-				}
-			} else {
-				for (size_t i = 0; i < std::size(wing_entry_c->synram_timing_pcconf); ++i) {
-					std::fill(
-						std::begin(wing_entry_c->synram_timing_pcconf[i]),
-						std::end(wing_entry_c->synram_timing_pcconf[i]), 0);
-				}
-			}
-			if (fpga_it.second.wing.value().synram_timing_wconf) {
-				for (size_t i = 0; i < std::size(wing_entry_c->synram_timing_wconf); ++i) {
-					std::copy(
-						fpga_it.second.wing.value().synram_timing_wconf.value()[i].begin(),
-						fpga_it.second.wing.value().synram_timing_wconf.value()[i].end(),
-						wing_entry_c->synram_timing_wconf[i]);
-				}
-			} else {
-				for (size_t i = 0; i < std::size(wing_entry_c->synram_timing_wconf); ++i) {
-					std::fill(
-						std::begin(wing_entry_c->synram_timing_wconf[i]),
-						std::end(wing_entry_c->synram_timing_wconf[i]), 0);
-				}
-			}
-			fpga_entry_c->wing = wing_entry_c;
-		} else {
-			fpga_entry_c->wing = NULL;
-		}
-		if (fpga_it.second.fuse_dna) {
-			fpga_entry_c->fuse_dna = fpga_it.second.fuse_dna.value();
-			fpga_entry_c->dna_port = fpga_it.second.get_dna_port();
-		} else {
-			fpga_entry_c->fuse_dna = 0;
-			fpga_entry_c->dna_port = 0;
-		}
-		if (fpga_it.second.extoll_node_id) {
-			fpga_entry_c->extoll_node_id = fpga_it.second.extoll_node_id.value();
-		} else {
-			fpga_entry_c->extoll_node_id = 0;
-		}
-		fpga_entry_c->ci_test_node = fpga_it.second.ci_test_node;
+		_convert_hxcube_fpga_entry(fpga_it.second, fpga_it.first, fpga_entry_c);
+
 		hxcube_entry_c->fpgas[fpga_counter] = fpga_entry_c;
 		fpga_counter++;
 	}
@@ -289,6 +295,50 @@ int _convert_hxcube_setup_entry(
 	}
 
 	*ret = hxcube_entry_c;
+	return HWDB4C_SUCCESS;
+}
+
+// converts hwdb4cpp::JboaSetupEntry to hwdb4c_jboa_setup_entry (required for SLURM)
+int _convert_jboa_setup_entry(
+	hwdb4cpp::JboaSetupEntry jboa_entry_cpp, size_t jboa_id, struct hwdb4c_jboa_setup_entry** ret)
+{
+	struct hwdb4c_jboa_setup_entry* jboa_entry_c =
+		(hwdb4c_jboa_setup_entry*) malloc(sizeof(struct hwdb4c_jboa_setup_entry));
+	if (!jboa_entry_c)
+		return HWDB4C_FAILURE;
+
+	jboa_entry_c->jboa_id = jboa_id;
+
+	jboa_entry_c->num_fpgas = jboa_entry_cpp.fpgas.size();
+	jboa_entry_c->fpgas = (hwdb4c_hxcube_fpga_entry**) malloc(
+		sizeof(struct hwdb4c_hxcube_fpga_entry*) * jboa_entry_c->num_fpgas);
+	if (!jboa_entry_c->fpgas) {
+		return HWDB4C_FAILURE;
+	}
+	size_t fpga_counter = 0;
+	for (auto fpga_it : jboa_entry_cpp.fpgas) {
+		hwdb4c_hxcube_fpga_entry* fpga_entry_c =
+			(hwdb4c_hxcube_fpga_entry*) malloc(sizeof(struct hwdb4c_hxcube_fpga_entry));
+		if (!fpga_entry_c) {
+			return HWDB4C_FAILURE;
+		}
+		_convert_hxcube_fpga_entry(fpga_it.second, fpga_it.first, fpga_entry_c);
+
+		jboa_entry_c->fpgas[fpga_counter] = fpga_entry_c;
+		fpga_counter++;
+	}
+
+	if (jboa_entry_cpp.xilinx_hw_server) {
+		jboa_entry_c->xilinx_hw_server =
+			(char*) malloc((jboa_entry_cpp.xilinx_hw_server.value().length() + 1) * sizeof(char));
+		strncpy(
+			jboa_entry_c->xilinx_hw_server, jboa_entry_cpp.xilinx_hw_server.value().c_str(),
+			jboa_entry_cpp.xilinx_hw_server.value().length() + 1);
+	} else {
+		jboa_entry_c->xilinx_hw_server = NULL;
+	}
+
+	*ret = jboa_entry_c;
 	return HWDB4C_SUCCESS;
 }
 
@@ -382,10 +432,21 @@ int hwdb4c_has_hxcube_setup_entry(struct hwdb4c_database_t* handle, size_t hxcub
 	return HWDB4C_SUCCESS;
 }
 
-int hwdb4c_has_fpga_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id, bool* ret) {
+int hwdb4c_has_jboa_setup_entry(struct hwdb4c_database_t* handle, size_t jboa_entry, bool* ret)
+{
+	try {
+		*ret = handle->database.has_jboa_setup_entry(jboa_entry);
+	} catch (const std::out_of_range& hdke) {
+		return HWDB4C_FAILURE;
+	}
+	return HWDB4C_SUCCESS;
+}
+
+int hwdb4c_has_fpga_entry(struct hwdb4c_database_t* handle, size_t fpgaglobal_id, bool* ret)
+{
 	try {
 		*ret = handle->database.has_fpga_entry(FPGAGlobal(Enum(fpgaglobal_id)));
-	} catch(const std::out_of_range& hdke) {
+	} catch (const std::out_of_range& hdke) {
 		return HWDB4C_FAILURE;
 	}
 	return HWDB4C_SUCCESS;
@@ -510,6 +571,18 @@ int hwdb4c_get_hxcube_setup_entry(
 		return HWDB4C_FAILURE;
 	}
 	return _convert_hxcube_setup_entry(hxcube_entry_cpp, hxcube_id, ret);
+}
+
+int hwdb4c_get_jboa_setup_entry(
+	struct hwdb4c_database_t* handle, size_t jboa_id, struct hwdb4c_jboa_setup_entry** ret)
+{
+	hwdb4cpp::JboaSetupEntry jboa_entry_cpp;
+	try {
+		jboa_entry_cpp = handle->database.get_jboa_setup_entry(jboa_id);
+	} catch (const std::out_of_range& hdke) {
+		return HWDB4C_FAILURE;
+	}
+	return _convert_jboa_setup_entry(jboa_entry_cpp, jboa_id, ret);
 }
 
 int hwdb4c_get_wafer_coordinates(struct hwdb4c_database_t* handle, size_t** wafer, size_t* num_wafer) {
@@ -706,6 +779,18 @@ void hwdb4c_free_hxcube_fpga_entry(struct hwdb4c_hxcube_fpga_entry* entry)
 {
 	if (entry->wing) {
 		free(entry->wing);
+	}
+	free(entry);
+}
+
+void hwdb4c_free_jboa_setup_entry(struct hwdb4c_jboa_setup_entry* entry)
+{
+	for (size_t i = 0; i < entry->num_fpgas; i++) {
+		hwdb4c_free_hxcube_fpga_entry(entry->fpgas[i]);
+	}
+	free(entry->fpgas);
+	if (entry->xilinx_hw_server) {
+		free(entry->xilinx_hw_server);
 	}
 	free(entry);
 }

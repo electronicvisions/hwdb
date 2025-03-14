@@ -7629,10 +7629,7 @@ fpgas:
     ip: 192.168.75.4
 ---
 wafer: 80
-setuptype: cubesetup
-# aggregator test
-# jBOA multi-chip setups
-# TODO: create custom setuptype
+setuptype: jboa
 fpgas:
   - fpga: 0
     ip: 192.168.80.1
@@ -7660,59 +7657,32 @@ fpgas:
     ip: 192.168.80.12
 ---
 wafer: 82
-setuptype: cubesetup
-# aggregator test
-# jBOA multi-chip setups
-# TODO: create custom setuptype
+setuptype: jboa
 fpgas:
-  - fpga: 0
-    ip: 192.168.80.1
-  - fpga: 1
-    ip: 192.168.80.2
-  - fpga: 2
-    ip: 192.168.80.3
-  - fpga: 3
-    ip: 192.168.80.4
-  - fpga: 4
-    ip: 192.168.80.5
-  - fpga: 5
-    ip: 192.168.80.6
-  - fpga: 6
-    ip: 192.168.80.7
-  - fpga: 7
-    ip: 192.168.80.8
-  - fpga: 8
-    ip: 192.168.80.9
-  - fpga: 9
-    ip: 192.168.80.10
-  - fpga: 10
-    ip: 192.168.80.11
-  - fpga: 11
-    ip: 192.168.80.12
   - fpga: 12
-    ip: 192.168.39.33
+    ip: 192.168.82.33
   - fpga: 13
-    ip: 192.168.39.34
+    ip: 192.168.82.34
   - fpga: 14
-    ip: 192.168.39.35
+    ip: 192.168.82.35
   - fpga: 15
-    ip: 192.168.39.36
+    ip: 192.168.82.36
   - fpga: 16
-    ip: 192.168.39.37
+    ip: 192.168.82.37
   - fpga: 17
-    ip: 192.168.39.38
+    ip: 192.168.82.38
   - fpga: 18
-    ip: 192.168.39.39
+    ip: 192.168.82.39
   - fpga: 19
-    ip: 192.168.39.40
+    ip: 192.168.82.40
   - fpga: 20
-    ip: 192.168.39.41
+    ip: 192.168.82.41
   - fpga: 21
-    ip: 192.168.39.42
+    ip: 192.168.82.42
   - fpga: 22
-    ip: 192.168.39.43
+    ip: 192.168.82.43
   - fpga: 23
-    ip: 192.168.39.44
+    ip: 192.168.82.44
 ---
 wafer: 99
 setuptype: cubesetup
@@ -8267,3 +8237,78 @@ fpgas:
       - [3, 3]
       - [3, 3]
 usb_serial: 'AFE25B4722002000'
+---
+jboa_id: 2
+fpgas:
+  - fpga: 12
+    ip: 192.168.82.33
+    fuse_dna: 0x280C7A8E51983446
+    chip_revision: 3
+    eeprom_chip_serial: 0x642dae
+    handwritten_chip_serial: 98
+  - fpga: 13
+    ip: 192.168.82.34
+    fuse_dna: 0x280C7A8E5198041A
+    chip_revision: 3
+    eeprom_chip_serial: 0x63e49c
+    handwritten_chip_serial: 100
+  - fpga: 14
+    ip: 192.168.82.35
+    fuse_dna: 0x380C7A8E51981036
+    chip_revision: 3
+    eeprom_chip_serial: 0x63d7b1
+    handwritten_chip_serial: 94
+  - fpga: 15
+    ip: 192.168.82.36
+    fuse_dna: 0x3A0E92C4028C341F
+    chip_revision: 3
+    eeprom_chip_serial: 0x63cbc2
+    handwritten_chip_serial: 95
+  - fpga: 16
+    ip: 192.168.82.37
+    fuse_dna: 0x3A0E92C4028C2A23
+    chip_revision: 3
+    eeprom_chip_serial: 0x640d74
+    handwritten_chip_serial: 96
+  - fpga: 17
+    ip: 192.168.82.38
+    fuse_dna: 0x2A0E92C4028C083F
+    chip_revision: 3
+    eeprom_chip_serial: 0x6470b7
+    handwritten_chip_serial: 97
+  - fpga: 18
+    ip: 192.168.82.39
+    fuse_dna: 0x3A0E92C402853633
+    chip_revision: 3
+    eeprom_chip_serial: 0x6479aa
+    handwritten_chip_serial: 101
+  - fpga: 19
+    ip: 192.168.82.40
+    fuse_dna: 0x2A0E92C40288064B
+    chip_revision: 3
+    eeprom_chip_serial: 0x9ef6ec
+    handwritten_chip_serial: 102
+  - fpga: 20
+    ip: 192.168.82.41
+    fuse_dna: 0x2A0E92C4028C0427
+    chip_revision: 3
+    eeprom_chip_serial: 0x9fc3ca
+    handwritten_chip_serial: 103
+  - fpga: 21
+    ip: 192.168.82.42
+    fuse_dna: 0x3A0E92C4028B2C4B
+    chip_revision: 3
+    eeprom_chip_serial: 0x9fa5ac
+    handwritten_chip_serial: 104
+  - fpga: 22
+    ip: 192.168.82.43
+    fuse_dna: 0x2A0E92C4028B244B
+    chip_revision: 3
+    eeprom_chip_serial: 0x9ee8db
+    handwritten_chip_serial: 105
+  - fpga: 23
+    ip: 192.168.82.44
+    fuse_dna: 0x3A0E92C40286344F
+    chip_revision: 3
+    eeprom_chip_serial: 0x9f06d8
+    handwritten_chip_serial: 107

@@ -111,7 +111,6 @@ struct SYMBOL_VISIBLE hwdb4c_dls_setup_entry {
 
 struct SYMBOL_VISIBLE hwdb4c_hxcube_wing_entry
 {
-	size_t ldo_version;
 	size_t handwritten_chip_serial;
 	size_t chip_revision;
 	uint32_t eeprom_chip_serial;
@@ -144,6 +143,17 @@ struct SYMBOL_VISIBLE hwdb4c_hxcube_setup_entry
 	char* xilinx_hw_server;
 };
 
+struct SYMBOL_VISIBLE hwdb4c_jboa_setup_entry
+{
+	// key
+	size_t jboa_id;
+
+	// values
+	struct hwdb4c_hxcube_fpga_entry** fpgas;
+	size_t num_fpgas;
+	char* xilinx_hw_server;
+};
+
 
 // functions to allocate cpp hwdb object
 int hwdb4c_alloc_hwdb(struct hwdb4c_database_t** ret) SYMBOL_VISIBLE;
@@ -170,6 +180,8 @@ int hwdb4c_has_wafer_entry(struct hwdb4c_database_t* handle, size_t wafer_id, bo
 int hwdb4c_has_dls_entry(struct hwdb4c_database_t* handle, char* dls_setup, bool* ret) SYMBOL_VISIBLE;
 int hwdb4c_has_hxcube_setup_entry(struct hwdb4c_database_t* handle, size_t hxcube_id, bool* ret)
 	SYMBOL_VISIBLE;
+int hwdb4c_has_jboa_setup_entry(struct hwdb4c_database_t* handle, size_t jboa_id, bool* ret)
+	SYMBOL_VISIBLE;
 
 // get entry from hwdb, if entry not in hwdb or invalid coord returns HWDB4C_FAILURE
 // onwership of entries lies with user, use corresponding hwdb4c_free_xxx_entry function to free memory
@@ -184,6 +196,10 @@ int hwdb4c_get_hxcube_setup_entry(
 	struct hwdb4c_database_t* handle,
 	size_t hxcube_id,
 	struct hwdb4c_hxcube_setup_entry** ret) SYMBOL_VISIBLE;
+int hwdb4c_get_jboa_setup_entry(
+	struct hwdb4c_database_t* handle,
+	size_t jboa_id,
+	struct hwdb4c_jboa_setup_entry** ret) SYMBOL_VISIBLE;
 
 // returns all Wafer IDs in database as size_t array of size num_wafer, ownership of array lies with user
 int hwdb4c_get_wafer_coordinates(struct hwdb4c_database_t* handle, size_t** wafer, size_t* num_wafer) SYMBOL_VISIBLE;
@@ -211,6 +227,7 @@ void hwdb4c_free_hicann_entries(struct hwdb4c_hicann_entry** hicanns, size_t num
 void hwdb4c_free_adc_entries(struct hwdb4c_adc_entry** adcs, size_t num_adcs) SYMBOL_VISIBLE;
 void hwdb4c_free_hxcube_setup_entry(struct hwdb4c_hxcube_setup_entry* setup) SYMBOL_VISIBLE;
 void hwdb4c_free_hxcube_fpga_entry(struct hwdb4c_hxcube_fpga_entry* fpga) SYMBOL_VISIBLE;
+void hwdb4c_free_jboa_setup_entry(struct hwdb4c_jboa_setup_entry* setup) SYMBOL_VISIBLE;
 
 //convert functions for HALbe coordinates
 //FIXME should be its own API

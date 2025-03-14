@@ -39,6 +39,7 @@ class Test_Pyhwdb(unittest.TestCase):
 
         self.DLS_SETUP_ID = "07_20"
         self.HXCUBE_ID = 9
+        self.JBOA_ID = 7
 
     @unittest.skipUnless((os.path.split(os.getcwd())[-1] == "hwdb") and not IS_PYPLUSPLUS, "assuming test is executed with cwd == hwdb/ as done by waf")
     def test_hxcube_entries_have_serial(self):
@@ -111,7 +112,6 @@ class Test_Pyhwdb(unittest.TestCase):
             fpga_entry.ip = self.FPGA_IP
             fpga_entry.ci_test_node = True
             wing_entry = pyhwdb.HXCubeWingEntry()
-            wing_entry.ldo_version = 8
             wing_entry.eeprom_chip_serial = 0x987DE
             wing_entry.handwritten_chip_serial = 12
             wing_entry.chip_revision = 42
@@ -132,6 +132,32 @@ class Test_Pyhwdb(unittest.TestCase):
                     "hxcube9fpga0chip12_1"))
             with self.assertRaises(RuntimeError):
                 hxcube_entry.get_unique_branch_identifier(108)
+
+        if not IS_PYPLUSPLUS:
+            jboa_entry = pyhwdb.JboaSetupEntry()
+            jboa_id = self.JBOA_ID
+            jboa_entry.jboa_id = jboa_id
+            fpga_entry = pyhwdb.HXCubeFPGAEntry()
+            fpga_entry.ip = self.FPGA_IP
+            wing_entry = pyhwdb.HXCubeWingEntry()
+            wing_entry.eeprom_chip_serial = 0x987DE
+            wing_entry.handwritten_chip_serial = 13
+            wing_entry.chip_revision = 43
+            fpga_entry.wing = wing_entry
+            jboa_entry.fpgas = {12: fpga_entry}
+
+            self.assertFalse(mydb.has_jboa_setup_entry(jboa_id))
+            mydb.add_jboa_setup_entry(jboa_id, jboa_entry)
+            self.assertTrue(mydb.has_jboa_setup_entry(jboa_id))
+            mydb.remove_jboa_setup_entry(jboa_id)
+            self.assertFalse(mydb.has_jboa_setup_entry(jboa_id))
+            self.assertEqual(jboa_entry.get_unique_branch_identifier(13),
+                            "jboa7fpga12chip13_1")
+            self.assertEqual(
+                (7, 12, 13, 1), jboa_entry.get_ids_from_unique_branch_identifier(
+                    "jboa7fpga12chip13_1"))
+            with self.assertRaises(RuntimeError):
+                jboa_entry.get_unique_branch_identifier(108)
 
 
         if IS_PYPLUSPLUS:

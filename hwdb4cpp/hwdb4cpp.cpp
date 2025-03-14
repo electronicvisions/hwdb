@@ -26,7 +26,7 @@ namespace {
 // Map to translate back to enum, we compare agains the sting converted
 // to lower chars
 const std::vector<std::string> SetupType_NAMES = {
-    {"vsetup"}, {"facetswafer"}, {"cubesetup"}, {"bsswafer"}};
+    {"vsetup"}, {"facetswafer"}, {"cubesetup"}, {"bsswafer"}, {"jboa"}};
 
 // To store the entries in YAML easier, the map is converted into a list.
 // These helper structs extend the entries with the corresponding key to
@@ -239,7 +239,6 @@ struct convert<HXFPGAYAML>
 			node["ci_test_node"] = data.ci_test_node;
 		}
 		if (data.wing) {
-			node["ldo_version"] = data.wing.value().ldo_version;
 			node["handwritten_chip_serial"] = data.wing.value().handwritten_chip_serial;
 			node["chip_revision"] = data.wing.value().chip_revision;
 			if (data.wing.value().eeprom_chip_serial) {
@@ -277,23 +276,21 @@ struct convert<HXFPGAYAML>
 			data.extoll_node_id = extoll_node_id.as<uint16_t>();
 		}
 		data.ci_test_node = get_entry<bool>(node, "ci_test_node", false);
-		auto ldo = node["ldo_version"];
 		auto hand_serial = node["handwritten_chip_serial"];
 		auto chip_rev = node["chip_revision"];
 		auto eeprom = node["eeprom_chip_serial"];
 		auto synram_timing_pcconf = node["synram_timing_pcconf"];
 		auto synram_timing_wconf = node["synram_timing_wconf"];
-		if (ldo.IsDefined() || hand_serial.IsDefined() || chip_rev.IsDefined()) {
-			if (!ldo.IsDefined() || !hand_serial.IsDefined() || !chip_rev.IsDefined()) {
+		if (hand_serial.IsDefined() || chip_rev.IsDefined()) {
+			if (!hand_serial.IsDefined() || !chip_rev.IsDefined()) {
 				log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 				LOG4CXX_ERROR(
-				    logger, "Decoding failed. LDO, hand serial and chip revision all need to be "
+				    logger, "Decoding failed. Hand serial and chip revision need to be "
 				            "defined. Node: '''\n"
 				                << node << "'''");
 				return false;
 			}
 			HXCubeWingEntry wing;
-			wing.ldo_version = get_entry<size_t>(node, "ldo_version");
 			wing.handwritten_chip_serial = get_entry<size_t>(node, "handwritten_chip_serial");
 			wing.chip_revision = get_entry<size_t>(node, "chip_revision");
 			if (eeprom.IsDefined()) {
@@ -451,16 +448,46 @@ std::tuple<size_t, size_t, size_t, size_t> HXCubeSetupEntry::get_ids_from_unique
 	throw std::runtime_error("Found no match for hxcube ID in identifier.");
 }
 
+std::string JboaSetupEntry::get_unique_branch_identifier(size_t chip_serial) const
+{
+	using namespace std::string_literals;
+	for (auto fpga : fpgas) {
+		if (!fpga.second.wing) {
+			continue;
+		}
+		if ((fpga.second.wing.value().handwritten_chip_serial == chip_serial) ||
+		    (fpga.second.wing.value().eeprom_chip_serial == chip_serial)) {
+			return "jboa"s + std::to_string(jboa_id) + "fpga"s + std::to_string(fpga.first) +
+			       "chip"s + std::to_string(fpga.second.wing.value().handwritten_chip_serial) +
+			       "_"s + std::to_string(1) /* not yet in hwdb: Issue #3641 */;
+		}
+	}
+	throw std::runtime_error("No chip with serial " + std::to_string(chip_serial) + " found");
+}
+
+std::tuple<size_t, size_t, size_t, size_t> JboaSetupEntry::get_ids_from_unique_branch_identifier(
+    std::string identifier)
+{
+	std::regex regex("jboa(\\d+)fpga(\\d+)chip(\\d+)_(\\d+)");
+	std::smatch match;
+	if (std::regex_match(identifier, match, regex)) {
+		assert(match.size() == 5);
+		return {std::stoi(match[1]), std::stoi(match[2]), std::stoi(match[3]), std::stoi(match[4])};
+	}
+	throw std::runtime_error("Found no match for jboa ID in identifier.");
+}
+
 void database::clear()
 {
 	mWaferData.clear();
 	mDLSData.clear();
 	mHXCubeData.clear();
+	mJboaData.clear();
 }
 
 void database::load(std::string const path)
 {
-	if (!(mWaferData.empty() && mDLSData.empty() && mHXCubeData.empty()))
+	if (!(mWaferData.empty() && mDLSData.empty() && mHXCubeData.empty() && mJboaData.empty()))
 		throw std::runtime_error("database has to be empty before loading new file");
 
 	for (YAML::Node& config : YAML::LoadAllFromFile(path)) {
@@ -608,9 +635,28 @@ void database::load(std::string const path)
 				mHXCubeData.at(hxcube_id).xilinx_hw_server =
 				    xilinx_hw_server_entry.as<std::string>();
 			}
-
 		}
-		// yaml node does not contain wafer or dls setup or hxcube setup
+		// yaml node is from a jBOA setup
+		else if (config["jboa_id"].IsDefined()) {
+			auto jboa_id = config["jboa_id"].as<size_t>();
+			JboaSetupEntry entry;
+			entry.jboa_id = jboa_id;
+			add_jboa_setup_entry(jboa_id, entry);
+
+			auto fpga_entries = config["fpgas"];
+			if (fpga_entries.IsDefined()) {
+				for (const auto& entry : fpga_entries.as<std::vector<HXFPGAYAML>>()) {
+					mJboaData.at(jboa_id).fpgas[entry.coordinate] =
+					    dynamic_cast<HXCubeFPGAEntry const&>(entry);
+				}
+			}
+
+			auto xilinx_hw_server_entry = config["xilinx_hw_server"];
+			if (xilinx_hw_server_entry.IsDefined()) {
+				mJboaData.at(jboa_id).xilinx_hw_server = xilinx_hw_server_entry.as<std::string>();
+			}
+		}
+		// yaml node does not contain wafer or dls setup or hxcube setup or jboa setup
 		else {
 			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 			LOG4CXX_WARN(logger, "Found node entry neither from Wafer, DLS setup nor HX setup, ignore");
@@ -834,6 +880,37 @@ void database::dump(std::ostream& out) const
 		if (data.usb_serial != "") {
 			YAML::Node config;
 			config["usb_serial"] = data.usb_serial;
+			out << config << '\n';
+		}
+
+		if (data.xilinx_hw_server) {
+			YAML::Node config;
+			config["xilinx_hw_server"] = data.xilinx_hw_server.value();
+			out << config << '\n';
+		}
+	}
+
+	for (const auto& item : mJboaData) {
+		const size_t jboa_id = item.first;
+		const JboaSetupEntry& data = item.second;
+
+		out << "---\n";
+
+		{
+			YAML::Node config;
+			config["jboa_id"] = jboa_id;
+			out << config << '\n';
+		}
+
+		if (!data.fpgas.empty()) {
+			YAML::Node config;
+			std::vector<HXFPGAYAML> fpga_data;
+			for (auto& it : data.fpgas) {
+				HXFPGAYAML entry(it.second);
+				entry.coordinate = it.first;
+				fpga_data.push_back(entry);
+			}
+			config["fpgas"] = fpga_data;
 			out << config << '\n';
 		}
 
@@ -1084,6 +1161,40 @@ HXCubeSetupEntry const& database::get_hxcube_setup_entry(size_t const hxcube_id)
 std::vector<size_t> database::get_hxcube_ids() const {
 	std::vector<size_t> ret;
 	for (auto it : mHXCubeData) {
+		ret.push_back(it.first);
+	}
+	return ret;
+}
+
+void database::add_jboa_setup_entry(size_t const jboa_id, JboaSetupEntry const entry)
+{
+	mJboaData[jboa_id] = entry;
+}
+
+bool database::remove_jboa_setup_entry(size_t const jboa_id)
+{
+	return mJboaData.erase(jboa_id);
+}
+
+bool database::has_jboa_setup_entry(size_t const jboa_id) const
+{
+	return mJboaData.count(jboa_id);
+}
+
+JboaSetupEntry& database::get_jboa_setup_entry(size_t const jboa_id)
+{
+	return mJboaData.at(jboa_id);
+}
+
+JboaSetupEntry const& database::get_jboa_setup_entry(size_t const jboa_id) const
+{
+	return mJboaData.at(jboa_id);
+}
+
+std::vector<size_t> database::get_jboa_ids() const
+{
+	std::vector<size_t> ret;
+	for (auto it : mJboaData) {
 		ret.push_back(it.first);
 	}
 	return ret;

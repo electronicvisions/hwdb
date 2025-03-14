@@ -20,6 +20,7 @@ static char testdls_id0[] = "07_20";
 static char testdls_id1[] = "B123456_42";
 static char testdls_id_false[] = "07_21";
 static size_t constexpr testhxcube_id = 6;
+static size_t constexpr testjboa_id = 7;
 static size_t constexpr fpgas_per_wafer = halco::hicann::v2::FPGAOnWafer::size;
 static size_t constexpr reticles_per_wafer = halco::hicann::v2::DNCOnWafer::size;
 static size_t constexpr ananas_per_wafer = halco::hicann::v2::AnanasOnWafer::size;
@@ -123,7 +124,6 @@ fpgas:\n\
     ci_test_node: true\n\
     extoll_node_id: 2\n\
     handwritten_chip_serial: 12\n\
-    ldo_version: 2\n\
     chip_revision: 42\n\
     eeprom_chip_serial: 0x1234ABCD\n\
     synram_timing_pcconf:\n\
@@ -136,13 +136,22 @@ fpgas:\n\
   - fpga: 3\n\
     ip: 192.168.66.4\n\
     handwritten_chip_serial: 69\n\
-    ldo_version: 1\n\
     chip_revision: 1\n\
   - fpga: 7\n\
     ip: 192.168.66.8\n\
 usb_host: 'AMTHost11'\n\
 usb_serial: 'AFEABC1230456789'\n\
 xilinx_hw_server: 'abc.de:1234'\n\
+---\n\
+jboa_id: 7\n\
+fpgas:\n\
+  - fpga: 12\n\
+    ip: 192.168.87.33\n\
+    handwritten_chip_serial: 13\n\
+    chip_revision: 43\n\
+  - fpga: 13\n\
+    ip: 192.168.87.34\n\
+xilinx_hw_server: 'abc.yz:4321'\n\
 ";
 };
 
@@ -332,7 +341,6 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(hxcube->fpgas[0]->fuse_dna, 0x3A0E92C402882A33);
 	EXPECT_EQ(hxcube->fpgas[0]->extoll_node_id, 2);
 	EXPECT_EQ(hxcube->fpgas[0]->dna_port, 0x5411402349705C);
-	EXPECT_EQ(hxcube->fpgas[0]->wing->ldo_version, 2);
 	EXPECT_EQ(hxcube->fpgas[0]->wing->handwritten_chip_serial, 12);
 	EXPECT_EQ(hxcube->fpgas[0]->wing->chip_revision, 42);
 	EXPECT_EQ(hxcube->fpgas[0]->wing->eeprom_chip_serial, 0x1234ABCD);
@@ -350,7 +358,6 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(hxcube->fpgas[1]->fpga_id, 3);
 	EXPECT_TRUE(hxcube->fpgas[1]->fuse_dna == 0); // optional value
 	EXPECT_TRUE(hxcube->fpgas[1]->extoll_node_id == 0); // optional value
-	EXPECT_EQ(hxcube->fpgas[1]->wing->ldo_version, 1);
 	EXPECT_EQ(hxcube->fpgas[1]->wing->handwritten_chip_serial, 69);
 	EXPECT_EQ(hxcube->fpgas[1]->wing->chip_revision, 1);
 	EXPECT_EQ(hxcube->fpgas[1]->wing->eeprom_chip_serial, 0);         // default value
@@ -372,6 +379,25 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 
 	hwdb4c_free_hxcube_setup_entry(hxcube);
 	hxcube = NULL;
+
+	hwdb4c_jboa_setup_entry* jboa = NULL;
+	ASSERT_EQ(hwdb4c_get_jboa_setup_entry(hwdb, testjboa_id, &jboa), HWDB4C_SUCCESS);
+	ASSERT_TRUE(jboa != NULL);
+	EXPECT_EQ(jboa->jboa_id, testjboa_id);
+	EXPECT_EQ(jboa->num_fpgas, 2);
+	EXPECT_EQ(std::string(jboa->xilinx_hw_server), "abc.yz:4321");
+
+	EXPECT_EQ(std::string(inet_ntoa(jboa->fpgas[0]->ip)), "192.168.87.33");
+	EXPECT_EQ(jboa->fpgas[0]->ci_test_node, false);
+	EXPECT_EQ(jboa->fpgas[0]->fpga_id, 12);
+	EXPECT_EQ(jboa->fpgas[0]->wing->handwritten_chip_serial, 13);
+	EXPECT_EQ(jboa->fpgas[0]->wing->chip_revision, 43);
+
+	EXPECT_EQ(std::string(inet_ntoa(jboa->fpgas[1]->ip)), "192.168.87.34");
+	EXPECT_EQ(jboa->fpgas[1]->fpga_id, 13);
+
+	hwdb4c_free_jboa_setup_entry(jboa);
+	jboa = NULL;
 
 	//just check if num of entries is correct from now, not all entry elements
 	hwdb4c_hicann_entry** hicanns = NULL;
@@ -479,7 +505,6 @@ TEST_F(HWDB4C_Test, get_yaml_entries)
 	              "    ci_test_node: true\n"
 	              "    extoll_node_id: 2\n"
 	              "    handwritten_chip_serial: 12\n"
-	              "    ldo_version: 2\n"
 	              "    chip_revision: 42\n"
 	              "    eeprom_chip_serial: 0x1234ABCD\n"
 	              "    synram_timing_pcconf:\n"
@@ -492,7 +517,6 @@ TEST_F(HWDB4C_Test, get_yaml_entries)
 	              "  - fpga: 3\n"
 	              "    ip: 192.168.66.4\n"
 	              "    handwritten_chip_serial: 69\n"
-	              "    ldo_version: 1\n"
 	              "    chip_revision: 1\n"
 	              "  - fpga: 7\n"
 	              "    ip: 192.168.66.8\n"

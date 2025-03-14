@@ -82,7 +82,6 @@ namespace hwdb4cpp GENPYBIND_TAG_HWDB {
 //
 /// HX cube wing. Describes the unity of IO board, carrier board and Chip of
 /// one of the sides (a wing) of a Cube setup:
-///  - ldo_version: variant of the linear regulators on xboard
 ///  - handwritten_chip_serial: Manually written (in decimal) unique ID on chip
 ///    carrier (valid range: [1,...])
 ///  - chip_revision: HICANN-X revision (int)
@@ -110,7 +109,12 @@ namespace hwdb4cpp GENPYBIND_TAG_HWDB {
 ///  - usb_serial: serial code of MSP430 (as string)
 ///  - (optional)xilinx_hw_server: hostname/IP and port of xilinx hardware server
 ///                                (e.g. "xilinx-smartlynq-0:3121")
-
+///
+/// jBOA setup (re-uses HXCubeFPGAEntries):
+///  - jboa_id: wafer id = jboa_id + 80
+///  - fpgas: map of HXCubeFPGAEntries
+///  - (optional)xilinx_hw_server: hostname/IP and port of xilinx hardware server
+///                                (e.g. "xilinx-smartlynq-0:3121")
 
 /* HWDB Entry Types: Structs representing the data in the YAML database */
 /* ******************************************************************** */
@@ -194,7 +198,6 @@ struct GENPYBIND(visible) DLSSetupEntry
 #ifndef PYPLUSPLUS
 struct GENPYBIND(visible) HXCubeWingEntry
 {
-	size_t ldo_version;
 	size_t handwritten_chip_serial;
 	size_t chip_revision;
 	std::optional<uint32_t> eeprom_chip_serial;
@@ -203,7 +206,6 @@ struct GENPYBIND(visible) HXCubeWingEntry
 
 	HXCubeWingEntry()
 	{
-		ldo_version = 0;             // valid versions start from 1
 		handwritten_chip_serial = 0; // valid IDs start from 1
 		chip_revision = 0;
 	}
@@ -232,6 +234,28 @@ struct GENPYBIND(visible) HXCubeSetupEntry
 	{
 		hxcube_id = 0;
 		usb_host = "None";
+	}
+
+	std::string get_unique_branch_identifier(size_t chip_serial) const SYMBOL_VISIBLE;
+
+	/**
+	 * Get tuple of (hxcube_id, fpga_id, chip_serial, setup_version) from unique branch identifier.
+	 * @param identifier Identifier string
+	 * @return Tuple of IDs
+	 */
+	static std::tuple<size_t, size_t, size_t, size_t> get_ids_from_unique_branch_identifier(
+	    std::string identifier) SYMBOL_VISIBLE;
+};
+
+struct GENPYBIND(visible) JboaSetupEntry
+{
+	size_t jboa_id;
+	std::map<size_t, HXCubeFPGAEntry> fpgas;
+	std::optional<std::string> xilinx_hw_server;
+
+	JboaSetupEntry()
+	{
+		jboa_id = 0;
 	}
 
 	std::string get_unique_branch_identifier(size_t chip_serial) const SYMBOL_VISIBLE;
@@ -399,6 +423,19 @@ public:
 	/// Get all HICANN-X cube setup entry ids
 	std::vector<size_t> get_hxcube_ids() const SYMBOL_VISIBLE;
 
+	/// Insert (and replace) a new HICANN-X cube setup entry into the database
+	void add_jboa_setup_entry(size_t const hxcube_id, JboaSetupEntry const entry) SYMBOL_VISIBLE;
+	/// Remove HICANN-X cube setup entry from the database
+	bool remove_jboa_setup_entry(size_t const jboa_id) SYMBOL_VISIBLE;
+	/// Check if entry exists
+	bool has_jboa_setup_entry(size_t const jboa_id) const SYMBOL_VISIBLE;
+	/// Get a HICANN-X cube setup entry
+	JboaSetupEntry& get_jboa_setup_entry(size_t const jboa_id) SYMBOL_VISIBLE;
+	/// Get a HICANN-X cube setup entry
+	JboaSetupEntry const& get_jboa_setup_entry(size_t const jboa_id) const SYMBOL_VISIBLE;
+	/// Get all HICANN-X cube setup entry ids
+	std::vector<size_t> get_jboa_ids() const SYMBOL_VISIBLE;
+
 private:
 	// used by yaml-cpp => FIXME: change to add_{fpga,hicann,adc}_entry
 	void add_fpga(halco::hicann::v2::FPGAGlobal const, const FPGAEntry& data);
@@ -410,6 +447,7 @@ private:
 	std::map<halco::hicann::v2::Wafer, WaferEntry> mWaferData;
 	std::map<std::string, DLSSetupEntry> mDLSData;
 	std::map<size_t, HXCubeSetupEntry> mHXCubeData;
+	std::map<size_t, JboaSetupEntry> mJboaData;
 
 	static std::string const default_path;
 #endif
