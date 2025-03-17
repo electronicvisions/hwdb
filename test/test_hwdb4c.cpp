@@ -151,6 +151,7 @@ fpgas:\n\
     chip_revision: 43\n\
   - fpga: 13\n\
     ip: 192.168.87.34\n\
+    fuse_dna: 0x123456789\n\
 aggregators:\n\
   - aggregator: 0\n\
     ip: 192.168.87.13\n\
@@ -396,11 +397,13 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 	EXPECT_EQ(std::string(inet_ntoa(jboa->fpgas[0]->ip)), "192.168.87.33");
 	EXPECT_EQ(jboa->fpgas[0]->ci_test_node, false);
 	EXPECT_EQ(jboa->fpgas[0]->fpga_id, 12);
+	EXPECT_EQ(jboa->fpgas[0]->fuse_dna, 0);
 	EXPECT_EQ(jboa->fpgas[0]->wing->handwritten_chip_serial, 13);
 	EXPECT_EQ(jboa->fpgas[0]->wing->chip_revision, 43);
 
 	EXPECT_EQ(std::string(inet_ntoa(jboa->fpgas[1]->ip)), "192.168.87.34");
 	EXPECT_EQ(jboa->fpgas[1]->fpga_id, 13);
+	EXPECT_EQ(jboa->fpgas[1]->fuse_dna, 0x123456789);
 
 	EXPECT_EQ(std::string(inet_ntoa(jboa->aggregators[0]->ip)), "192.168.87.13");
 	EXPECT_EQ(jboa->aggregators[0]->aggregator_id, 0);

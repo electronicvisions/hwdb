@@ -312,7 +312,7 @@ struct convert<HXFPGAYAML>
 			}
 			data.wing = wing;
 		} else {
-			if (eeprom.IsDefined() || fuse_dna.IsDefined() || extoll_node_id.IsDefined() ||
+			if (eeprom.IsDefined() || extoll_node_id.IsDefined() ||
 			    synram_timing_pcconf.IsDefined() || synram_timing_wconf.IsDefined()) {
 				log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 				LOG4CXX_ERROR(
