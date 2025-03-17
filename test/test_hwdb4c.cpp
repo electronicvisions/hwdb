@@ -151,6 +151,12 @@ fpgas:\n\
     chip_revision: 43\n\
   - fpga: 13\n\
     ip: 192.168.87.34\n\
+aggregators:\n\
+  - aggregator: 0\n\
+    ip: 192.168.87.13\n\
+    ci_test_node: true\n\
+  - aggregator: 1\n\
+    ip: 192.168.87.45\n\
 xilinx_hw_server: 'abc.yz:4321'\n\
 ";
 };
@@ -395,6 +401,14 @@ void get_entry_test_impl(hwdb4c_database_t* hwdb)
 
 	EXPECT_EQ(std::string(inet_ntoa(jboa->fpgas[1]->ip)), "192.168.87.34");
 	EXPECT_EQ(jboa->fpgas[1]->fpga_id, 13);
+
+	EXPECT_EQ(std::string(inet_ntoa(jboa->aggregators[0]->ip)), "192.168.87.13");
+	EXPECT_EQ(jboa->aggregators[0]->aggregator_id, 0);
+	EXPECT_EQ(jboa->aggregators[0]->ci_test_node, true);
+
+	EXPECT_EQ(std::string(inet_ntoa(jboa->aggregators[1]->ip)), "192.168.87.45");
+	EXPECT_EQ(jboa->aggregators[1]->aggregator_id, 1);
+	EXPECT_EQ(jboa->aggregators[1]->ci_test_node, false);
 
 	hwdb4c_free_jboa_setup_entry(jboa);
 	jboa = NULL;

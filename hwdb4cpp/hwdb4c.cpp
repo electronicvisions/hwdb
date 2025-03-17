@@ -365,6 +365,16 @@ int _convert_hxcube_setup_entry(
 	return HWDB4C_SUCCESS;
 }
 
+void _convert_jboa_aggregator_entry(
+	hwdb4cpp::JboaAggregatorEntry aggregator_entry_cpp,
+	size_t aggregator_id,
+	struct hwdb4c_jboa_aggregator_entry* aggregator_entry_c)
+{
+	aggregator_entry_c->aggregator_id = aggregator_id;
+	inet_aton(aggregator_entry_cpp.ip.to_string().c_str(), &(aggregator_entry_c->ip));
+	aggregator_entry_c->ci_test_node = aggregator_entry_cpp.ci_test_node;
+}
+
 // converts hwdb4cpp::JboaSetupEntry to hwdb4c_jboa_setup_entry (required for SLURM)
 int _convert_jboa_setup_entry(
     hwdb4cpp::JboaSetupEntry jboa_entry_cpp, size_t jboa_id, struct hwdb4c_jboa_setup_entry** ret)
@@ -393,6 +403,26 @@ int _convert_jboa_setup_entry(
 
 		jboa_entry_c->fpgas[fpga_counter] = fpga_entry_c;
 		fpga_counter++;
+	}
+
+	jboa_entry_c->num_aggregators = jboa_entry_cpp.aggregators.size();
+	jboa_entry_c->aggregators = (hwdb4c_jboa_aggregator_entry**) malloc(
+		sizeof(struct hwdb4c_jboa_aggregator_entry*) * jboa_entry_c->num_aggregators);
+	if (!jboa_entry_c->aggregators) {
+		return HWDB4C_FAILURE;
+	}
+	size_t aggregator_counter = 0;
+	for (auto aggregator_it : jboa_entry_cpp.aggregators) {
+		hwdb4c_jboa_aggregator_entry* aggregator_entry_c =
+			(hwdb4c_jboa_aggregator_entry*) malloc(sizeof(struct hwdb4c_jboa_aggregator_entry));
+		if (!aggregator_entry_c) {
+			return HWDB4C_FAILURE;
+		}
+		_convert_jboa_aggregator_entry(
+			aggregator_it.second, aggregator_it.first, aggregator_entry_c);
+
+		jboa_entry_c->aggregators[aggregator_counter] = aggregator_entry_c;
+		aggregator_counter++;
 	}
 
 	if (jboa_entry_cpp.xilinx_hw_server) {
@@ -916,12 +946,21 @@ void hwdb4c_free_hxcube_fpga_entry(struct hwdb4c_hxcube_fpga_entry* entry)
 	free(entry);
 }
 
+void hwdb4c_free_jboa_aggregator_entry(struct hwdb4c_jboa_aggregator_entry* entry)
+{
+	free(entry);
+}
+
 void hwdb4c_free_jboa_setup_entry(struct hwdb4c_jboa_setup_entry* entry)
 {
 	for (size_t i = 0; i < entry->num_fpgas; i++) {
 		hwdb4c_free_hxcube_fpga_entry(entry->fpgas[i]);
 	}
 	free(entry->fpgas);
+	for (size_t i = 0; i < entry->num_aggregators; i++) {
+		hwdb4c_free_jboa_aggregator_entry(entry->aggregators[i]);
+	}
+	free(entry->aggregators);
 	if (entry->xilinx_hw_server) {
 		free(entry->xilinx_hw_server);
 	}

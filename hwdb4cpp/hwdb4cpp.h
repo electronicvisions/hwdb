@@ -110,9 +110,14 @@ namespace hwdb4cpp GENPYBIND_TAG_HWDB {
 ///  - (optional)xilinx_hw_server: hostname/IP and port of xilinx hardware server
 ///                                (e.g. "xilinx-smartlynq-0:3121")
 ///
+/// jBOA aggregators (aka KRACEN) entry
+///  - ip: FPGA Ethernet IP (1GBASE-T PL interface)
+///  - (optional, default false)ci_test_node: Allow CI tests to be run on this FPGA
+///
 /// jBOA setup (re-uses HXCubeFPGAEntries):
 ///  - jboa_id: wafer id = jboa_id + 80
 ///  - fpgas: map of HXCubeFPGAEntries
+///  - aggregators: map of JboaAggregatorEntry
 ///  - (optional)xilinx_hw_server: hostname/IP and port of xilinx hardware server
 ///                                (e.g. "xilinx-smartlynq-0:3121")
 
@@ -247,10 +252,17 @@ struct GENPYBIND(visible) HXCubeSetupEntry
 	    std::string identifier) SYMBOL_VISIBLE;
 };
 
+struct GENPYBIND(visible) JboaAggregatorEntry
+{
+	halco::common::IPv4 ip;
+	bool ci_test_node;
+};
+
 struct GENPYBIND(visible) JboaSetupEntry
 {
 	size_t jboa_id;
 	std::map<size_t, HXCubeFPGAEntry> fpgas;
+	std::map<size_t, JboaAggregatorEntry> aggregators;
 	std::optional<std::string> xilinx_hw_server;
 
 	JboaSetupEntry()

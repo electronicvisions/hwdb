@@ -145,6 +145,10 @@ class Test_Pyhwdb(unittest.TestCase):
             wing_entry.chip_revision = 43
             fpga_entry.wing = wing_entry
             jboa_entry.fpgas = {12: fpga_entry}
+            aggregator_entry = pyhwdb.JboaAggregatorEntry()
+            aggregator_entry.ip = self.FPGA_IP
+            aggregator_entry.ci_test_node = True
+            jboa_entry.aggregators = {1: aggregator_entry}
 
             self.assertFalse(mydb.has_jboa_setup_entry(jboa_id))
             mydb.add_jboa_setup_entry(jboa_id, jboa_entry)

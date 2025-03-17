@@ -143,6 +143,13 @@ struct SYMBOL_VISIBLE hwdb4c_hxcube_setup_entry
 	char* xilinx_hw_server;
 };
 
+struct SYMBOL_VISIBLE hwdb4c_jboa_aggregator_entry
+{
+	size_t aggregator_id;
+	struct in_addr ip;
+	bool ci_test_node;
+};
+
 struct SYMBOL_VISIBLE hwdb4c_jboa_setup_entry
 {
 	// key
@@ -151,6 +158,8 @@ struct SYMBOL_VISIBLE hwdb4c_jboa_setup_entry
 	// values
 	struct hwdb4c_hxcube_fpga_entry** fpgas;
 	size_t num_fpgas;
+	struct hwdb4c_jboa_aggregator_entry** aggregators;
+	size_t num_aggregators;
 	char* xilinx_hw_server;
 };
 
@@ -227,6 +236,7 @@ void hwdb4c_free_hicann_entries(struct hwdb4c_hicann_entry** hicanns, size_t num
 void hwdb4c_free_adc_entries(struct hwdb4c_adc_entry** adcs, size_t num_adcs) SYMBOL_VISIBLE;
 void hwdb4c_free_hxcube_setup_entry(struct hwdb4c_hxcube_setup_entry* setup) SYMBOL_VISIBLE;
 void hwdb4c_free_hxcube_fpga_entry(struct hwdb4c_hxcube_fpga_entry* fpga) SYMBOL_VISIBLE;
+void hwdb4c_free_jboa_aggregator_entry(struct hwdb4c_jboa_aggregator_entry* fpga) SYMBOL_VISIBLE;
 void hwdb4c_free_jboa_setup_entry(struct hwdb4c_jboa_setup_entry* setup) SYMBOL_VISIBLE;
 
 //convert functions for HALbe coordinates

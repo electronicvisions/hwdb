@@ -8213,6 +8213,11 @@ fpgas:
 usb_serial: 'AFE25B4722002000'
 ---
 jboa_id: 2
+aggregators:
+  - aggregator: 0
+    ip: 192.168.82.13
+  - aggregator: 1
+    ip: 192.168.82.45
 fpgas:
   - fpga: 12
     ip: 192.168.82.33

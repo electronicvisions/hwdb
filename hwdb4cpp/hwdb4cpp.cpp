@@ -74,6 +74,12 @@ struct HXFPGAYAML : public HXCubeFPGAEntry
 	size_t coordinate = 0;
 };
 
+struct JboaAggregatorYAML : public JboaAggregatorEntry
+{
+	JboaAggregatorYAML() {}
+	JboaAggregatorYAML(JboaAggregatorEntry const& base) : JboaAggregatorEntry(base) {}
+	size_t coordinate = 0;
+};
 
 } // anonymous namespace
 
@@ -315,6 +321,38 @@ struct convert<HXFPGAYAML>
 				return false;
 			}
 		}
+		return true;
+	}
+};
+
+template <>
+struct convert<JboaAggregatorYAML>
+{
+	static Node encode(const JboaAggregatorYAML& data)
+	{
+		Node node;
+		node["aggregator"] = data.coordinate;
+		node["ip"] = data.ip.to_string();
+		if (data.ci_test_node == true) {
+			node["ci_test_node"] = data.ci_test_node;
+		}
+		return node;
+	}
+
+	static bool decode(const Node& node, JboaAggregatorYAML& data)
+	{
+		if (!node.IsMap()) {
+			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
+			LOG4CXX_ERROR(logger, "Decoding failed of: '''\n" << node << "'''");
+			return false;
+		} else if (node.size() > 3) {
+			log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
+			LOG4CXX_ERROR(logger, "Too many entries! Decoding failed of: '''\n" << node << "'''");
+			return false;
+		}
+		data.coordinate = get_entry<size_t>(node, "aggregator");
+		data.ip = IPv4::from_string(get_entry<std::string>(node, "ip"));
+		data.ci_test_node = get_entry<bool>(node, "ci_test_node", false);
 		return true;
 	}
 };
@@ -651,6 +689,14 @@ void database::load(std::string const path)
 				}
 			}
 
+			auto aggregator_entries = config["aggregators"];
+			if (aggregator_entries.IsDefined()) {
+				for (const auto& entry : aggregator_entries.as<std::vector<JboaAggregatorYAML>>()) {
+					mJboaData.at(jboa_id).aggregators[entry.coordinate] =
+					    dynamic_cast<JboaAggregatorEntry const&>(entry);
+				}
+			}
+
 			auto xilinx_hw_server_entry = config["xilinx_hw_server"];
 			if (xilinx_hw_server_entry.IsDefined()) {
 				mJboaData.at(jboa_id).xilinx_hw_server = xilinx_hw_server_entry.as<std::string>();
@@ -911,6 +957,18 @@ void database::dump(std::ostream& out) const
 				fpga_data.push_back(entry);
 			}
 			config["fpgas"] = fpga_data;
+			out << config << '\n';
+		}
+
+		if (!data.aggregators.empty()) {
+			YAML::Node config;
+			std::vector<JboaAggregatorYAML> aggregator_data;
+			for (auto& it : data.aggregators) {
+				JboaAggregatorYAML entry(it.second);
+				entry.coordinate = it.first;
+				aggregator_data.push_back(entry);
+			}
+			config["aggregators"] = aggregator_data;
 			out << config << '\n';
 		}
 
