@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 from waflib.extras.gtest import summary
 from waflib import Utils
 
@@ -28,7 +29,8 @@ def configure(cfg):
         cfg.load('python')
         cfg.check_python_version()
         cfg.check_python_headers()
-        cfg.load('genpybind')
+        if (os.environ.get("SINGULARITY_APPNAME") is None) or ("wafer" not in os.environ.get("SINGULARITY_APPNAME")):
+            cfg.load('genpybind')
     cfg.env.with_hwdb_python_bindings = cfg.options.with_hwdb_python_bindings
 
     cfg.check_cfg(package='yaml-cpp',
