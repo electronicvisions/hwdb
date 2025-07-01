@@ -7981,12 +7981,24 @@ fpgas:
     fuse_dna: 0x2A0E92C4028D0A47
     chip_revision: 3
     eeprom_chip_serial: 0x63c769
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [1, 1]
+      - [5, 5]
   - fpga: 3
     ip: 192.168.61.4
     handwritten_chip_serial: 83
     fuse_dna: 0x380C7A8E5198120E
     chip_revision: 3
     eeprom_chip_serial: 0x643bc7
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
 usb_serial: '52B59A4620002000'
 ---
 hxcube_id: 2
@@ -8019,6 +8031,12 @@ fpgas:
     handwritten_chip_serial: 89
     eeprom_chip_serial: 0x63d498
     chip_revision: 3
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
   - fpga: 3
     ip: 192.168.63.4
     ci_test_node: true
@@ -8026,6 +8044,12 @@ fpgas:
     handwritten_chip_serial: 72
     eeprom_chip_serial: 0x477bcc
     chip_revision: 3
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
 usb_serial: 'AFE25B471D002000'
 ---
 hxcube_id: 4
@@ -8058,12 +8082,24 @@ fpgas:
     handwritten_chip_serial: 65
     eeprom_chip_serial: 0x4753dd
     chip_revision: 3
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [5, 5]
   - fpga: 3
     ip: 192.168.66.4
     fuse_dna: 0x280C7A8E5198142E
     handwritten_chip_serial: 66
     eeprom_chip_serial: 0x47090b
     chip_revision: 3
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
 usb_serial: 'AFE25B4724002000'
 ---
 hxcube_id: 7
@@ -8090,12 +8126,24 @@ fpgas:
     handwritten_chip_serial: 93
     eeprom_chip_serial: 0x640a54
     chip_revision: 3
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [1, 1]
+      - [20, 20]
   - fpga: 3
     ip: 192.168.68.4
     fuse_dna: 0x3A0E92C4028D0A3B
     handwritten_chip_serial: 73
     eeprom_chip_serial: 0x642bd8
     chip_revision: 3
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
 usb_serial: 'AFE25B4710002000'
 ---
 hxcube_id: 9
@@ -8106,6 +8154,12 @@ fpgas:
     handwritten_chip_serial: 59
     chip_revision: 3
     eeprom_chip_serial: 0x473356
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
   - fpga: 3
     ip: 192.168.69.4
     fuse_dna: 0x2A0E92C4028C2A27
@@ -8122,12 +8176,24 @@ fpgas:
     handwritten_chip_serial: 82
     eeprom_chip_serial: 0x645984
     chip_revision: 3
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [5, 5]
   - fpga: 3
     ip: 192.168.70.4
     fuse_dna: 0x3A0E92C4028A0C27
     handwritten_chip_serial: 71
     eeprom_chip_serial: 0x477bab
     chip_revision: 3
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [130, 130]
 usb_serial: 'AFE25B472D002000'
 ---
 hxcube_id: 11
@@ -8148,12 +8214,24 @@ fpgas:
     handwritten_chip_serial: 81
     eeprom_chip_serial: 0x63c76b
     chip_revision: 3
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
   - fpga: 3
     ip: 192.168.72.4
     fuse_dna: 0x3A0E92C402862A07
     handwritten_chip_serial: 84
     eeprom_chip_serial: 0x63fdca
     chip_revision: 3
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
 usb_serial: 'AFE25B4720002000'
 ---
 hxcube_id: 13
@@ -8164,6 +8242,12 @@ fpgas:
     handwritten_chip_serial: 79
     eeprom_chip_serial: 0x644bf4
     chip_revision: 3
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [144, 144]
   - fpga: 3
     ip: 192.168.73.4
     fuse_dna: 0x3A0E92C402863033
@@ -8180,12 +8264,24 @@ fpgas:
     handwritten_chip_serial: 90
     chip_revision: 3
     eeprom_chip_serial: 0x63fda2
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
   - fpga: 3
     ip: 192.168.74.4
     fuse_dna: 0x2A0E92CE94870A53
     handwritten_chip_serial: 63
     chip_revision: 3
     eeprom_chip_serial: 0x4732ce
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [18, 18]
+      - [17, 17]
 usb_serial: 'AFE25B471A002000'
 ---
 hxcube_id: 15
