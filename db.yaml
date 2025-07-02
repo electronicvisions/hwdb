@@ -8010,15 +8010,18 @@ usb_serial: 'AFE25B4713002000'
 xilinx_hw_server: 'xilinx-smartlynq-jenkins:3121'
 ---
 hxcube_id: 3
+# secondary Jenkins setup
 fpgas:
   - fpga: 0
     ip: 192.168.63.1
+    ci_test_node: true
     fuse_dna: 0x2A0E92C4028C0827
     handwritten_chip_serial: 89
     eeprom_chip_serial: 0x63d498
     chip_revision: 3
   - fpga: 3
     ip: 192.168.63.4
+    ci_test_node: true
     fuse_dna: 0x2A0E92C4028D2453
     handwritten_chip_serial: 70
     eeprom_chip_serial: 0x47a73c
