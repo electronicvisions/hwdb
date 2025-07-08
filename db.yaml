@@ -8023,8 +8023,8 @@ fpgas:
     ip: 192.168.63.4
     ci_test_node: true
     fuse_dna: 0x2A0E92C4028D2453
-    handwritten_chip_serial: 70
-    eeprom_chip_serial: 0x47a73c
+    handwritten_chip_serial: 72
+    eeprom_chip_serial: 0x477bcc
     chip_revision: 3
 usb_serial: 'AFE25B471D002000'
 ---
