@@ -8215,6 +8215,30 @@ fpgas:
       - [3, 3]
 usb_serial: 'AFE25B4722002000'
 ---
+jboa_id: 0
+aggregators:
+  - aggregator: 0
+    ip: 192.168.80.13
+fpgas:
+  - fpga: 0
+    ip: 192.168.80.1
+    fuse_dna: 0x3A0E92C4028C1427
+    chip_revision: 3
+    eeprom_chip_serial: 0x63ff04
+    handwritten_chip_serial: 87
+  - fpga: 2
+    ip: 192.168.80.3
+    fuse_dna: 0x280C7A8E51981222
+    chip_revision: 3
+    eeprom_chip_serial: 0x640cf1
+    handwritten_chip_serial: 86
+  - fpga: 3
+    ip: 192.168.80.4
+    fuse_dna: 0x2A0E92C402881833
+    chip_revision: 3
+    eeprom_chip_serial: 0x641d49
+    handwritten_chip_serial: 99
+---
 jboa_id: 2
 aggregators:
   - aggregator: 0
