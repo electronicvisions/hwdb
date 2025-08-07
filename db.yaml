@@ -8205,9 +8205,15 @@ fpgas:
     # quiggeldy: internal_latest
     ip: 192.168.69.4
     fuse_dna: 0x2A0E92C4028C2A27
-    handwritten_chip_serial: 62
+    handwritten_chip_serial: 119
     chip_revision: 3
-    eeprom_chip_serial: 0x4716f0
+    eeprom_chip_serial: 0x63fecb
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [6, 6]
+      - [8, 8]
 usb_serial: 'AFE25B472A002000'
 ---
 hxcube_id: 10
