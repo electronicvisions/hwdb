@@ -8108,12 +8108,14 @@ usb_serial: 'AFE25B4724002000'
 hxcube_id: 7
 fpgas:
   - fpga: 0
+    # quiggeldy: ebrains_experimental
     ip: 192.168.67.1
     fuse_dna: 0x3A0E92C4028C201F
     handwritten_chip_serial: 57
     chip_revision: 3
     eeprom_chip_serial: 0x46f66b
   - fpga: 3
+    # quiggeldy: ebrains_stable
     ip: 192.168.67.4
     fuse_dna: 0x3A0E92C4028C2013
     handwritten_chip_serial: 61
@@ -8164,6 +8166,7 @@ fpgas:
       - [3, 3]
       - [3, 3]
   - fpga: 3
+    # quiggeldy: internal_latest
     ip: 192.168.69.4
     fuse_dna: 0x2A0E92C4028C2A27
     handwritten_chip_serial: 62
