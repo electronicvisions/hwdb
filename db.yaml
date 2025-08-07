@@ -7966,6 +7966,12 @@ fpgas:
     fuse_dna: 0x3A0E92C4028D122F
     chip_revision: 3
     eeprom_chip_serial: 0x63e2da
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [9, 9]
   - fpga: 3
     # FPGA developer wing
     ip: 192.168.60.4
@@ -8290,6 +8296,12 @@ fpgas:
     handwritten_chip_serial: 91
     eeprom_chip_serial: 0x645507
     chip_revision: 3
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
 usb_serial: 'AFE25B471E002000'
 ---
 hxcube_id: 14
