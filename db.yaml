@@ -7962,13 +7962,17 @@ fpgas:
   - fpga: 0
     # FPGA developer wing
     ip: 192.168.60.1
+    handwritten_chip_serial: 85
+    fuse_dna: 0x3A0E92C4028D122F
+    chip_revision: 3
+    eeprom_chip_serial: 0x63e2da
   - fpga: 3
     # FPGA developer wing
     ip: 192.168.60.4
-    handwritten_chip_serial: 88
+    handwritten_chip_serial: 79
     fuse_dna: 0x3A0E92C402882A33
-    chip_revision: 2
-    eeprom_chip_serial: 0x63c783
+    chip_revision: 3
+    eeprom_chip_serial: 0x644bf4
 usb_serial: 'AFE25B4712002000'
 xilinx_hw_server: 'xilinx-smartlynq-0:3121'
 ---
