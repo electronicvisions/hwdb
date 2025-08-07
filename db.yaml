@@ -8376,18 +8376,36 @@ fpgas:
     chip_revision: 3
     eeprom_chip_serial: 0x63ff04
     handwritten_chip_serial: 87
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [72, 72]
+      - [3, 3]
   - fpga: 2
     ip: 192.168.80.3
     fuse_dna: 0x280C7A8E51981222
     chip_revision: 3
     eeprom_chip_serial: 0x640cf1
     handwritten_chip_serial: 86
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [12, 12]
+      - [3, 3]
   - fpga: 3
     ip: 192.168.80.4
     fuse_dna: 0x2A0E92C402881833
     chip_revision: 3
     eeprom_chip_serial: 0x641d49
     handwritten_chip_serial: 99
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
 ---
 jboa_id: 2
 aggregators:
@@ -8402,6 +8420,12 @@ fpgas:
     chip_revision: 3
     eeprom_chip_serial: 0x642dae
     handwritten_chip_serial: 98
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
   - fpga: 13
     ip: 192.168.82.34
     fuse_dna: 0x280C7A8E5198041A
@@ -8414,12 +8438,24 @@ fpgas:
     chip_revision: 3
     eeprom_chip_serial: 0x63d7b1
     handwritten_chip_serial: 94
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [12, 12]
   - fpga: 15
     ip: 192.168.82.36
     fuse_dna: 0x3A0E92C4028C341F
     chip_revision: 3
     eeprom_chip_serial: 0x63cbc2
     handwritten_chip_serial: 95
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [5, 5]
+      - [3, 3]
   - fpga: 16
     ip: 192.168.82.37
     fuse_dna: 0x3A0E92C4028C2A23
@@ -8450,12 +8486,24 @@ fpgas:
     chip_revision: 3
     eeprom_chip_serial: 0x9fc3ca
     handwritten_chip_serial: 103
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
   - fpga: 21
     ip: 192.168.82.42
     fuse_dna: 0x3A0E92C4028B2C4B
     chip_revision: 3
     eeprom_chip_serial: 0x9fa5ac
     handwritten_chip_serial: 104
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [66, 66]
   - fpga: 22
     ip: 192.168.82.43
     fuse_dna: 0x2A0E92C4028B244B
@@ -8468,3 +8516,9 @@ fpgas:
     chip_revision: 3
     eeprom_chip_serial: 0x9f06d8
     handwritten_chip_serial: 107
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [1, 1]
+      - [192, 192]
