@@ -7973,6 +7973,12 @@ fpgas:
     fuse_dna: 0x3A0E92C402882A33
     chip_revision: 3
     eeprom_chip_serial: 0x644bf4
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [34, 34]
 usb_serial: 'AFE25B4712002000'
 xilinx_hw_server: 'xilinx-smartlynq-0:3121'
 ---
@@ -8014,6 +8020,12 @@ fpgas:
     handwritten_chip_serial: 55
     chip_revision: 3
     eeprom_chip_serial: 0x4716df
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
   - fpga: 3
     ip: 192.168.62.4
     ci_test_node: true
@@ -8021,6 +8033,12 @@ fpgas:
     fuse_dna: 0x3A0E92C4028B324B
     chip_revision: 3
     eeprom_chip_serial: 0x64744b
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
 usb_serial: 'AFE25B4713002000'
 xilinx_hw_server: 'xilinx-smartlynq-jenkins:3121'
 ---
@@ -8114,6 +8132,12 @@ fpgas:
     handwritten_chip_serial: 57
     chip_revision: 3
     eeprom_chip_serial: 0x46f66b
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
   - fpga: 3
     # quiggeldy: ebrains_stable
     ip: 192.168.67.4
@@ -8121,6 +8145,12 @@ fpgas:
     handwritten_chip_serial: 61
     chip_revision: 3
     eeprom_chip_serial: 0x47aeb8
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [12, 12]
+      - [1, 1]
 usb_serial: 'AFE25B4727002000'
 ---
 hxcube_id: 8
