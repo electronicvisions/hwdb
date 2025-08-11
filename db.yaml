@@ -7684,6 +7684,18 @@ fpgas:
   - fpga: 23
     ip: 192.168.82.44
 ---
+wafer: 83
+setuptype: jboa
+fpgas:
+  - fpga: 0
+    ip: 192.168.83.1
+  - fpga: 1
+    ip: 192.168.83.2
+  - fpga: 2
+    ip: 192.168.83.3
+  - fpga: 3
+    ip: 192.168.83.4
+---
 wafer: 99
 setuptype: cubesetup
 # aggregator test
@@ -8522,3 +8534,57 @@ fpgas:
     synram_timing_wconf:
       - [1, 1]
       - [192, 192]
+---
+jboa_id: 3
+aggregators:
+  - aggregator: 0
+    ip: 192.168.83.13
+fpgas:
+  - fpga: 0
+    ip: 192.168.83.1
+    fuse_dna: 0x2A0E92C4028A1223
+    chip_revision: 3
+    eeprom_chip_serial: 0x9f6a05
+    handwritten_chip_serial: 121
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
+  - fpga: 1
+    ip: 192.168.83.2
+    fuse_dna: 0x2A0E92C4028C1237
+    chip_revision: 3
+    eeprom_chip_serial: 0x9f147e
+    handwritten_chip_serial: 123
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
+  - fpga: 2
+    ip: 192.168.83.3
+    fuse_dna: 0x2A0E92C4028D0E3B
+    chip_revision: 3
+    eeprom_chip_serial: 0x9f07dd
+    handwritten_chip_serial: 124
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
+  - fpga: 3
+    ip: 192.168.83.4
+    fuse_dna: 0x3A0E92C402883A43
+    chip_revision: 3
+    eeprom_chip_serial: 0x9fa554
+    handwritten_chip_serial: 125
+    synram_timing_pcconf:
+      - [1, 1]
+      - [1, 1]
+    synram_timing_wconf:
+      - [3, 3]
+      - [3, 3]
