@@ -7983,7 +7983,7 @@ fpgas:
       - [1, 1]
     synram_timing_wconf:
       - [3, 3]
-      - [9, 9]
+      - [65, 65]
   - fpga: 3
     # FPGA developer wing
     ip: 192.168.60.4
@@ -7992,10 +7992,10 @@ fpgas:
     chip_revision: 3
     eeprom_chip_serial: 0x644bf4
     synram_timing_pcconf:
-      - [1, 1]
+      - [2, 2]
       - [1, 1]
     synram_timing_wconf:
-      - [3, 3]
+      - [4, 4]
       - [34, 34]
 usb_serial: 'AFE25B4712002000'
 xilinx_hw_server: 'xilinx-smartlynq-0:3121'
@@ -8024,7 +8024,7 @@ fpgas:
       - [1, 1]
       - [1, 1]
     synram_timing_wconf:
-      - [3, 3]
+      - [5, 5]
       - [3, 3]
 usb_serial: '52B59A4620002000'
 ---
@@ -8055,7 +8055,7 @@ fpgas:
       - [1, 1]
       - [1, 1]
     synram_timing_wconf:
-      - [3, 3]
+      - [5, 5]
       - [3, 3]
 usb_serial: 'AFE25B4713002000'
 xilinx_hw_server: 'xilinx-smartlynq-jenkins:3121'
@@ -8075,7 +8075,7 @@ fpgas:
       - [1, 1]
     synram_timing_wconf:
       - [3, 3]
-      - [3, 3]
+      - [1, 1]
   - fpga: 3
     ip: 192.168.63.4
     ci_test_node: true
@@ -8088,7 +8088,7 @@ fpgas:
       - [1, 1]
     synram_timing_wconf:
       - [3, 3]
-      - [3, 3]
+      - [9, 9]
 usb_serial: 'AFE25B471D002000'
 ---
 hxcube_id: 4
@@ -8155,7 +8155,7 @@ fpgas:
       - [1, 1]
     synram_timing_wconf:
       - [3, 3]
-      - [3, 3]
+      - [1, 1]
   - fpga: 3
     # quiggeldy: ebrains_stable
     ip: 192.168.67.4
@@ -8225,7 +8225,7 @@ fpgas:
       - [1, 1]
     synram_timing_wconf:
       - [3, 3]
-      - [129, 129]
+      - [17, 17]
 usb_serial: 'AFE25B472A002000'
 ---
 hxcube_id: 10
@@ -8240,7 +8240,7 @@ fpgas:
       - [1, 1]
       - [1, 1]
     synram_timing_wconf:
-      - [3, 3]
+      - [6, 6]
       - [5, 5]
   - fpga: 3
     ip: 192.168.70.4
@@ -8252,8 +8252,8 @@ fpgas:
       - [1, 1]
       - [1, 1]
     synram_timing_wconf:
-      - [3, 3]
-      - [130, 130]
+      - [3, 3]      # unstable timing config!
+      - [130, 130]  # unstable timing config!
 usb_serial: 'AFE25B472D002000'
 ---
 hxcube_id: 11
@@ -8279,7 +8279,7 @@ fpgas:
       - [1, 1]
     synram_timing_wconf:
       - [3, 3]
-      - [3, 3]
+      - [9, 9]
   - fpga: 3
     ip: 192.168.72.4
     fuse_dna: 0x3A0E92C402862A07
@@ -8307,7 +8307,7 @@ fpgas:
       - [1, 1]
     synram_timing_wconf:
       - [3, 3]
-      - [144, 144]
+      - [129, 129]
   - fpga: 3
     ip: 192.168.73.4
     fuse_dna: 0x3A0E92C402863033
@@ -8346,7 +8346,7 @@ fpgas:
       - [1, 1]
       - [1, 1]
     synram_timing_wconf:
-      - [18, 18]
+      - [24, 24]
       - [17, 17]
 usb_serial: 'AFE25B471A002000'
 ---
@@ -8363,7 +8363,7 @@ fpgas:
       - [1, 1]
     synram_timing_wconf:
       - [3, 3]
-      - [3, 3]
+      - [66, 66]
   - fpga: 3
     ip: 192.168.75.4
     handwritten_chip_serial: 75
@@ -8404,7 +8404,7 @@ fpgas:
       - [1, 1]
       - [1, 1]
     synram_timing_wconf:
-      - [12, 12]
+      - [1, 1]
       - [3, 3]
   - fpga: 3
     ip: 192.168.80.4
@@ -8417,7 +8417,7 @@ fpgas:
       - [1, 1]
     synram_timing_wconf:
       - [3, 3]
-      - [3, 3]
+      - [1, 1]
 ---
 jboa_id: 2
 aggregators:
@@ -8455,7 +8455,7 @@ fpgas:
       - [1, 1]
     synram_timing_wconf:
       - [3, 3]
-      - [12, 12]
+      - [24, 24]
   - fpga: 15
     ip: 192.168.82.36
     fuse_dna: 0x3A0E92C4028C341F
@@ -8512,7 +8512,7 @@ fpgas:
     handwritten_chip_serial: 104
     synram_timing_pcconf:
       - [1, 1]
-      - [1, 1]
+      - [8, 8]
     synram_timing_wconf:
       - [3, 3]
       - [66, 66]
