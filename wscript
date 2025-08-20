@@ -31,6 +31,7 @@ def configure(cfg):
         cfg.check_python_headers()
         if (os.environ.get("SINGULARITY_APPNAME") is None) or ("wafer" not in os.environ.get("SINGULARITY_APPNAME")):
             cfg.load('genpybind')
+            cfg.check_cxx(mandatory=True, header_name='cereal/cereal.hpp')
     cfg.env.with_hwdb_python_bindings = cfg.options.with_hwdb_python_bindings
 
     cfg.check_cfg(package='yaml-cpp',
@@ -59,7 +60,7 @@ def build(bld):
 
     bld(
         target          = 'hwdb4cpp_inc',
-        export_includes = '.',
+        export_includes = ['.', 'include'],
         use             = 'hwdb_header'
     )
 
