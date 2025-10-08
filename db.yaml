@@ -8067,15 +8067,15 @@ fpgas:
     ip: 192.168.63.1
     ci_test_node: true
     fuse_dna: 0x2A0E92C4028C0827
-    handwritten_chip_serial: 119
-    eeprom_chip_serial: 0x63fecb
+    handwritten_chip_serial: 127
+    eeprom_chip_serial: 0x9f93dd
     chip_revision: 3
     synram_timing_pcconf:
       - [1, 1]
       - [1, 1]
     synram_timing_wconf:
-      - [132, 132]
-      - [1, 1]
+      - [33, 33]
+      - [129, 129]
   - fpga: 3
     ip: 192.168.63.4
     ci_test_node: true
