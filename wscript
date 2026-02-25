@@ -68,7 +68,7 @@ def build(bld):
         target          = 'hwdb4cpp',
         features        = 'cxx',
         source          = 'hwdb4cpp/hwdb4cpp.cpp',
-        use             = 'halco_hicann_v2 hwdb4cpp_inc logger_obj YAMLCPP hate_inc',
+        use             = 'halco_hicann_v2 hwdb4cpp_inc logger YAMLCPP hate_inc',
         uselib          = 'HWDB',
         install_path    = '${PREFIX}/lib',
     )
