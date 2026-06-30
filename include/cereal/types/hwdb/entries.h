@@ -28,7 +28,6 @@ void serialize(Archive& ar, hwdb4cpp::HXCubeFPGAEntry& value)
 	ar(CEREAL_NVP(value.ip));
 	ar(CEREAL_NVP(value.wing));
 	ar(CEREAL_NVP(value.fuse_dna));
-	ar(CEREAL_NVP(value.extoll_node_id));
 	ar(CEREAL_NVP(value.ci_test_node));
 }
 

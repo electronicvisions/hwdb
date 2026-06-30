@@ -238,9 +238,6 @@ struct convert<HXFPGAYAML>
 		if (data.fuse_dna) {
 			node["fuse_dna"] = data.fuse_dna.value();
 		}
-		if (data.extoll_node_id) {
-			node["extoll_node_id"] = data.extoll_node_id.value();
-		}
 		if (data.ci_test_node == true) {
 			node["ci_test_node"] = data.ci_test_node;
 		}
@@ -277,10 +274,6 @@ struct convert<HXFPGAYAML>
 		if (fuse_dna.IsDefined()) {
 			data.fuse_dna = fuse_dna.as<uint64_t>();
 		}
-		auto extoll_node_id = node["extoll_node_id"];
-		if (extoll_node_id.IsDefined()) {
-			data.extoll_node_id = extoll_node_id.as<uint16_t>();
-		}
 		data.ci_test_node = get_entry<bool>(node, "ci_test_node", false);
 		auto hand_serial = node["handwritten_chip_serial"];
 		auto chip_rev = node["chip_revision"];
@@ -312,8 +305,8 @@ struct convert<HXFPGAYAML>
 			}
 			data.wing = wing;
 		} else {
-			if (eeprom.IsDefined() || extoll_node_id.IsDefined() ||
-			    synram_timing_pcconf.IsDefined() || synram_timing_wconf.IsDefined()) {
+			if (eeprom.IsDefined() || synram_timing_pcconf.IsDefined() ||
+			    synram_timing_wconf.IsDefined()) {
 				log4cxx::LoggerPtr logger = log4cxx::Logger::getLogger("hwdb4cpp");
 				LOG4CXX_ERROR(
 				    logger, "Decoding failed. Only optional entries found. Node: '''\n"

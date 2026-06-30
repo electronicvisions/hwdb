@@ -301,11 +301,6 @@ void _convert_hxcube_fpga_entry(
 		fpga_entry_c->fuse_dna = 0;
 		fpga_entry_c->dna_port = 0;
 	}
-	if (fpga_entry_cpp.extoll_node_id) {
-		fpga_entry_c->extoll_node_id = fpga_entry_cpp.extoll_node_id.value();
-	} else {
-		fpga_entry_c->extoll_node_id = 0;
-	}
 	fpga_entry_c->ci_test_node = fpga_entry_cpp.ci_test_node;
 }
 
